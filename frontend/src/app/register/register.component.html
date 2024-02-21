@@ -1,7 +1,7 @@
-Register Form
 <section class="bg-gray-50 dark:bg-gray-900">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div class="grid gap-6 mb-6 md:grid-cols-2 my-[px]">
+        
+        <form (submit)="createAccount()" class="grid gap-6 mb-6 md:grid-cols-2 my-[px]">
             <div>
                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
                     name</label>
@@ -24,8 +24,8 @@ Register Form
                     placeholder="" required />
             </div>
             <div>
-                <label for="Birth-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
-                    number</label>
+                <label for="Birth-date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Birth
+                    date</label>
                 <input type="date" id="Birth-date"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="" required />
@@ -56,9 +56,9 @@ Register Form
                             <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
                         </div>
                     </div>
-    
+
                 </div>
-    
+
                 <div class="flex items-start">
                     <div class="flex items-center h-5">
                         <input id="Terms" aria-describedby="Terms" type="checkbox"
@@ -69,18 +69,19 @@ Register Form
                         <label for="Terms" class="text-gray-500 dark:text-gray-300">Terms and Policy</label>
                     </div>
                 </div>
-    
+
             </div>
-           
+       
+        <div>
+            <button type="submit" class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 w-[291.31px]">Create account</button>
         </div>
-        <button type="submit"
-            class=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 w-[291.31px] ">Create
-            account</button>
-        <div class="my-[20px]">
-            <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center ">
-                Already have an account? <a href="#"
-                    class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
-            </p>
-        </div>
+    </form>
+    <div class="my-[20px]">
+        <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
+            Already have an account? <a routerLink="/login"
+                class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</a>
+        </p>
     </div>
+</div>
 </section>
+<router-outlet></router-outlet>
