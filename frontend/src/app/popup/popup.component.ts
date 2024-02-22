@@ -1,20 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
-import { PopupService } from './popup.service';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-popup',
   standalone: true,
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.css'],
-  imports: [RouterLink, RouterOutlet],
+  imports: [ RouterOutlet]
 })
-export class PopupComponent {
-  constructor(public popupService: PopupService) { }
+export class PopupComponent implements OnInit {
+  constructor(
+    public dialogRef: MatDialogRef<PopupComponent>,
+    private router: Router 
+  ) { }
 
-  openPopup(): void {
-    this.popupService.openPopup();
+  ngOnInit(): void { }
+
+  closePopupAndRedirect(): void {
+    this.dialogRef.close();
+    this.router.navigateByUrl('/login');
   }
-  
 }
