@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, LoginComponent, RegisterComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    imports: [RouterLink, RouterOutlet]
 })
+
 export class AppComponent {
   title = 'frontend';
 }
