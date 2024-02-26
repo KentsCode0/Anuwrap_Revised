@@ -2,7 +2,7 @@
     RewriteEngine On
 
     # additions
-    RewriteBase /anu-wrap/backend/public/
+    RewriteBase /anuwrap/backend/public
     # end
 
     RewriteCond ${REQUEST_FILENAME} !-d
