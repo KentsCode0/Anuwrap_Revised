@@ -10,17 +10,17 @@ INSERT INTO workspace (name) VALUES
 ('Workspace 9'),
 ('Workspace 10');
 
-INSERT INTO user (username, first_name, last_name, email, type, password) VALUES
-('user1', 'John', 'Doe', 'user1@example.com', 'type1', 'password1'),
-('user2', 'Jane', 'Smith', 'user2@example.com', 'type2', 'password2'),
-('user3', 'Alice', 'Johnson', 'user3@example.com', 'type3', 'password3'),
-('user4', 'Bob', 'Brown', 'user4@example.com', 'type4', 'password4'),
-('user5', 'Emily', 'Davis', 'user5@example.com', 'type5', 'password5'),
-('user6', 'Michael', 'Wilson', 'user6@example.com', 'type6', 'password6'),
-('user7', 'Sophia', 'Martinez', 'user7@example.com', 'type7', 'password7'),
-('user8', 'William', 'Anderson', 'user8@example.com', 'type8', 'password8'),
-('user9', 'Olivia', 'Taylor', 'user9@example.com', 'type9', 'password9'),
-('user10', 'James', 'Thomas', 'user10@example.com', 'type10', 'password10');
+INSERT INTO user (username, first_name, last_name, email, password) VALUES
+('user1', 'John', 'Doe', 'user1@example.com', 'password1'),
+('user2', 'Jane', 'Smith', 'user2@example.com', 'password2'),
+('user3', 'Alice', 'Johnson', 'user3@example.com', 'password3'),
+('user4', 'Bob', 'Brown', 'user4@example.com', 'password4'),
+('user5', 'Emily', 'Davis', 'user5@example.com', 'password5'),
+('user6', 'Michael', 'Wilson', 'user6@example.com', 'password6'),
+('user7', 'Sophia', 'Martinez', 'user7@example.com', 'password7'),
+('user8', 'William', 'Anderson', 'user8@example.com', 'password8'),
+('user9', 'Olivia', 'Taylor', 'user9@example.com', 'password9'),
+('user10', 'James', 'Thomas', 'user10@example.com', 'password10');
 
 INSERT INTO annualreport (title, description, workspace_id) VALUES
 ('Annual Report 1', 'Description for Annual Report 1', 1),
