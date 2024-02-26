@@ -10,7 +10,7 @@ class UserController
     private $pdo;
     function __construct()
     {
-        $this->pdo = (new DatabaseConnector())->get_connection();
+        $this->pdo = (new DatabaseConnector())->getConnection();
         $this->user = new User($this->pdo);
     }
     function getUser($id)

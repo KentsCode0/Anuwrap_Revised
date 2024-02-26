@@ -54,5 +54,11 @@
 
 ## Accessing the API
 ```
+Routes
+POST /public/api/session -> 
+Authenticate a user [generates a cookie with token and returns a json(success, user)] 
+(Good for login)
 
+POST /public/api/user -> 
+Creates a new user [returns a json(message)] (Good for registration)
 ```

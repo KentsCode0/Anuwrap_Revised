@@ -14,11 +14,11 @@ class SessionController
     private $authentication;
     function __construct()
     {
-        $this->pdo = (new DatabaseConnector())->get_connection();
+        $this->pdo = (new DatabaseConnector())->getConnection();
         $this->authentication = new Authentication($this->pdo);
     }
 
-    function getSession()
+    function postSession()
     {
         if (isset($_POST['email']) && isset($_POST['password'])) {
             #sanitation
