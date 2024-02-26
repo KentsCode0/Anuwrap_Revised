@@ -26,7 +26,7 @@ class DatabaseConnector
         $this->password = $_ENV['DB_PASSWORD'];
         $this->connectionString = "{$_ENV['DB_DRIVER']}:host={$_ENV['DB_HOST']};port={$_ENV['DB_PORT']};dbname={$_ENV['DB_NAME']};charset=utf8mb4";
     }
-    function get_connection()
+    function getConnection()
     {
         try {
             $this->pdo = new PDO($this->connectionString, $this->user, $this->password, DatabaseConnector::$options);

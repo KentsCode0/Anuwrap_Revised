@@ -13,8 +13,6 @@ class Router
     {
         $this->dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
             $r->addRoute('POST', '/user', [UserController::class, 'postUser']);
-            $r->addRoute('GET', '/user/{name}', [UserController::class, 'getUser']);
-
             $r->addRoute('POST', '/session', [SessionController::class, 'getSession']);
         });
     }
