@@ -2,6 +2,8 @@
 
 namespace Src\Models;
 
+use PDOException;
+
 class User
 {
     private $pdo;
@@ -12,46 +14,78 @@ class User
 
     function get($id)
     {
-        $queryStr = "SELECT * FROM user WHERE id=:$id";
+        
+        if (!$id) return false;
+
+        $queryStr = "SELECT * FROM user WHERE user_id=:id";
         $stmt = $this->pdo->prepare($queryStr);
 
-        $stmt->execute(array(
-            "id" => $id
-        ));
+        try {
+            $stmt->execute(array(
+                "id" => $id
+            ));
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return null;
+        }
 
         $user = $stmt->fetch();
         return $user;
     }
-    function getAll()
-    {
-    }
 
-    function create()
+    function create($user)
     {
-        $username = $_POST['username'];
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+        $username = $user['username'];
+        $firstname = $user['firstname'];
+        $lastname = $user['lastname'];
+        $email = $user['email'];
+        $password = $user['password'];
 
         $queryStr = "INSERT INTO User (username, first_name, last_name, email, password) 
         VALUES (:username, :firstname, :lastname, :email, :password)";
 
         $stmt = $this->pdo->prepare($queryStr);
-        $stmt->execute(
-            array(
-                "username" => $username,
-                "firstname" => $firstname,
-                "lastname" => $lastname,
-                "email" => $email,
-                "password" => password_hash($password, PASSWORD_DEFAULT)
-            )
-        );
 
-        return array("message" => "Registration Successful");
+        try {
+            $stmt->execute(
+                array(
+                    "username" => $username,
+                    "firstname" => $firstname,
+                    "lastname" => $lastname,
+                    "email" => $email,
+                    "password" => password_hash($password, PASSWORD_DEFAULT)
+                )
+            );
+            return true;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
     }
 
+    function update($id)
+    {
+        if (!$id) return false;
+    }
     function delete($id)
     {
+        if (!$id) return false;
+
+        $queryStr = "DELETE FROM user WHERE $id = :id";
+
+        $stmt = $this->pdo->prepare($queryStr);
+
+        try {
+            $stmt->execute(
+                array(
+                    "id" => $id
+                )
+            );
+
+            return true;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
     }
 }
