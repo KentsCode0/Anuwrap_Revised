@@ -5,6 +5,7 @@ import { PopupComponent } from './popup/popup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { WorkspaceComponent } from './workspace/workspace.component';
+import { WorkspacelistComponent } from './workspacelist/workspacelist.component';
 export const routes: Routes = [
     {
         path: '',
@@ -23,6 +24,10 @@ export const routes: Routes = [
         path: 'popup',
         component: PopupComponent
     }, 
+    {
+        path: 'workspacelist',
+        component: WorkspacelistComponent
+    },
     {
         path: 'dashboard',
         component: DashboardComponent
