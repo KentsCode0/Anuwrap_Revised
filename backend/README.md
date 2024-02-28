@@ -55,10 +55,14 @@
 ## Accessing the API
 ```
 Routes
-POST /public/api/session -> 
-Authenticate a user [generates a cookie with token and returns a json(success, user)] 
-(Good for login)
 
-POST /public/api/user -> 
-Creates a new user [returns a json(message)] (Good for registration)
+User Routes:
+   POST /user -> post User
+   GET /user/{id:\d+} -> get User
+   POST /user/{id:\d+} -> update User
+   DELETE /user/{id:\d+} -> delete User
+
+Authentication Routes:
+   POST /token -> post Token (login)
+   DELETE /token -> delete Token (delete)
 ```
