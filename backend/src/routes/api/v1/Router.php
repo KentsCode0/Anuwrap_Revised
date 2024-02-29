@@ -3,7 +3,7 @@
 namespace Src\Routes\Api\V1;
 
 use FastRoute;
-use Src\Controllers\SessionController;
+use Src\Controllers\TokenController;
 use Src\Controllers\UserController;
 
 class Router
@@ -14,8 +14,10 @@ class Router
         $this->dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
             $r->addRoute('POST', '/user', [UserController::class, 'postUser']);
             $r->addRoute('GET', '/user/{id:\d+}', [UserController::class, 'getUser']);
-            $r->addRoute('DELETE', '/user', [UserController::class, 'deleteUser']);
-            $r->addRoute('POST', '/session', [SessionController::class, 'postToken']);
+            $r->addRoute('POST', '/user/{id:\d+}', [UserController::class, 'updateUser']);
+            $r->addRoute('DELETE', '/user/{id:\d+}', [UserController::class, 'deleteUser']);
+            $r->addRoute('POST', '/token', [TokenController::class, 'postToken']);
+            $r->addRoute('DELETE', '/token', [TokenController::class, 'deleteToken']);
         });
     }
 

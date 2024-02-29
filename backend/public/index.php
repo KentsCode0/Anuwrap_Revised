@@ -5,6 +5,7 @@ require_once __DIR__ . "/../bootstrap.php";
 use Src\Routes\Api\V1\Router;
 
 // Set CORS headers
+date_default_timezone_set("Asia/Manila");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PUT,DELETE");
 header("Access-Control-Max-Age: 3600");
