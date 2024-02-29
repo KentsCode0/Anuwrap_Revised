@@ -2,41 +2,12 @@
 
 namespace Src\Services;
 
-use Firebase\JWT\JWT;
+date_default_timezone_set("Asia/Manila");
+
+use Src\Models\Authentication;
 
 class AuthenticationService
 {
-    function authenticate($user, $password)
-    {
-
-        if (!($user && password_verify($password, $user['password']))) {
-            return false;
-        }
-
-        $payload = array(
-            "userID" => $user["user_id"],
-        );
-
-        $token = JWT::encode(
-            $payload,
-            $_ENV['SECRET_API_KEY'],
-            "HS256"
-        );
-
-        setcookie("Token", $token, [
-            'expires' => time() + 3600,
-            'path' => '/',
-            'domain' => '',
-            'secure' => true,
-            'httponly' => true
-        ]);
-
-        return true;
-    }
-
-    function checkRegistration($username, $email, $firstname, $lastname, $password)
-    {
-    }
     function isUsernameExist($username)
     {
     }
@@ -47,15 +18,27 @@ class AuthenticationService
 
     function isUsernameInCorrectFormat($username)
     {
+        // Username should contain only alphanumeric characters and underscores
+        return preg_match('/^[a-zA-Z0-9_]+$/', $username);
     }
+
     function isFirstNameInCorrectFormat($firstname)
     {
+        // First name should contain only letters and spaces
+        return preg_match('/^[a-zA-Z ]+$/', $firstname);
     }
+
     function isLastNameInCorrectFormat($lastname)
     {
+        // Last name should contain only letters and spaces
+        return preg_match('/^[a-zA-Z ]+$/', $lastname);
     }
 
     function isPasswordInCorrectFormat($password)
     {
+        // Password should be at least 8 characters long and contain at 
+        // least one uppercase letter, one lowercase 
+        // letter, one number, and one special character
+        return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password);
     }
 }
