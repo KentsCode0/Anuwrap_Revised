@@ -53,14 +53,26 @@
 ```
 
 ## Accessing the API
+### Authorizations
 ```
-Routes
+Level 1 Authorization:
+User must login before having the ability to request for authorized resources  
 
+Level 2 Authorization:
+User can only modify their own information 
+( so requesting a different id of a user is not permissible ).
+
+```
+### Routes 
+```
 User Routes:
-   POST /user -> post User
-   GET /user/{id:\d+} -> get User
-   POST /user/{id:\d+} -> update User
-   DELETE /user/{id:\d+} -> delete User
+   No Authorization
+      POST /user -> post User
+
+   Authorized:
+      GET /user/{id:\d+} -> get User
+      POST /user/{id:\d+} -> update User
+      DELETE /user/{id:\d+} -> delete User
 
 Authentication Routes:
    POST /token -> post Token (login)

@@ -18,7 +18,7 @@ class TokenService
         }
 
         $payload = array(
-            "userID" => $user["user_id"],
+            "user_id" => $user["user_id"],
         );
 
         $token = JWT::encode(
@@ -26,7 +26,7 @@ class TokenService
             $_ENV['SECRET_API_KEY'],
             "HS256"
         );
-        setcookie("Token", $token, [
+        setcookie("token", $token, [
             'expires' => time() + 3600,
             'path' => '/',
             'domain' => '',
@@ -39,8 +39,8 @@ class TokenService
 
     function delete()
     {
-        if (isset($_COOKIE['Token'])) {
-            setcookie("Token", "", time() - 3600);
+        if (isset($_COOKIE['token'])) {
+            setcookie("token", "", time() - 3600);
             return true;
         } else {
             return false;
@@ -55,13 +55,14 @@ class TokenService
             $key = $_ENV['SECRET_API_KEY'];
 
             try {
-                $x = JWT::decode($token, new Key($key, 'HS256'));
-                return true;
+                $token = JWT::decode($token, new Key($key, 'HS256'));
+                $token = json_decode(json_encode(($token)), true);
+                return $token;
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
         } else {
-            return false;
+            return null;
         }
     }
 }
