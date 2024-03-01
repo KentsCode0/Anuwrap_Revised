@@ -6,17 +6,20 @@ use Src\Models\User;
 use Src\Config\DatabaseConnector;
 use Src\Services\AuthorizationService;
 use Src\Services\TokenService;
+use Src\Services\UserService;
 
 class UserController
 {
     private $user;
     private $pdo;
     private $authorizationService;
+    private $userService;
     function __construct()
     {
         $this->pdo = (new DatabaseConnector())->getConnection();
         $this->user = new User($this->pdo);
         $this->authorizationService = new AuthorizationService();
+        $this->userService = new UserService();
     }
     function getUser($request)
     {
@@ -45,9 +48,14 @@ class UserController
     {
 
         if (isset($_POST['username']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['password'])) {
-            $isCreated = $this->user->create($_POST);
 
-            if ($isCreated) {
+            $payload = $this->userService->validate($_POST);
+
+            
+            $isCreated = $this->user->create($_POST);
+            
+            var_dump($isCreated);
+            if ($isCreated && !(in_array(false, $payload, true))) {
                 http_response_code(200);
                 echo json_encode(array("success" => true, "message" => "Registration Successful"));
             } else {
