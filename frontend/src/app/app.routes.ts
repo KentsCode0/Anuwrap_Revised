@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { WorkspaceComponent } from './workspace/workspace.component';
 import { WorkspacelistComponent } from './workspacelist/workspacelist.component';
+import { CreateworkspaceComponent } from './createworkspace/createworkspace.component';
 export const routes: Routes = [
     {
         path: '',
@@ -27,6 +28,10 @@ export const routes: Routes = [
     {
         path: 'workspacelist',
         component: WorkspacelistComponent
+    },
+    {
+        path: 'createworkspace',
+        component: CreateworkspaceComponent
     },
     {
         path: 'dashboard',
