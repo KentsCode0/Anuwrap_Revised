@@ -11,22 +11,19 @@ class UserController
 {
     private $user;
     private $pdo;
-    private $AuthService;
-    private $tokenService;
+    private $authorizationService;
     function __construct()
     {
         $this->pdo = (new DatabaseConnector())->getConnection();
         $this->user = new User($this->pdo);
-        $this->tokenService = new TokenService();
+        $this->authorizationService = new AuthorizationService();
     }
     function getUser($request)
     {
         $id = $request["id"];
-        if (!$id) return false;
-        
-        $token = $this->tokenService->readEncodedToken();
+        $matches = $this->authorizationService->isTokenMatch($id);
 
-        if (!$token) {
+        if (!$matches) {
             http_response_code(401);
             echo json_encode(array("success" => false, "message" => "Unauthorized access"));
         } else {
@@ -66,34 +63,44 @@ class UserController
     function deleteUser($request)
     {
         $id = $request["id"];
-        if (!$id) return false;
+        $matches = $this->authorizationService->isTokenMatch($id);
 
-        $isDeleted = $this->user->delete($id);
-
-        if ($isDeleted) {
-            http_response_code(200);
-            echo json_encode(array("success" => true, "message" => "Deletion Successful"));
+        if (!$matches) {
+            http_response_code(401);
+            echo json_encode(array("success" => false, "message" => "Unauthorized access"));
         } else {
-            http_response_code(400);
-            echo json_encode(array("success" => false, "message" => "Deletion Unsuccessful"));
+
+            $isDeleted = $this->user->delete($id);
+
+            if ($isDeleted) {
+                http_response_code(200);
+                echo json_encode(array("success" => true, "message" => "Deletion Successful"));
+            } else {
+                http_response_code(400);
+                echo json_encode(array("success" => false, "message" => "Deletion Unsuccessful"));
+            }
         }
     }
 
     function updateUser($request)
     {
         $id = $request["id"];
-        if (!$id) return false;
+        $matches = $this->authorizationService->isTokenMatch($id);
 
-        if (isset($_POST['username']) && isset($_POST['firstname']) && isset($_POST['lastname'])) {
-            $user = $this->user->update($id, $_POST);
-        }
-        var_dump(($user));
-        if ($user) {
-            http_response_code(200);
-            echo json_encode(array("success" => true, "message" => "Update Successful", "user" => $user));
+        if (!$matches) {
+            http_response_code(401);
+            echo json_encode(array("success" => false, "message" => "Unauthorized access"));
         } else {
-            http_response_code(400);
-            echo json_encode(array("success" => false, "message" => "Update Unsuccessful"));
+            if (isset($_POST['username']) && isset($_POST['firstname']) && isset($_POST['lastname'])) {
+                $user = $this->user->update($id, $_POST);
+            }
+            if ($user) {
+                http_response_code(200);
+                echo json_encode(array("success" => true, "message" => "Update Successful", "user" => $user));
+            } else {
+                http_response_code(400);
+                echo json_encode(array("success" => false, "message" => "Update Unsuccessful"));
+            }
         }
     }
 }

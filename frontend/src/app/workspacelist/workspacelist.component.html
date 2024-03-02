@@ -1,11 +1,42 @@
-<nav class="fixed top-0 z-50 w-full bg- border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-    <div class="px-3 py-3 lg:px-5 lg:pl-3">
-        <div class="flex items-center justify-between">
-            <a href="https://flowbite.com" class="flex ms-2 md:me-24">
-                <img src="../../assets/img/anu-wrap.svg" class="h-[50px] w-[50px] me-3" alt="FlowBite Logo" />
-                <span class="self-center text-xl font-semibold sm:text-base whitespace-nowrap dark:text-white">Anu-wrap</span>
-              </a>
-            <a href="/">Profile</a>
-        </div>
+<div class="h-screen w-screen overflow-hidden relative">
+    <div class="w-full h-20 bg-gray-900 flex justify-between items-center relative">
+      <div class="mt-8 flex flex-row">
+        <img src="../../assets/img/anu-wrap.svg" alt="logo" />
+        <a class="text-white text-2xl font-bold font-['Poppins'] leading-3 tracking-wide mt-14" href="/">Anuwrap</a>
+      </div>
+      <div class="mr-4 flex flex-row items-center">
+        <img class="h-10 w-10 bg-white rounded-full mb-4" src="/" alt="/" />
+        <a class="text-white text-xl font-['Poppins'] leading-3 tracking-wide mb-4 ml-3" href="/">Profile</a>
+      </div>
     </div>
-</nav>
+  
+    <div class="max-w-full max-h-max mx-auto relative mt-20">
+      <div class="absolute inset-0 flex flex-col items-center">
+          <h1 class="text-black text-2xl font-bold">WORKSPACE LIST</h1>
+        <div class="w-full md:w-2/3 min-h-96 border border-black flex flex-col items-center shadow-2xl rounded-2xl">
+            <div class=" h-1/6 w-10/12 border border-black rounded-xl mt-10 shadow-xl overflow-y-auto">
+                <div class="flex flex-row justify-between m-4">
+                    <label for="workspace">1st Workspace</label>
+                    <button class="w-40 h-8 bg-gray-800 rounded-lg text-white hover:bg-gray-600 hover:text-black  shadow-xl">Open Workspace</button>
+                </div>
+                <div class="flex flex-row justify-between m-4">
+                    <label for="workspace">2nd Workspace</label>
+                    <button class="w-40 h-8 bg-gray-800 rounded-lg text-white hover:bg-gray-600 hover:text-black  shadow-xl">Open Workspace</button>
+                </div>
+                <div class="flex flex-row justify-between m-4">
+                    <label for="workspace">3rd Workspace</label>
+                    <button class="w-40 h-8 bg-gray-800 rounded-lg text-white hover:bg-gray-600 hover:text-black  shadow-xl">Open Workspace</button>
+                </div>
+            </div>
+            <div class=" h-1/6 w-10/12 mt-14">
+                <input class="h-full w-full rounded-xl border border-black shadow-xl hover:shadow-md" type="text" name="workspacename" id="workspace" placeholder="Name of the Workspcae">
+            </div>
+            <div class=" h-1/6 w-10/12 border border-black rounded-xl mt-14">
+                <button class="h-full w-full rounded-xl bg-gray-900 text-white hover:bg-gray-600 hover:text-black  shadow-xl">Create New Workspace</button>
+            </div>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+  
