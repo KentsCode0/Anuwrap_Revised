@@ -57,6 +57,7 @@ class User
             );
             return true;
         } catch (PDOException $e) {
+            echo $e->getMessage();
             error_log($e->getMessage());
             return false;
         }

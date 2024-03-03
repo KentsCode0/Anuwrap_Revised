@@ -4,7 +4,6 @@ namespace Src\Controllers;
 
 use Src\Models\Authentication;
 use Src\Config\DatabaseConnector;
-use Src\Services\AuthenticationService;
 use Src\Services\TokenService;
 
 

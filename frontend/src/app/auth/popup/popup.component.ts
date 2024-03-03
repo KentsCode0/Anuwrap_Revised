@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   standalone: true,
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.css'],
-  imports: [ RouterOutlet]
+  imports: [ RouterModule]
 })
 export class PopupComponent implements OnInit {
   constructor(

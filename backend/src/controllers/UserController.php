@@ -6,101 +6,49 @@ use Src\Models\User;
 use Src\Config\DatabaseConnector;
 use Src\Services\AuthorizationService;
 use Src\Services\TokenService;
+use Src\Services\UserService;
 
 class UserController
 {
-    private $user;
     private $pdo;
-    private $authorizationService;
+    private $userService;
     function __construct()
     {
         $this->pdo = (new DatabaseConnector())->getConnection();
-        $this->user = new User($this->pdo);
-        $this->authorizationService = new AuthorizationService();
+        $this->userService = new UserService();
     }
     function getUser($request)
     {
-        $id = $request["id"];
-        $matches = $this->authorizationService->isTokenMatch($id);
-
-        if (!$matches) {
-            http_response_code(401);
-            echo json_encode(array("success" => false, "message" => "Unauthorized access"));
-        } else {
-
-            $user = $this->user->get($id);
-
-            if ($user) {
-                http_response_code(200);
-
-                unset($user['password']);
-                echo json_encode(array("success" => true, "user" => $user));
-            } else {
-                http_response_code(400);
-                echo json_encode(array("success" => false, "message" => "User not found"));
-            }
-        }
+        $payload = $this->userService->getInformation($request["id"]);
+        http_response_code($payload["code"]);
+        
+        unset($payload["code"]);
+        echo json_encode($payload);
     }
     function postUser()
     {
+        $payload = $this->userService->register($_POST);
+        http_response_code($payload["code"]);
+        unset($payload["code"]);
 
-        if (isset($_POST['username']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['password'])) {
-            $isCreated = $this->user->create($_POST);
-
-            if ($isCreated) {
-                http_response_code(200);
-                echo json_encode(array("success" => true, "message" => "Registration Successful"));
-            } else {
-                http_response_code(400);
-                echo json_encode(array("success" => false, "message" => "Registration Unsuccessful"));
-            }
-        } else {
-            http_response_code(400);
-            echo json_encode(array("success" => false, "message" => "username, firstname, lastname, email, and password is required"));
-        }
+        echo json_encode($payload);
     }
 
     function deleteUser($request)
     {
-        $id = $request["id"];
-        $matches = $this->authorizationService->isTokenMatch($id);
-
-        if (!$matches) {
-            http_response_code(401);
-            echo json_encode(array("success" => false, "message" => "Unauthorized access"));
-        } else {
-
-            $isDeleted = $this->user->delete($id);
-
-            if ($isDeleted) {
-                http_response_code(200);
-                echo json_encode(array("success" => true, "message" => "Deletion Successful"));
-            } else {
-                http_response_code(400);
-                echo json_encode(array("success" => false, "message" => "Deletion Unsuccessful"));
-            }
-        }
+        $payload = $this->userService->deleteUser($request["id"]);
+        http_response_code($payload["code"]);
+        
+        unset($payload["code"]);
+        echo json_encode($payload);
     }
 
     function updateUser($request)
     {
-        $id = $request["id"];
-        $matches = $this->authorizationService->isTokenMatch($id);
-
-        if (!$matches) {
-            http_response_code(401);
-            echo json_encode(array("success" => false, "message" => "Unauthorized access"));
-        } else {
-            if (isset($_POST['username']) && isset($_POST['firstname']) && isset($_POST['lastname'])) {
-                $user = $this->user->update($id, $_POST);
-            }
-            if ($user) {
-                http_response_code(200);
-                echo json_encode(array("success" => true, "message" => "Update Successful", "user" => $user));
-            } else {
-                http_response_code(400);
-                echo json_encode(array("success" => false, "message" => "Update Unsuccessful"));
-            }
-        }
+        $payload = $this->userService->updateUser($request["id"], $_POST);
+        http_response_code($payload["code"]);
+        
+        unset($payload["code"]);
+        echo json_encode($payload);
     }
 }
