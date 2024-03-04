@@ -102,7 +102,7 @@ class TokenService
                 $token = json_decode(json_encode(($token)), true);
                 return $token;
             } catch (Exception $e) {
-                echo $e->getMessage();
+                error_log($e->getMessage());
             }
         } else {
             return null;
