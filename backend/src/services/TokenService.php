@@ -2,8 +2,6 @@
 
 namespace Src\Services;
 
-date_default_timezone_set("Asia/Manila");
-
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Src\Config\DatabaseConnector;
