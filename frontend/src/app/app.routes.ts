@@ -8,6 +8,8 @@ import { WorkspaceComponent } from './workspace/workspace/workspace.component';
 import { WorkspacelistComponent } from './workspace/workspacelist/workspacelist.component';
 import { CreateworkspaceComponent } from './workspace/createworkspace/createworkspace.component';
 import { LayoutComponent } from './layout/layout.component';
+import { CollageComponent } from './collage/collage.component';
+import { NavigationComponent } from './workspace/navigation/navigation.component';
 export const routes: Routes = [
     {
         path: '',
@@ -39,6 +41,10 @@ export const routes: Routes = [
                 component: CreateworkspaceComponent
             },
             {
+                path: 'navigation',
+                component: NavigationComponent
+            },
+            {
                 path: 'dashboard',
                 component: DashboardComponent
             },
@@ -49,6 +55,10 @@ export const routes: Routes = [
             {
                 path: 'workspace',
                 component: WorkspaceComponent
+            },
+            {
+                path: 'collage',
+                component: CollageComponent
             }
         ]
     }
