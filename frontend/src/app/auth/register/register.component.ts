@@ -12,13 +12,14 @@ export class RegisterComponent {
     firstname: '',
     lastname: '',
     email: '',
-    password: ''
+    password: '',
+    confirm_password: ''
   };
 
   constructor(private http: HttpClient) {}
 
   registerUser() {
-    this.http.post('http://localhost/anuwrap/backend/public/api/user', this.registrationData)
+    let data = this.http.post('http://localhost/anuwrap/backend/public/api/user', this.registrationData)
       .subscribe(
         (response: any) => {
           console.log(response); // Log response for debugging
