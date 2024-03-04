@@ -8,8 +8,9 @@ import { WorkspaceComponent } from './workspace/workspace/workspace.component';
 import { WorkspacelistComponent } from './workspace/workspacelist/workspacelist.component';
 import { CreateworkspaceComponent } from './workspace/createworkspace/createworkspace.component';
 import { LayoutComponent } from './layout/layout.component';
-import { CollageComponent } from './collage/collage.component';
+import { CollageComponent } from './workspace/collage/collage.component';
 import { NavigationComponent } from './workspace/navigation/navigation.component';
+import { ReportComponent } from './workspace/report/report.component';
 export const routes: Routes = [
     {
         path: '',
@@ -59,6 +60,10 @@ export const routes: Routes = [
             {
                 path: 'collage',
                 component: CollageComponent
+            },
+            {
+                path:'report',
+                component: ReportComponent
             }
         ]
     }
