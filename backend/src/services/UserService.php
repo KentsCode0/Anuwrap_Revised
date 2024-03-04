@@ -15,13 +15,13 @@ class UserService
     private $authenticationModel;
     private $pdo;
     private $userModel;
-    private $authorizationService;
+    private $tokenService;
     function __construct()
     {
         $this->pdo = (new DatabaseConnector())->getConnection();
         $this->authenticationModel = new Authentication($this->pdo);
         $this->userModel = new User($this->pdo);
-        $this->authorizationService = new AuthorizationService();
+        $this->tokenService = new TokenService();
     }
 
     function register($user)
@@ -56,7 +56,7 @@ class UserService
 
     function getInformation($id)
     {
-        $matches = $this->authorizationService->isTokenMatch($id);
+        $matches = $this->tokenService->isTokenMatch($id);
         if (!$matches) {
             return Response::payload(401, false, "unauthorized access");
         }
@@ -73,7 +73,7 @@ class UserService
 
     function deleteUser($id)
     {
-        $matches = $this->authorizationService->isTokenMatch($id);
+        $matches = $this->tokenService->isTokenMatch($id);
         if (!$matches) {
             return Response::payload(401, false, "unauthorized access");
         }
@@ -89,46 +89,58 @@ class UserService
 
     function updateUser($id, $newUserInfo)
     {
-        $matches = $this->authorizationService->isTokenMatch($id);
+        $matches = $this->tokenService->isTokenMatch($id);
         if (!$matches) {
             return Response::payload(401, false, "unauthorized access");
         }
-        
-        if (count($newUserInfo) < 1){
+
+        if (count($newUserInfo) < 1) {
             return Response::payload(400, false, "no fields found");
-            
         }
-        
+
+        $errors = $this->validate($newUserInfo);
+
+        if (count($errors) > 0) {
+            return Response::payload(400, false, "Update Unsuccessful", errors: $errors);
+        }
+
         $isUpdated = $this->userModel->update($id, $newUserInfo);
-
-        if (!$isUpdated) {
-            return Response::payload(500, false, "Update Unsuccessful");
-        }
-
-        return Response::payload(200, true, "Update successful");
+        return $isUpdated ? Response::payload(200, true, "Update successful")
+            : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
     function validate($user)
     {
         $errors = array();
 
-        $isUsernameExist = $this->UsernameExist($user["username"]);
-        $isEmailExist = $this->EmailExist($user["email"]);
-        $validateUsername = $this->validateUsernameFormat($user["username"]);
-        $validateFirstName = $this->validateFirstNameFormat($user["firstname"]);
-        $validateLastName = $this->validateLastNameFormat($user["lastname"]);
-        $validateEmail = $this->validateEmailFormat($user["email"]);
-        $validatePassword = $this->validatePasswordFormat($user["password"]);
-        $isConfirmPasswordMatch = $this->confirmPasswordDoesNotMatch($user["password"], $user["confirm_password"]);
+        if (Checker::isFieldExist($user, ["username"])) {
+            $isUsernameExist = $this->UsernameExist($user["username"]);
+            $validateUsername = $this->validateUsernameFormat($user["username"]);
 
-        if ($isUsernameExist) $errors[] = $isUsernameExist;
-        if ($isEmailExist) $errors[] = $isEmailExist;
-        if ($validateUsername) $errors[] = $validateUsername;
-        if ($validateFirstName) $errors[] = $validateFirstName;
-        if ($validateLastName) $errors[] = $validateLastName;
-        if ($validateEmail) $errors[] = $validateEmail;
-        if ($validatePassword) $errors[] = $validatePassword;
-        if ($isConfirmPasswordMatch) $errors[] = $isConfirmPasswordMatch;
+            if ($isUsernameExist) $errors[] = $isUsernameExist;
+            if ($validateUsername) $errors[] = $validateUsername;
+        }
+        if (Checker::isFieldExist($user, ["firstname"])) {
+            $validateFirstName = $this->validateFirstNameFormat($user["firstname"]);
+            if ($validateFirstName) $errors[] = $validateFirstName;
+        }
+        if (Checker::isFieldExist($user, ["lastname"])) {
+            $validateLastName = $this->validateLastNameFormat($user["lastname"]);
+            if ($validateLastName) $errors[] = $validateLastName;
+        }
+        if (Checker::isFieldExist($user, ["email"])) {
+            $isEmailExist = $this->EmailExist($user["email"]);
+            $validateEmail = $this->validateEmailFormat($user["email"]);
 
+            if ($isEmailExist) $errors[] = $isEmailExist;
+            if ($validateEmail) $errors[] = $validateEmail;
+        }
+        if (Checker::isFieldExist($user, ["password"])) {
+            $validatePassword = $this->validatePasswordFormat($user["password"]);
+            $isConfirmPasswordMatch = $this->confirmPasswordDoesNotMatch($user["password"], $user["confirm_password"]);
+
+            if ($validatePassword) $errors[] = $validatePassword;
+            if ($isConfirmPasswordMatch) $errors[] = $isConfirmPasswordMatch;
+        }
 
         return $errors;
     }
