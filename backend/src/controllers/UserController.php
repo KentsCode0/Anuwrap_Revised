@@ -27,7 +27,9 @@ class UserController
     }
     function postUser()
     {
-        $payload = $this->userService->register($_POST);
+        $postData = json_decode(file_get_contents("php://input"));
+        $postData = json_decode(json_encode($postData), true);
+        $payload = $this->userService->register($postData);
         http_response_code($payload["code"]);
         unset($payload["code"]);
 
