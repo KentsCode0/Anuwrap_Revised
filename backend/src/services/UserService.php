@@ -2,8 +2,6 @@
 
 namespace Src\Services;
 
-date_default_timezone_set("Asia/Manila");
-
 use Src\Models\Authentication;
 use Src\Models\User;
 use Src\Config\DatabaseConnector;
@@ -102,6 +100,10 @@ class UserService
 
         if (count($errors) > 0) {
             return Response::payload(400, false, "Update Unsuccessful", errors: $errors);
+        }
+
+        if (!$this->userModel->get($id)) {
+            return Response::payload(404, false, "User not found");
         }
 
         $isUpdated = $this->userModel->update($id, $newUserInfo);
