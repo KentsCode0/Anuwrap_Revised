@@ -2,14 +2,55 @@
 
 namespace Src\Services;
 
-date_default_timezone_set("Asia/Manila");
-
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Src\Config\DatabaseConnector;
+use Src\Models\Authentication;
+use Src\Utils\Checker;
+use Src\Utils\Response;
 use Exception;
 
 class TokenService
 {
+    private $authenticationModel;
+    private $pdo;
+    function __construct()
+    {
+        $this->pdo = (new DatabaseConnector())->getConnection();
+        $this->authenticationModel = new Authentication($this->pdo);
+    }
+    function login($user)
+    {
+        if (!(Checker::isFieldExist($user, ["email", "password"]))) {
+            return Response::payload(
+                400,
+                false,
+                "email and password is required"
+            );
+        }
+
+        $email = filter_var($user['email'], FILTER_SANITIZE_EMAIL);
+        $password = $user['password'];
+
+        $user = $this->authenticationModel->get("email", $email);
+        $token = $this->create($user, $password);
+
+        if (!$token) {
+            return Response::payload(
+                401,
+                false,
+                "Incorrect email or password"
+            );
+        }
+
+        unset($user['password']);
+        return Response::payload(
+            200,
+            true,
+            "Login successful",
+            array("user" => $user)
+        );
+    }
     function create($user, $password)
     {
 
@@ -41,9 +82,9 @@ class TokenService
     {
         if (isset($_COOKIE['token'])) {
             setcookie("token", "", time() - 3600);
-            return true;
+            return Response::payload(200, true, "Logout successful");
         } else {
-            return false;
+            return Response::payload(401, false, "Logout unsuccessful");
         }
     }
     function readEncodedToken()
@@ -59,10 +100,17 @@ class TokenService
                 $token = json_decode(json_encode(($token)), true);
                 return $token;
             } catch (Exception $e) {
-                echo $e->getMessage();
+                error_log($e->getMessage());
             }
         } else {
             return null;
         }
+    }
+    function isTokenMatch($id)
+    {
+        $tokenService = new TokenService();
+        $token = $tokenService->readEncodedToken();
+
+        return $token && $token['user_id'] == $id;
     }
 }
