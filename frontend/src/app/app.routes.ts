@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { PopupComponent } from './auth/popup/popup.component';
+import { PopupComponent } from './auth/successPopup/popup.component';
 import { DashboardComponent } from './workspace/dashboard/dashboard.component';
-import { ProfileComponent } from './profile/profile/profile.component';
+import { ProfileComponent } from './workspace/profile/profile/profile.component';
 import { WorkspaceComponent } from './workspace/workspace/workspace.component';
 import { WorkspacelistComponent } from './workspace/workspacelist/workspacelist.component';
 import { CreateworkspaceComponent } from './workspace/createworkspace/createworkspace.component';
