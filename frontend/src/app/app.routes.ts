@@ -1,13 +1,16 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { PopupComponent } from './auth/popup/popup.component';
+import { PopupComponent } from './auth/register/successPopup/popup.component';
 import { DashboardComponent } from './workspace/dashboard/dashboard.component';
-import { ProfileComponent } from './profile/profile/profile.component';
+import { ProfileComponent } from './workspace/profile/profile/profile.component';
 import { WorkspaceComponent } from './workspace/workspace/workspace.component';
 import { WorkspacelistComponent } from './workspace/workspacelist/workspacelist.component';
 import { CreateworkspaceComponent } from './workspace/createworkspace/createworkspace.component';
 import { LayoutComponent } from './layout/layout.component';
+import { CollageComponent } from './workspace/collage/collage.component';
+import { NavigationComponent } from './workspace/navigation/navigation.component';
+import { ReportComponent } from './workspace/report/report.component';
 export const routes: Routes = [
     {
         path: '',
@@ -39,6 +42,10 @@ export const routes: Routes = [
                 component: CreateworkspaceComponent
             },
             {
+                path: 'navigation',
+                component: NavigationComponent
+            },
+            {
                 path: 'dashboard',
                 component: DashboardComponent
             },
@@ -49,6 +56,14 @@ export const routes: Routes = [
             {
                 path: 'workspace',
                 component: WorkspaceComponent
+            },
+            {
+                path: 'collage',
+                component: CollageComponent
+            },
+            {
+                path:'report',
+                component: ReportComponent
             }
         ]
     }

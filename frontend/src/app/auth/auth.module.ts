@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
-import { RegisterComponent } from './register/register.component';
-import { register } from 'module';
+import { PopupComponent } from './register/successPopup/popup.component';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    PopupComponent
   ],
   providers: [AuthService],
   bootstrap:[]
