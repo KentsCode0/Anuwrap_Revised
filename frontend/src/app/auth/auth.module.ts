@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
-import { PopupComponent } from './successPopup/popup.component';
+import { PopupComponent } from './register/successPopup/popup.component';
 
 @NgModule({
   declarations: [],

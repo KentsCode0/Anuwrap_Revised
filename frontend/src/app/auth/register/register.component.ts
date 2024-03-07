@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PopupComponent } from '../successPopup/popup.component';
+import { PopupComponent } from './successPopup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
-import { UnsuccesspopupComponent } from '../unsuccesspopup/unsuccesspopup.component';
+import { UnsuccesspopupComponent } from './unsuccesspopup/unsuccesspopup.component';
 
 @Component({
   selector: 'app-register',
