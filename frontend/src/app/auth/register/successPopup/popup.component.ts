@@ -10,15 +10,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./popup.component.css'],
   imports: [ RouterModule]
 })
-export class PopupComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<PopupComponent>,
-    private router: Router 
-  ) { }
+export class PopupComponent {
 
-  ngOnInit(): void { }
+   constructor(public dialogRef: MatDialogRef<PopupComponent>, private router: Router) { }
 
-  closePopupAndRedirect(): void {
+  closePopup(): void {
     this.dialogRef.close();
     this.router.navigateByUrl('/login');
   }
