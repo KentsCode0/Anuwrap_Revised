@@ -14,9 +14,6 @@ class User
 
     function get($id)
     {
-
-        if (!$id) return false;
-
         $queryStr = "SELECT * FROM user WHERE user_id=:id";
         $stmt = $this->pdo->prepare($queryStr);
 
@@ -64,8 +61,6 @@ class User
 
     function update($id, $request)
     {
-        if (!$id) return false;
-
         $username = $request['username'];
         $firstname = $request['firstname'];
         $lastname = $request['lastname'];
@@ -94,8 +89,6 @@ class User
     }
     function delete($id)
     {
-        if (!$id) return false;
-
         $queryStr = "DELETE FROM user WHERE user_id = :id";
 
         $stmt = $this->pdo->prepare($queryStr);
