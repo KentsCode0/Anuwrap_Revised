@@ -2,29 +2,23 @@
 
 namespace Src\Services;
 
-use Src\Models\Authentication;
-use Src\Models\Workspace;
 use Src\Config\DatabaseConnector;
 use Src\Models\UserWorkspace;
-use Src\Utils\Checker;
 use Src\Utils\Response;
+use Src\Services\TokenService;
 
-class WorkspaceService
+class UserWorkspaceService
 {
-    private $workspaceModel;
     private $pdo;
-    private $tokenService;
     private $userWorkspaceModel;
+    private $tokenService;
     function __construct()
     {
-        $this->pdo = (new DatabaseConnector())->getConnection();
-        $this->workspaceModel = new Workspace($this->pdo);
+        $this->pdo = (new DatabaseConnector)->getConnection();
         $this->userWorkspaceModel = new UserWorkspace($this->pdo);
-
         $this->tokenService = new TokenService();
     }
-
-    function create($workspace)
+    function create($userWorkspace)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -32,24 +26,12 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $workspaceId = $this->workspaceModel->create($workspace);
-
-        if ($workspaceId === false) {
-            return Response::payload(500, false, array("message" => "Contact administrator (adriangallanomain@gmail.com)"));
-        }
-
-        $data = array(
-            "workspace_id" => $workspaceId,
-            "user_id" => $token["user_id"],
-            "role_id" => 1
-        );
-
-        $creation = $this->userWorkspaceModel->create($data);
+        $creation = $this->userWorkspaceModel->create($userWorkspace);
 
         return $creation ? Response::payload(
             200,
             true,
-            "workspace creation successful",
+            "User Workspace creation successful",
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
     function get($id)
@@ -60,20 +42,20 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $workspace = $this->workspaceModel->get($id);
+        $userWorkspace = $this->userWorkspaceModel->getWithWorkspace($id);
 
-        if (!$workspace) {
-            return Response::payload(404, false, "workspace not found");
+        if (!$userWorkspace) {
+            return Response::payload(404, false, "User Workspace not found");
         }
-        return $workspace ? Response::payload(
+        return $userWorkspace ? Response::payload(
             200,
             true,
-            "workspace found",
-            array("workspace" => $workspace)
+            "User Workspace found",
+            array("userWorkspace" => $userWorkspace)
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
 
-    function update($workspace, $id)
+    function update($userWorkspace, $id)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -81,13 +63,13 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $workspace = $this->workspaceModel->update($workspace, $id);
-
-        if (!$workspace) {
+        $userWorkspace = $this->userWorkspaceModel->update($userWorkspace, $id);
+        
+        if (!$userWorkspace) {
             return Response::payload(404, false, "update unsuccessful");
         }
 
-        return $workspace ? Response::payload(
+        return $userWorkspace ? Response::payload(
             200,
             true,
             "update successful",
@@ -101,13 +83,13 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $workspace = $this->workspaceModel->delete($id);
+        $userWorkspace = $this->userWorkspaceModel->delete($id);
 
-        if (!$workspace) {
+        if (!$userWorkspace) {
             return Response::payload(404, false, "deletion unsuccessful");
         }
 
-        return $workspace ? Response::payload(
+        return $userWorkspace ? Response::payload(
             200,
             true,
             "deletion successful",
