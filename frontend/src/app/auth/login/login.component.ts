@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { TokenService } from '../token/token.service';
 import { Token } from '@angular/compiler';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,7 @@ import { Token } from '@angular/compiler';
 })
 export class LoginComponent {
   credentials = { email: '', password: '' };
-
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   } 
 
   login() {
@@ -21,9 +21,12 @@ export class LoginComponent {
         TokenService.setToHeader(response.data.token)
         TokenService.storeToken(response.data.token)
         TokenService.storeUserId(response.data.user_id)
-
+        
+        
+        
         console.log(TokenService.getUserId())
         console.log(TokenService.getToken())
+        this.router.navigate(['../workspacelist'])
       },
       (error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
