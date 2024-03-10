@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NavigationComponent } from "../../workspace/navigation/navigation.component";
+import { NavigationComponent } from '../../navigation/navigation.component';
 
 @Component({
     selector: 'app-profile',

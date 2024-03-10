@@ -1,5 +1,5 @@
 import { ApplicationRef, NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './approutingmodule/app.router.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
