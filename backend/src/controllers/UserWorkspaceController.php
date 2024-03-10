@@ -34,7 +34,16 @@ class UserWorkspaceController
         unset($payload["code"]);
         echo json_encode($payload);
     }
+    function getAllUserWorkspace($request)
+    {
+        $id = $request["id"];
+        $payload = $this->userWorkpaceService->getAll($id);
 
+        http_response_code($payload["code"]);
+        unset($payload["code"]);
+        echo json_encode($payload);
+    }
+    
     function deleteUserWorkspace($request)
     {
         $id = $request["id"];
