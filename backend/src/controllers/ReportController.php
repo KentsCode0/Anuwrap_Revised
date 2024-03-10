@@ -3,22 +3,22 @@
 
 namespace Src\Controllers;
 
-use Src\Services\WorkspaceService;
+use Src\Services\ReportService;
 
-class WorkspaceController
+class ReportController
 {
-    private $workspaceService;
+    private $reportService;
     function __construct()
     {
-        $this->workspaceService = new WorkspaceService();
+        $this->reportService = new ReportService();
     }
 
-    function createWorkspace()
+    function createReport()
     {
 
         $postData = json_decode(file_get_contents("php://input"));
         $postData = json_decode(json_encode($postData), true);
-        $payload = $this->workspaceService->create($postData);
+        $payload = $this->reportService->create($postData);
 
         http_response_code($payload["code"]);
 
@@ -26,42 +26,42 @@ class WorkspaceController
         echo json_encode($payload);
     }
 
-    function getWorkspace($request)
+    function getReport($request)
     {
         $id = $request["id"];
-        $payload = $this->workspaceService->get($id);
+        $payload = $this->reportService->get($id);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
         echo json_encode($payload);
     }
 
-    function getAllWorkspace($request)
+    function getAllReport($request)
     {
         $id = $request["id"];
-        $payload = $this->workspaceService->getAll($id);
+        $payload = $this->reportService->getAll($id);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
         echo json_encode($payload);
     }
 
-    function deleteWorkspace($request)
+    function deleteReport($request)
     {
         $id = $request["id"];
-        $payload = $this->workspaceService->delete($id);
+        $payload = $this->reportService->delete($id);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
         echo json_encode($payload);
     }
 
-    function updateWorkspace($request)
+    function updateReport($request)
     {
         $id = $request["id"];
         $postData = json_decode(file_get_contents("php://input"));
         $postData = json_decode(json_encode($postData), true);
-        $payload = $this->workspaceService->update($postData, $id);
+        $payload = $this->reportService->update($postData, $id);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);

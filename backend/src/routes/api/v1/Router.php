@@ -3,6 +3,7 @@
 namespace Src\Routes\Api\V1;
 
 use FastRoute;
+use Src\Controllers\ReportController;
 use Src\Controllers\TokenController;
 use Src\Controllers\UserController;
 use Src\Controllers\WorkspaceController;
@@ -21,12 +22,19 @@ class Router
             $r->addRoute('POST', '/token', [TokenController::class, 'postToken']);
             $r->addRoute('POST', '/workspace', [WorkspaceController::class, 'createWorkspace']);
             $r->addRoute('GET', '/workspace/{id:\d+}', [WorkspaceController::class, 'getWorkspace']);
+            $r->addRoute('GET', '/workspaces/{id:\d+}', [WorkspaceController::class, 'getAllWorkspace']);
             $r->addRoute('POST', '/workspace/{id:\d+}', [WorkspaceController::class, 'updateWorkspace']);
             $r->addRoute('DELETE', '/workspace/{id:\d+}', [WorkspaceController::class, 'deleteWorkspace']);
             $r->addRoute('POST', '/userworkspace', [UserWorkspaceController::class, 'createUserWorkspace']);
             $r->addRoute('GET', '/userworkspace/{id:\d+}', [UserWorkspaceController::class, 'getUserWorkspace']);
+            $r->addRoute('GET', '/userworkspaces/{id:\d+}', [UserWorkspaceController::class, 'getAllUserWorkspace']);
             $r->addRoute('POST', '/userworkspace/{id:\d+}', [UserWorkspaceController::class, 'updateUserWorkspace']);
             $r->addRoute('DELETE', '/userworkspace/{id:\d+}', [UserWorkspaceController::class, 'deleteUserWorkspace']);
+            $r->addRoute('POST', '/report', [ReportController::class, 'createReport']);
+            $r->addRoute('GET', '/report/{id:\d+}', [ReportController::class, 'getReport']);
+            $r->addRoute('GET', '/reports/{id:\d+}', [ReportController::class, 'getAllReport']);
+            $r->addRoute('POST', '/report/{id:\d+}', [ReportController::class, 'updateReport']);
+            $r->addRoute('DELETE', '/report/{id:\d+}', [ReportController::class, 'deleteReport']);
         });
     }
 

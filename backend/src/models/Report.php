@@ -4,42 +4,23 @@ namespace Src\Models;
 
 use PDOException;
 
-class Workspace
+class Report
 {
     private $pdo;
     function __construct($pdo)
     {
         $this->pdo = $pdo;
     }
-
-    function getAll($id)
-    {
-        $queryStr = "SELECT Workspace.*, UserWorkspace.*, Role.name AS role_name
-        FROM Workspace
-        JOIN UserWorkspace ON Workspace.workspace_id = UserWorkspace.workspace_id
-        JOIN Role ON UserWorkspace.role_id = Role.role_id
-        WHERE UserWorkspace.user_id = :id;";
-        $stmt = $this->pdo->prepare($queryStr);
-        try {
-            $stmt->execute(array(
-                "id" => $id
-            ));
-            $workspace = $stmt->fetchAll();
-            return $workspace;
-        } catch (PDOException $e) {
-            error_log($e->getMessage());
-            return null;
-        }
-    }
     function get($id)
     {
-        $queryStr = "SELECT * FROM Workspace WHERE workspace_id = :id";
+        $queryStr = "SELECT * FROM Report WHERE report_id = :id";
         $stmt = $this->pdo->prepare($queryStr);
 
         try {
             $stmt->execute(array(
                 "id" => $id
             ));
+
             $workspace = $stmt->fetch();
             return $workspace;
         } catch (PDOException $e) {
@@ -48,29 +29,52 @@ class Workspace
         }
     }
 
-    function create($workspace)
+    function getAll($workspace_id)
     {
-        $name = $workspace['name'];
+        $queryStr = "SELECT * FROM Report WHERE workspace_id = :workspace_id";
+        $stmt = $this->pdo->prepare($queryStr);
 
-        $queryStr = "INSERT INTO Workspace (name) VALUES (:name)";
+        try {
+            $stmt->execute(array(
+                "workspace_id" => $workspace_id
+            ));
+
+            $workspace = $stmt->fetchAll();
+            return $workspace;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return null;
+        }
+    }
+    function create($request)
+    {
+        $title = $request["title"];
+        $description = $request["description"];
+        $workspace_id = $request["workspace_id"];
+
+        $queryStr = "INSERT INTO 
+        Report(title, description, workspace_id) VALUES
+        (:title, :description, :workspace_id)";
 
         $stmt = $this->pdo->prepare($queryStr);
 
         try {
-            $stmt->execute(
-                array(
-                    "name" => $name
-                )
-            );
-            return $this->pdo->lastInsertId();
+            $stmt->execute(array(
+                "title" => $title,
+                "description" => $description,
+                "workspace_id" => $workspace_id
+            ));
+            return true;
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;
         }
     }
+
+
     function delete($id)
     {
-        $queryStr = "DELETE FROM Workspace WHERE workspace_id = :id";
+        $queryStr = "DELETE FROM Report WHERE report_id = :id";
 
         $stmt = $this->pdo->prepare($queryStr);
         try {
@@ -85,18 +89,23 @@ class Workspace
             return false;
         }
     }
-    function update($workspace, $id)
+    function update($request, $id)
     {
-        $name = $workspace["name"];
-        $queryStr = "UPDATE Workspace 
-            SET name=:name WHERE workspace_id = :id";
+        $title = $request["title"];
+        $description = $request["description"];
+        $workspace_id = $request["workspace_id"];
+
+        $queryStr = "UPDATE Report 
+            SET title=:title, description=:description, workspace_id=:workspace_id WHERE report_id = :id";
 
         $stmt = $this->pdo->prepare($queryStr);
         try {
             $stmt->execute(
                 array(
-                    "name" => $name,
-                    "id" => $id,
+                    "title" => $title,
+                    "description" => $description,
+                    "workspace_id" => $workspace_id,
+                    "id" => $id
                 )
             );
             return true;

@@ -7,14 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class TokenService {
     public static storedToken : any;
-    public static headers : any;
+    public static headers : any = "";
     public static userId: any;
   constructor() {
   }
 
   static setToHeader(token: string) {
     TokenService.headers = new HttpHeaders({
-      'Authorization': token
+      'Authorization': `Bearer ${token}`
+      
     });
   }
 
