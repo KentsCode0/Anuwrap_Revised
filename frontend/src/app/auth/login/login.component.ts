@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { TokenService } from '../token/token.service';
+import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,18 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent {
   credentials = { email: '', password: '' };
 
-  constructor(private authService: AuthService, private cookieService: CookieService) { }
+  constructor(private authService: AuthService) {
+  } 
 
   login() {
     this.authService.login(this.credentials).subscribe(
-      (response: HttpResponse<any>) => {
-        console.log(response);
+      (response: any) => {
+        TokenService.setToHeader(response.data.token)
+        TokenService.storeToken(response.data.token)
+        TokenService.storeUserId(response.data.user_id)
+
+        console.log(TokenService.getUserId())
+        console.log(TokenService.getToken())
       },
       (error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
