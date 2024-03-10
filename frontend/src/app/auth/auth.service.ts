@@ -20,4 +20,17 @@ export class AuthService {
 
     return this.http.post<any>(`${this.apiUrl}/token`, credentials, {responseType:"json"});
   }
+
+  getUserInformation(userId: string, headers: HttpHeaders): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}`, { headers: headers });
+  }
+
+  getWorkspaces(userId: string, headers: HttpHeaders): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/workspaces/${userId}`, { headers: headers });
+  }
+
+  createWorkspace(userId: any, headers: HttpHeaders): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/workspace` , { headers: headers });
+  }
+
 }

@@ -28,6 +28,14 @@ class ReportService
             return Response::payload(404, false, "unauthorized access");
         }
 
+        if(!Checker::isFieldExist($report, ["title", "description", "workspace_id"])){
+            return Response::payload(
+                400,
+                false,
+                "user_id, description, and workspace_id is required"
+            );
+        }
+        
         $reportId = $this->reportModel->create($report);
 
         if ($reportId === false) {
@@ -58,6 +66,27 @@ class ReportService
             true,
             "report found",
             array("report" => $report)
+        ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
+    }
+    
+    function getAll($id)
+    {
+        $token = $this->tokenService->readEncodedToken();
+
+        if (!$token) {
+            return Response::payload(404, false, "unauthorized access");
+        }
+
+        $reports = $this->reportModel->getAll($id);
+
+        if (!$reports) {
+            return Response::payload(404, false, "reports not found");
+        }
+        return $reports ? Response::payload(
+            200,
+            true,
+            "reports found",
+            array("report" => $reports)
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
 
