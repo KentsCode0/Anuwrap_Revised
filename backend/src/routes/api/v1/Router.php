@@ -32,6 +32,7 @@ class Router
             $r->addRoute('DELETE', '/userworkspace/{id:\d+}', [UserWorkspaceController::class, 'deleteUserWorkspace']);
             $r->addRoute('POST', '/report', [ReportController::class, 'createReport']);
             $r->addRoute('GET', '/report/{id:\d+}', [ReportController::class, 'getReport']);
+            $r->addRoute('GET', '/reporttype', [ReportController::class, 'getAllReportType']);
             $r->addRoute('GET', '/reports/{id:\d+}', [ReportController::class, 'getAllReport']);
             $r->addRoute('POST', '/report/{id:\d+}', [ReportController::class, 'updateReport']);
             $r->addRoute('DELETE', '/report/{id:\d+}', [ReportController::class, 'deleteReport']);

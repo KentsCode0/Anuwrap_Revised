@@ -12,23 +12,20 @@ import { HttpHeaders } from '@angular/common/http';
   styleUrl: './createworkspace.component.css'
 })
 
-export class CreateworkspaceComponent implements OnInit {
+export class CreateworkspaceComponent {
 
   constructor(private authService: AuthService) { }
 
-  ngOnInit(): void {
-    this.createWorkspace();
-  }
+
 
   createWorkspace() {
     const workspaceData = {
-      workspaceId: "",
-      name: ""
+      name: "" 
     };
-    const headers = TokenService.headers;
-    const id = TokenService.getUserId();
 
-    this.authService.createWorkspace(id, headers).subscribe(
+    const headers = TokenService.headers; // Get headers from TokenService
+
+    this.authService.createWorkspace(headers, workspaceData).subscribe(
       (response) => {
         // Handle successful creation of workspace
         console.log('Workspace created:', response);
