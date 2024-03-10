@@ -5,6 +5,8 @@ namespace Src\Routes\Api\V1;
 use FastRoute;
 use Src\Controllers\TokenController;
 use Src\Controllers\UserController;
+use Src\Controllers\WorkspaceController;
+use Src\Controllers\UserWorkspaceController;
 
 class Router
 {
@@ -18,6 +20,14 @@ class Router
             $r->addRoute('DELETE', '/user/{id:\d+}', [UserController::class, 'deleteUser']);
             $r->addRoute('POST', '/token', [TokenController::class, 'postToken']);
             $r->addRoute('DELETE', '/token', [TokenController::class, 'deleteToken']);
+            $r->addRoute('POST', '/workspace', [WorkspaceController::class, 'createWorkspace']);
+            $r->addRoute('GET', '/workspace/{id:\d+}', [WorkspaceController::class, 'getWorkspace']);
+            $r->addRoute('POST', '/workspace/{id:\d+}', [WorkspaceController::class, 'updateWorkspace']);
+            $r->addRoute('DELETE', '/workspace/{id:\d+}', [WorkspaceController::class, 'deleteWorkspace']);
+            $r->addRoute('POST', '/userworkspace', [UserWorkspaceController::class, 'createUserWorkspace']);
+            $r->addRoute('GET', '/userworkspace/{id:\d+}', [UserWorkspaceController::class, 'getUserWorkspace']);
+            $r->addRoute('POST', '/userworkspace/{id:\d+}', [UserWorkspaceController::class, 'updateUserWorkspace']);
+            $r->addRoute('DELETE', '/userworkspace/{id:\d+}', [UserWorkspaceController::class, 'deleteUserWorkspace']);
         });
     }
 
