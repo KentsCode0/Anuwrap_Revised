@@ -5,6 +5,7 @@ namespace Src\Services;
 use Src\Config\DatabaseConnector;
 use Src\Models\UserWorkspace;
 use Src\Utils\Response;
+use Src\Utils\Checker;
 use Src\Services\TokenService;
 
 class UserWorkspaceService
@@ -26,6 +27,14 @@ class UserWorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
+        if(!Checker::isFieldExist($userWorkspace, ["user_id", "workspace_id", "role_id"])){
+            return Response::payload(
+                400,
+                false,
+                "user_id, workspace_id, and role_id is required"
+            );
+        }
+        
         $creation = $this->userWorkspaceModel->create($userWorkspace);
 
         return $creation ? Response::payload(
@@ -52,6 +61,26 @@ class UserWorkspaceService
             true,
             "User Workspace found",
             array("userWorkspace" => $userWorkspace)
+        ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
+    }
+    function getAll($id)
+    {
+        $token = $this->tokenService->readEncodedToken();
+
+        if (!$token) {
+            return Response::payload(404, false, "unauthorized access");
+        }
+
+        $userWorkspaces = $this->userWorkspaceModel->getAllWorkspaceWithUser($id);
+
+        if (!$userWorkspaces) {
+            return Response::payload(404, false, "User Workspace not found");
+        }
+        return $userWorkspaces ? Response::payload(
+            200,
+            true,
+            "User Workspace found",
+            array("userWorkspace" => $userWorkspaces)
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
 
