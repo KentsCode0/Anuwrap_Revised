@@ -9,15 +9,18 @@ use Src\Models\Authentication;
 use Src\Utils\Checker;
 use Src\Utils\Response;
 use Exception;
+use DateTimeImmutable;
 
 class TokenService
 {
     private $authenticationModel;
     private $pdo;
+    private $issuedAt;
     function __construct()
     {
         $this->pdo = (new DatabaseConnector())->getConnection();
         $this->authenticationModel = new Authentication($this->pdo);
+        $this->issuedAt = new DateTimeImmutable();
     }
     function login($user)
     {
@@ -48,7 +51,7 @@ class TokenService
             200,
             true,
             "Login successful",
-            array("user" => $user)
+            array("user" => $user, "token" => $token)
         );
     }
     function create($user, $password)
@@ -58,7 +61,12 @@ class TokenService
             return false;
         }
 
+
         $payload = array(
+            'iat'  => $this->issuedAt->getTimestamp(),
+            'iss'  => "http://localhost/",     
+            'nbf'  => $this->issuedAt->getTimestamp(),
+            'exp'  => $this->issuedAt->modify('+6 minutes')->getTimestamp(),
             "user_id" => $user["user_id"],
         );
 
@@ -67,26 +75,11 @@ class TokenService
             $_ENV['SECRET_API_KEY'],
             "HS256"
         );
-        setcookie("token", $token, [
-            'expires' => time() + 3600,
-            'path' => '/',
-            'domain' => '',
-            'secure' => true,
-            'httponly' => true
-        ]);
+        
 
-        return true;
+        return $token;
     }
 
-    function delete()
-    {
-        if (isset($_COOKIE['token'])) {
-            setcookie("token", "", time() - 3600);
-            return Response::payload(200, true, "Logout successful");
-        } else {
-            return Response::payload(401, false, "Logout unsuccessful");
-        }
-    }
     function readEncodedToken()
     {
         $headers = apache_request_headers();

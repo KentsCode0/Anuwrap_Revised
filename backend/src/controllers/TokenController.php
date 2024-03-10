@@ -24,12 +24,4 @@ class TokenController
         echo json_encode($payload);
     }
 
-    function deleteToken()
-    {
-        $payload = $this->tokenService->delete();
-
-        unset($payload["code"]);
-        echo json_encode($payload);
-
-    }
 }

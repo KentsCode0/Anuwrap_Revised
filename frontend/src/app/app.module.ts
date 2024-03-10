@@ -7,9 +7,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RegisterComponent } from './auth/register/register.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent], 
+  declarations: [
+    RegisterComponent,
+    LoginComponent
+  ],
   imports: [
     HttpClientModule,
     AppRoutingModule,
@@ -17,11 +21,13 @@ import { LoginComponent } from './auth/login/login.component';
     FormsModule,
     BrowserModule
   ],
-  providers: [],
-  bootstrap: [] // Remove AppComponent from bootstrap array
+  providers: [CookieService],
+  // Don't include bootstrap array if bootstrapping AppComponent dynamically
 })
 export class AppModule {
   ngDoBootstrap(appRef: ApplicationRef) {
-    appRef.bootstrap(AppComponent); // Bootstrap the AppComponent dynamically
+    // Bootstrap the AppComponent dynamically
+    // Make sure AppComponent is properly defined and imported
+    appRef.bootstrap(AppComponent); 
   }
 }
