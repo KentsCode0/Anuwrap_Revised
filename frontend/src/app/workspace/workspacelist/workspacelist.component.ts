@@ -33,7 +33,7 @@ export class WorkspacelistComponent implements OnInit {
                 this.workspace.name = response.data.workspace.name;
                 this.workspace.dateModified = response.data.workspace.date_modified;
                 this.workspace.name = response.data.workspace.date_created;
-                console.log('User Workspace:', response.data.workspace.name)
+                console.log('User Workspace:', response)
 
             },
             (error) => {
