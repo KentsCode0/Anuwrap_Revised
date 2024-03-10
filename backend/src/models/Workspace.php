@@ -12,6 +12,22 @@ class Workspace
         $this->pdo = $pdo;
     }
 
+    function getAll($id)
+    {
+        $queryStr = "SELECT * FROM Workspace WHERE user_id = :id";
+        $stmt = $this->pdo->prepare($queryStr);
+
+        try {
+            $stmt->execute(array(
+                "id" => $id
+            ));
+            $workspace = $stmt->fetchAll();
+            return $workspace;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return null;
+        }
+    }
     function get($id)
     {
         $queryStr = "SELECT * FROM Workspace WHERE workspace_id = :id";

@@ -60,6 +60,26 @@ class WorkspaceService
             "workspace creation successful",
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
+    function getAll($id)
+    {
+        $token = $this->tokenService->readEncodedToken();
+
+        if (!$token) {
+            return Response::payload(404, false, "unauthorized access");
+        }
+
+        $workspaces = $this->workspaceModel->getAll($id);
+
+        if (!$workspaces) {
+            return Response::payload(404, false, "workspaces not found");
+        }
+        return $workspaces ? Response::payload(
+            200,
+            true,
+            "workspace found",
+            array("workspace" => $workspaces)
+        ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
+    }
     function get($id)
     {
         $token = $this->tokenService->readEncodedToken();
