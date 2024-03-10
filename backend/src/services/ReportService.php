@@ -3,28 +3,24 @@
 namespace Src\Services;
 
 use Src\Models\Authentication;
-use Src\Models\Workspace;
+use Src\Models\Report;
 use Src\Config\DatabaseConnector;
-use Src\Models\UserWorkspace;
 use Src\Utils\Checker;
 use Src\Utils\Response;
 
-class WorkspaceService
+class ReportService
 {
-    private $workspaceModel;
     private $pdo;
     private $tokenService;
-    private $userWorkspaceModel;
+    private $reportModel;
     function __construct()
     {
         $this->pdo = (new DatabaseConnector())->getConnection();
-        $this->workspaceModel = new Workspace($this->pdo);
-        $this->userWorkspaceModel = new UserWorkspace($this->pdo);
-
+        $this->reportModel = new Report($this->pdo);
         $this->tokenService = new TokenService();
     }
 
-    function create($workspace)
+    function create($report)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -32,32 +28,16 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        if(!Checker::isFieldExist($workspace, ["name"])){
-            return Response::payload(
-                400,
-                false,
-                "name is required"
-            );
-        }
-        
-        $workspaceId = $this->workspaceModel->create($workspace);
+        $reportId = $this->reportModel->create($report);
 
-        if ($workspaceId === false) {
+        if ($reportId === false) {
             return Response::payload(500, false, array("message" => "Contact administrator (adriangallanomain@gmail.com)"));
         }
 
-        $data = array(
-            "workspace_id" => $workspaceId,
-            "user_id" => $token["user_id"],
-            "role_id" => 1
-        );
-
-        $creation = $this->userWorkspaceModel->create($data);
-
-        return $creation ? Response::payload(
+        return $reportId ? Response::payload(
             200,
             true,
-            "workspace creation successful",
+            "report creation successful",
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
     function get($id)
@@ -68,20 +48,20 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $workspace = $this->workspaceModel->get($id);
+        $report = $this->reportModel->get($id);
 
-        if (!$workspace) {
-            return Response::payload(404, false, "workspace not found");
+        if (!$report) {
+            return Response::payload(404, false, "report not found");
         }
-        return $workspace ? Response::payload(
+        return $report ? Response::payload(
             200,
             true,
-            "workspace found",
-            array("workspace" => $workspace)
+            "report found",
+            array("report" => $report)
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
 
-    function update($workspace, $id)
+    function update($report, $id)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -89,13 +69,13 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $workspace = $this->workspaceModel->update($workspace, $id);
+        $report = $this->reportModel->update($report, $id);
 
-        if (!$workspace) {
+        if (!$report) {
             return Response::payload(404, false, "update unsuccessful");
         }
 
-        return $workspace ? Response::payload(
+        return $report ? Response::payload(
             200,
             true,
             "update successful",
@@ -109,13 +89,13 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $workspace = $this->workspaceModel->delete($id);
+        $report = $this->reportModel->delete($id);
 
-        if (!$workspace) {
+        if (!$report) {
             return Response::payload(404, false, "deletion unsuccessful");
         }
 
-        return $workspace ? Response::payload(
+        return $report ? Response::payload(
             200,
             true,
             "deletion successful",
