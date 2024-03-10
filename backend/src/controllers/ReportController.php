@@ -45,6 +45,14 @@ class ReportController
         unset($payload["code"]);
         echo json_encode($payload);
     }
+    function getAllReportType()
+    {
+        $payload = $this->reportService->getAllReportType();
+
+        http_response_code($payload["code"]);
+        unset($payload["code"]);
+        echo json_encode($payload);
+    }
 
     function deleteReport($request)
     {
