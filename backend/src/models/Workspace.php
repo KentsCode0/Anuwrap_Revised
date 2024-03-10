@@ -14,7 +14,11 @@ class Workspace
 
     function getAll($id)
     {
-        $queryStr = "SELECT Workspace.* UserWorkspace.* Role.name FROM Workspace JOIN UserWorkspace JOIN Role ON Workspace.workspace_id = :id";
+        $queryStr = "SELECT Workspace.*, UserWorkspace.*, Role.name AS role_name
+        FROM Workspace
+        JOIN UserWorkspace ON Workspace.workspace_id = UserWorkspace.workspace_id
+        JOIN Role ON UserWorkspace.role_id = Role.role_id
+        WHERE Workspace.workspace_id = :id;";
         $stmt = $this->pdo->prepare($queryStr);
         try {
             $stmt->execute(array(
