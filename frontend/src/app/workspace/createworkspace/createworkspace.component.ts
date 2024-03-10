@@ -22,13 +22,12 @@ export class CreateworkspaceComponent implements OnInit {
 
   createWorkspace() {
     const workspaceData = {
-      workspaceId: "",
       name: ""
     };
     const headers = TokenService.headers;
     const id = TokenService.getUserId();
 
-    this.authService.createWorkspace(id, headers).subscribe(
+    this.authService.createWorkspace(headers).subscribe(
       (response) => {
         // Handle successful creation of workspace
         console.log('Workspace created:', response);
