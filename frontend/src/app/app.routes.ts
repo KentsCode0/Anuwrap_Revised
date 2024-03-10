@@ -11,6 +11,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { CollageComponent } from './workspace/collage/collage.component';
 import { NavigationComponent } from './workspace/navigation/navigation.component';
 import { ReportComponent } from './workspace/report/report.component';
+import { EditprofileComponent } from './workspace/profile/editprofile/editprofile.component';
+import { NavbarComponent } from './workspace/navbar/navbar.component';
 export const routes: Routes = [
     {
         path: '',
@@ -54,8 +56,16 @@ export const routes: Routes = [
                 component: ProfileComponent
             }, 
             {
+                path: 'editprofile',
+                component: EditprofileComponent
+            },
+            {
                 path: 'workspace',
                 component: WorkspaceComponent
+            },
+            {
+                path: 'navbar',
+                component: NavbarComponent
             },
             {
                 path: 'collage',

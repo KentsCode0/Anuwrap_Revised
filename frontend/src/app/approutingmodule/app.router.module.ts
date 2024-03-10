@@ -13,6 +13,8 @@ import { ReportComponent } from '../workspace/report/report.component';
 import { CollageComponent } from '../workspace/collage/collage.component';
 import { NavigationComponent } from '../workspace/navigation/navigation.component';
 import { LayoutComponent } from '../layout/layout.component';
+import { EditprofileComponent } from '../workspace/profile/editprofile/editprofile.component';
+import { NavbarComponent } from '../workspace/navbar/navbar.component';
 
 const routes: Routes = [
     {
@@ -49,6 +51,10 @@ const routes: Routes = [
                 component: NavigationComponent
             },
             {
+                path: 'navbar',
+                component: NavbarComponent
+            },
+            {
                 path: 'dashboard',
                 component: DashboardComponent
             },
@@ -56,6 +62,10 @@ const routes: Routes = [
                 path: 'profile',
                 component: ProfileComponent
             }, 
+            {
+                path: 'editprofile',
+                component: EditprofileComponent
+            },  
             {
                 path: 'workspace',
                 component: WorkspaceComponent
