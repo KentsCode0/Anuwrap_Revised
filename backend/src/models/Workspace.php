@@ -18,7 +18,7 @@ class Workspace
         FROM Workspace
         JOIN UserWorkspace ON Workspace.workspace_id = UserWorkspace.workspace_id
         JOIN Role ON UserWorkspace.role_id = Role.role_id
-        WHERE UserWorkspace.user_id = :id;";
+        WHERE UserWorkspace.user_id = :id";
         $stmt = $this->pdo->prepare($queryStr);
         try {
             $stmt->execute(array(
