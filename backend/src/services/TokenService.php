@@ -66,7 +66,7 @@ class TokenService
             'iat'  => $this->issuedAt->getTimestamp(),
             'iss'  => "http://localhost/",     
             'nbf'  => $this->issuedAt->getTimestamp(),
-            'exp'  => $this->issuedAt->modify('+6 minutes')->getTimestamp(),
+            'exp'  => $this->issuedAt->modify('+60 minutes')->getTimestamp(),
             "user_id" => $user["user_id"],
         );
 

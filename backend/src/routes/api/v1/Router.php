@@ -19,7 +19,6 @@ class Router
             $r->addRoute('POST', '/user/{id:\d+}', [UserController::class, 'updateUser']);
             $r->addRoute('DELETE', '/user/{id:\d+}', [UserController::class, 'deleteUser']);
             $r->addRoute('POST', '/token', [TokenController::class, 'postToken']);
-            $r->addRoute('DELETE', '/token', [TokenController::class, 'deleteToken']);
             $r->addRoute('POST', '/workspace', [WorkspaceController::class, 'createWorkspace']);
             $r->addRoute('GET', '/workspace/{id:\d+}', [WorkspaceController::class, 'getWorkspace']);
             $r->addRoute('POST', '/workspace/{id:\d+}', [WorkspaceController::class, 'updateWorkspace']);
