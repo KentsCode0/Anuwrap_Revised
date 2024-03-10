@@ -68,6 +68,7 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
+        
         $workspaces = $this->workspaceModel->getAll($id);
 
         if (!$workspaces) {
