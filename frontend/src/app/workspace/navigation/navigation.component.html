@@ -39,7 +39,7 @@
           <span class="sr-only">Toggle sidebar</span>
         </button>
         <a
-          href="https://flowbite.com"
+          href="#"
           class="flex items-center justify-between mr-4"
         >
           <img
@@ -54,21 +54,11 @@
         </a>
       </div>
       <div class="flex items-center lg:order-2">
-        <!-- Notifications -->
-
-        <!-- Dropdown menu -->
-
-        <!-- Apps -->
-
-        <!-- Dropdown menu -->
-
-        <!-- Profile-->
         <button
           type="button"
           class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
           id="user-menu-button"
           aria-expanded="false"
-          data-dropdown-toggle="dropdown"
         >
           <span class="sr-only">Open user menu</span>
           <img
@@ -89,23 +79,7 @@
     id="drawer-navigation"
   >
     <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
-      <form action="#" method="GET" class="md:hidden mb-2">
-        <label for="sidebar-search" class="sr-only">Search</label>
-        <div class="relative">
-          <div
-            class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
-          >
 
-          </div>
-          <input
-            type="text"
-            name="search"
-            id="sidebar-search"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Search"
-          />
-        </div>
-      </form>
       <ul class="space-y-2">
         <li>
           <a
@@ -122,6 +96,15 @@
           >
 
             <span class="ml-3">Workspace</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="../profile"
+            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          >
+
+            <span class="ml-3">Profile</span>
           </a>
         </li>
         <li>
@@ -149,15 +132,8 @@
             <span class="ml-3">Collage</span>
           </a>
         </li>
-        <li>
-          <a
-            routerLink="../profile"
-            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-          >
 
-            <span class="ml-3">Profile</span>
-          </a>
-        </li>
+        
       </ul>
     </div>
   </aside>
