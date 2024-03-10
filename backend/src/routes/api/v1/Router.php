@@ -21,6 +21,7 @@ class Router
             $r->addRoute('POST', '/token', [TokenController::class, 'postToken']);
             $r->addRoute('POST', '/workspace', [WorkspaceController::class, 'createWorkspace']);
             $r->addRoute('GET', '/workspace/{id:\d+}', [WorkspaceController::class, 'getWorkspace']);
+            $r->addRoute('GET', '/workspaces/{id:\d+}', [WorkspaceController::class, 'getAllWorkspace']);
             $r->addRoute('POST', '/workspace/{id:\d+}', [WorkspaceController::class, 'updateWorkspace']);
             $r->addRoute('DELETE', '/workspace/{id:\d+}', [WorkspaceController::class, 'deleteWorkspace']);
             $r->addRoute('POST', '/userworkspace', [UserWorkspaceController::class, 'createUserWorkspace']);

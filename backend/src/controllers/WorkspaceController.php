@@ -36,6 +36,16 @@ class WorkspaceController
         echo json_encode($payload);
     }
 
+    function getAllWorkspace($request)
+    {
+        $id = $request["id"];
+        $payload = $this->workspaceService->getAll($id);
+
+        http_response_code($payload["code"]);
+        unset($payload["code"]);
+        echo json_encode($payload);
+    }
+
     function deleteWorkspace($request)
     {
         $id = $request["id"];
@@ -45,7 +55,7 @@ class WorkspaceController
         unset($payload["code"]);
         echo json_encode($payload);
     }
-    
+
     function updateWorkspace($request)
     {
         $id = $request["id"];
