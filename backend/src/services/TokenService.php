@@ -51,7 +51,7 @@ class TokenService
             200,
             true,
             "Login successful",
-            array("user" => $user, "token" => $token)
+            array("user_id" => $user["user_id"], "token" => $token)
         );
     }
     function create($user, $password)

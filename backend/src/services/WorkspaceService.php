@@ -32,6 +32,14 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
+        if(!Checker::isFieldExist($workspace, ["name"])){
+            return Response::payload(
+                400,
+                false,
+                "name is required"
+            );
+        }
+        
         $workspaceId = $this->workspaceModel->create($workspace);
 
         if ($workspaceId === false) {
@@ -50,6 +58,27 @@ class WorkspaceService
             200,
             true,
             "workspace creation successful",
+        ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
+    }
+    function getAll($id)
+    {
+        $token = $this->tokenService->readEncodedToken();
+
+        if (!$token) {
+            return Response::payload(404, false, "unauthorized access");
+        }
+
+        
+        $workspaces = $this->workspaceModel->getAll($id);
+
+        if (!$workspaces) {
+            return Response::payload(404, false, "workspaces not found");
+        }
+        return $workspaces ? Response::payload(
+            200,
+            true,
+            "workspace found",
+            array("workspace" => $workspaces)
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
     function get($id)
