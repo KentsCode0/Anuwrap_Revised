@@ -21,15 +21,15 @@ class Report
                 "id" => $id
             ));
 
-            $workspace = $stmt->fetch();
-            return $workspace;
+            $report = $stmt->fetch();
+            return $report;
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return null;
         }
     }
 
-    function getAllWithWorkspaceId($workspace_id)
+    function getAll($workspace_id)
     {
         $queryStr = "SELECT * FROM Report WHERE workspace_id = :workspace_id";
         $stmt = $this->pdo->prepare($queryStr);
@@ -39,8 +39,8 @@ class Report
                 "workspace_id" => $workspace_id
             ));
 
-            $workspace = $stmt->fetchAll();
-            return $workspace;
+            $report = $stmt->fetchAll();
+            return $report;
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return null;
@@ -50,19 +50,23 @@ class Report
     {
         $title = $request["title"];
         $description = $request["description"];
+        $content = $request["content"];
+        $report_type_id = $request["report_type_id"];
         $workspace_id = $request["workspace_id"];
 
         $queryStr = "INSERT INTO 
-        UserWorkspace(title, description, workspace_id) VALUES
-        (:title, :description, :workspace_id)";
+        Report(title, description, content, report_type_id, workspace_id) VALUES
+        (:title, :description, :content, :report_type_id, :workspace_id)";
 
         $stmt = $this->pdo->prepare($queryStr);
 
         try {
             $stmt->execute(array(
-                "title" => $title,
-                "description" => $description,
-                "workspace_id" => $workspace_id
+                    "title" => $title,
+                    "description" => $description,
+                    "content" => $content,
+                    "report_type_id" => $report_type_id,
+                    "workspace_id" => $workspace_id,
             ));
             return true;
         } catch (PDOException $e) {
@@ -93,10 +97,12 @@ class Report
     {
         $title = $request["title"];
         $description = $request["description"];
+        $content = $request["content"];
+        $report_type_id = $request["report_type_id"];
         $workspace_id = $request["workspace_id"];
 
         $queryStr = "UPDATE Report 
-            SET title=:title, description=:description, workspace_id=:workspace_id WHERE report_id = :id";
+            SET title=:title, description=:description, content=:content, report_type_id=:report_type_id, workspace_id=:workspace_id WHERE report_id = :id";
 
         $stmt = $this->pdo->prepare($queryStr);
         try {
@@ -104,6 +110,8 @@ class Report
                 array(
                     "title" => $title,
                     "description" => $description,
+                    "content" => $content,
+                    "report_type_id" => $report_type_id,
                     "workspace_id" => $workspace_id,
                     "id" => $id
                 )
@@ -112,6 +120,21 @@ class Report
         } catch (PDOException $e) {
             error_log($e->getMessage());
             return false;
+        }
+    }
+
+    function getAllReportType()
+    {
+        $queryStr = "SELECT * FROM ReportType";
+        $stmt = $this->pdo->prepare($queryStr);
+
+        try {
+            $stmt->execute();
+            $reportType = $stmt->fetchAll();
+            return $reportType;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return null;
         }
     }
 }
