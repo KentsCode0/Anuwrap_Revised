@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-editprofile',
+  selector: 'app-navbar',
   standalone: true,
   imports: [RouterModule],
-  templateUrl: './editprofile.component.html',
-  styleUrl: './editprofile.component.css'
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css'
 })
-export class EditprofileComponent {
+export class NavbarComponent {
 
 }
