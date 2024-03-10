@@ -1,69 +1,56 @@
-<div class="antialiased bg-gray-50 dark:bg-gray-900">
-  
-  <!-- Sidebar -->
-
-  <aside
-    class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
-    aria-label="Sidenav" id="drawer-navigation">
-    <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
-      <form action="#" method="GET" class="md:hidden mb-2">
-        <label for="sidebar-search" class="sr-only">Search</label>
-        <div class="relative">
-          <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-
-          </div>
-          <input type="text" name="search" id="sidebar-search"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Search" />
+<main class="p-4 md:ml-64 h-auto pt-20">
+    <div class=" h-[600px]  mt-1 mb-4">
+      <div class="h-full w-full relative">
+        <h1 class="text-2xl font-bold mb-[5px] text-start ml-10">Edit profile</h1>
+        
+        <div class="flex flex-col items-center justify-center">
+          <img src="../../assets/img/hacker.png" alt="hacker" 
+            class="w-32 h-32 rounded-full object-cover ml-[-430px] mb-[30px] bg-black">
+            
+            <button type="button" 
+            class="py-[7px] px-[7px] flex items-center text-sm font-small text-center text-white bg-black hover:bg-primary-700 rounded-lg gap-1 mr-[430px] mt-[-15px] mb-[35px]">
+            <img src="../../assets/img/edit.png" alt="edit logo" class="w-5 h-5">
+            Edit image
+          </button>
+          
+            <form class="grid gap-6 mb-6 md:grid-cols-2 w-[600px] ">
+                <div class="mb-4">
+                    <label for="username"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                    <input type="text" name="username" id="username" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="John" required />
+                </div>
+                <div class="mb-4">
+                    <label for="firstname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
+                        name</label>
+                    <input type="text" name="firstname" id="firstname" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="John" required />
+                </div>
+                <div class="mb-4">
+                    <label for="lastname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
+                        name</label>
+                    <input type="text" name="lastname" id="lastname"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Doe" required />
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email or Phone
+                        number</label>
+                    <input type="text" name="email" id="email"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="" required />
+                </div>
+                
+               
+                
+            </form>
+    
+          <button type="submit"
+            class=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 w-[291.31px] mt-[5px] mr-[-5px] ">Save</button>
         </div>
-      </form>
-      <ul class="space-y-2">
-        <li>
-          <a routerLink="../dashboard"
-            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-            <span class="ml-3">Dashboard</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="../workspace"
-            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-
-            <span class="ml-3">Workspace</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="../report"
-            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-            <span class="ml-3">Report</span>
-          </a>
-        </li>
-        <li>
-          <a href="#"
-            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-            <span class="ml-3">Annual Report</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="../collage"
-            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-
-            <span class="ml-3">Collage</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="../profile"
-            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-
-            <span class="ml-3">Profile</span>
-          </a>
-        </li>
-      </ul>
+      </div>
     </div>
-  </aside>
-
-  
-</div>
-
-
- 
-<app-navbar></app-navbar>
+  </main>
+  <app-navigation></app-navigation>
