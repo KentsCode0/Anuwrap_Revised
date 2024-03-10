@@ -26,7 +26,7 @@ export class LoginComponent {
         
         console.log(TokenService.getUserId())
         console.log(TokenService.getToken())
-        this.router.navigate(['../profile'])
+        this.router.navigate(['../workspacelist'])
       },
       (error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
