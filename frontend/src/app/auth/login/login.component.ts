@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
-import { LoginpopupComponent } from './loginpopup/loginpopup.component';
-import { MatDialog } from '@angular/material/dialog';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -12,29 +11,20 @@ import { MatDialog } from '@angular/material/dialog';
 export class LoginComponent {
   credentials = { email: '', password: '' };
 
-  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog) {}
+  constructor(private authService: AuthService, private cookieService: CookieService) { }
 
   login() {
     this.authService.login(this.credentials).subscribe(
-      response => {
-        // Handle successful login response
-        console.log('Login successful:', response);
-        this.router.navigateByUrl('/workspacelist');
+      (response: HttpResponse<any>) => {
+        console.log(response);
       },
-      error => {
-        // Handle login error
-        console.error('Login error:', error);
-        this.openloginErrorPopup();
+      (error: HttpErrorResponse) => {
+        if (error.error instanceof ErrorEvent) {
+          console.error('An error occurred:', error.error.message);
+        } else {
+          console.error(`Backend returned code ${error.status}, body was:`, error.error);
+        }
       }
     );
-  }
-  openloginErrorPopup(): void {
-    const dialogRef = this.dialog.open(LoginpopupComponent, {
-      width: '250px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The diaglog was closed');
-    })
   }
 }
