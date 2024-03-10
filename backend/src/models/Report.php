@@ -29,7 +29,7 @@ class Report
         }
     }
 
-    function getAllWithWorkspaceId($workspace_id)
+    function getAll($workspace_id)
     {
         $queryStr = "SELECT * FROM Report WHERE workspace_id = :workspace_id";
         $stmt = $this->pdo->prepare($queryStr);
@@ -53,7 +53,7 @@ class Report
         $workspace_id = $request["workspace_id"];
 
         $queryStr = "INSERT INTO 
-        UserWorkspace(title, description, workspace_id) VALUES
+        Report(title, description, workspace_id) VALUES
         (:title, :description, :workspace_id)";
 
         $stmt = $this->pdo->prepare($queryStr);
