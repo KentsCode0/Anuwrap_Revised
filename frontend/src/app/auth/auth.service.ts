@@ -26,11 +26,11 @@ export class AuthService {
   }
 
   getWorkspace(userId: string, headers: HttpHeaders): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/workspace/${userId}`, { headers: headers });
+    return this.http.get<any>(`${this.apiUrl}/workspaces/${userId}`, { headers: headers });
   }
 
-  createWorkspace(workspace: any, headers: HttpHeaders): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/workspace`, workspace, { headers: headers });
+  createWorkspace(userId: any, headers: HttpHeaders): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/workspace`, userId, { headers: headers });
   }
 
 }
