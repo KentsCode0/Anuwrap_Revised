@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NavigationComponent } from '../../navigation/navigation.component';
+import { NavbarComponent } from "../../navbar/navbar.component";
 import { TokenService } from '../../../auth/token/token.service';
 import { AuthService } from '../../../auth/auth.service';
 
@@ -9,7 +9,7 @@ import { AuthService } from '../../../auth/auth.service';
     standalone: true,
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
-    imports: [RouterModule, NavigationComponent]
+    imports: [RouterModule, NavbarComponent]
 })
 export class ProfileComponent implements OnInit {
   user = {
