@@ -13,6 +13,7 @@ import { NavigationComponent } from './workspace/navigation/navigation.component
 import { ReportComponent } from './workspace/report/report.component';
 import { EditprofileComponent } from './workspace/profile/editprofile/editprofile.component';
 import { NavbarComponent } from './workspace/navbar/navbar.component';
+import { CreatereportComponent } from './workspace/report/createreport/createreport.component';
 export const routes: Routes = [
     {
         path: '',
@@ -74,6 +75,10 @@ export const routes: Routes = [
             {
                 path:'report',
                 component: ReportComponent
+            },
+            {
+                path: 'createreport',
+                component: CreatereportComponent
             }
         ]
     }
