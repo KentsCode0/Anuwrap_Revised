@@ -13,35 +13,41 @@ import { CommonModule, NgFor } from '@angular/common';
     imports: [RouterModule, NavbarComponent, CommonModule]
 })
 export class WorkspacelistComponent implements OnInit {
-
-    workspaces = []; 
-
-    constructor(private authService: AuthService) {}
-
+    workspaces: any[] = []; // Assuming your workspace data is stored in this array
+  
+    constructor(private authService: AuthService) { }
+  
     ngOnInit(): void {
-        const headers = TokenService.headers;
-        const id = TokenService.getUserId();
-
-        this.authService.getWorkspaces(id, headers).subscribe(
-            (response) => {
-                this.workspaces = response.data.workspace
-                console.log('User Workspace:', response.data.workspace);
-            },
-            (error) => {
-                console.log('Error fetching user workspaces:', error);
-            }
+      // Fetch workspaces when component initializes
+      this.fetchWorkspaces();
+    }
+  
+    fetchWorkspaces() {
+      // Call authService to get the list of workspaces
+      this.authService.getWorkspaces().subscribe(
+        (response) => {
+          // Update workspaces array with the fetched data
+          this.workspaces = response.data.workspace;
+        },
+        (error) => {
+          console.error('Error fetching workspaces:', error);
+          // Handle error, show error message, etc.
+        }
+      );
+    }
+  
+    deleteWorkspace(workspaceId: number): void {
+        this.authService.deleteWorkspace(workspaceId).subscribe(
+          (response) => {
+            console.log('Workspace deleted:', response);
+            // Optionally, update the workspace list after successful deletion
+          },
+          (error) => {
+            console.error('Error deleting workspace:', error);
+            // Handle error (e.g., display error message)
+          }
         );
-    }
-
-    deleteWorkspace() {
-        // Implement delete logic
-    }
-
-    editWorkspace() {
-        // Implement edit logic
-    }
-
-    openWorkspace() {
-        // Implement open logic
-    }
-}
+      }
+    
+      
+  }

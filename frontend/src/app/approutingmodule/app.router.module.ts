@@ -15,6 +15,7 @@ import { NavigationComponent } from '../workspace/navigation/navigation.componen
 import { LayoutComponent } from '../layout/layout.component';
 import { EditprofileComponent } from '../workspace/profile/editprofile/editprofile.component';
 import { NavbarComponent } from '../workspace/navbar/navbar.component';
+import { CreatereportComponent } from '../workspace/report/createreport/createreport.component';
 
 const routes: Routes = [
     {
@@ -77,6 +78,10 @@ const routes: Routes = [
             {
                 path:'report',
                 component: ReportComponent
+            },
+            {
+                path:'createreport',
+                component: CreatereportComponent
             }
         ]
     }

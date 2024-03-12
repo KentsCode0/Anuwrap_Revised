@@ -1,38 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Route, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { TokenService } from '../../auth/token/token.service';
 import { HttpHeaders } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { routes } from '../../app.routes';
 
 @Component({
   selector: 'app-createworkspace',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './createworkspace.component.html',
   styleUrl: './createworkspace.component.css'
 })
 
-export class CreateworkspaceComponent {
+export class CreateworkspaceComponent implements OnInit {
+  workspaceName: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
+  ngOnInit(): void {
+    // Initialize component
+  }
 
-
-  createWorkspace() {
+  createWorkspace(): void {
     const workspaceData = {
-      name: "" 
+      name: this.workspaceName,
+      date_modified: new Date().toISOString(),
+      date_created: new Date().toISOString()
     };
 
-    const headers = TokenService.headers; // Get headers from TokenService
-
-    this.authService.createWorkspace(headers, workspaceData).subscribe(
+    this.authService.createWorkspace(workspaceData).subscribe(
       (response) => {
-        // Handle successful creation of workspace
         console.log('Workspace created:', response);
+       this.router.navigate(['../workspacelist'])
       },
       (error) => {
-        // Handle error
         console.error('Error creating workspace:', error);
+        // Handle error (e.g., display error message)
       }
     );
   }
