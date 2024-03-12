@@ -39,6 +39,7 @@ export class CreateworkspaceComponent implements OnInit {
             console.warn('No workspace data found in the response.');
           }
         }
+        this.router.navigate(['../workspacelist'])
       },
       (error) => {
         console.error('Error creating workspace:', error);

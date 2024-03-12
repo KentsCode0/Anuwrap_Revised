@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { TokenService } from './token/token.service';
 
 @Injectable({
@@ -58,12 +58,19 @@ export class AuthService {
   deleteWorkspace(): Observable<any> {
     const authInfo = this.tokenService.getAuth();
     const workspaceId = this.tokenService.getWorkspaceId();
+    
     if (authInfo && workspaceId) {
       const headers = authInfo[2];
-      return this.http.delete<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers });
+      return this.http.delete<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers }).pipe(
+        catchError((error: any) => {
+          console.error('Error deleting workspace:', error);
+          return throwError('Error deleting workspace');
+        })
+      );
     } else {
       // Handle unauthorized access or missing workspace ID
       return throwError('Unauthorized access or missing workspace ID');
     }
   }
+  
 }
