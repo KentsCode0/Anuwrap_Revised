@@ -8,38 +8,40 @@
         <div class="grid gap-20 mb-6 lg:grid-cols-2 sm:lg:grid-cols-2 ">
 
           <div>
-            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">username</label>
+            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
             <div
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[250.31px]">
-              {{ user.username }}</div>
-
-          </div>
-          <div>
-            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
-              name</label>
-            <div
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[250.31px]">
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[250.31px]">
               {{ user.firstname }}</div>
 
           </div>
           <div>
-            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
-              name</label>
+            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name</label>
             <div
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[250.31px]">
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[250.31px]">
               {{ user.lastname }}</div>
+
           </div>
+         
         </div>
 
-        <div class="grid gap-6 mb-6 md:grid-cols-1 ml-auto mr-auto ">
+        <div class="grid gap-20 mb-6 md:grid-cols-2 ml-auto mr-auto ">
+         
+          <div>
+            <label for="user_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User name</label>
+            <div
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[250.31px]">
+              {{ user.username }}</div>
+          </div>
+         
           <div class="">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email or Phone
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white ">Email or Phone
               number</label>
             <div
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[580px]">
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[250.31px]">
               {{ user.email }}</div>
 
           </div>
+          
 
         </div>
 

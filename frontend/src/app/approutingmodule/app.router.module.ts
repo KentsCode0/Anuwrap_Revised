@@ -16,6 +16,7 @@ import { LayoutComponent } from '../layout/layout.component';
 import { EditprofileComponent } from '../workspace/profile/editprofile/editprofile.component';
 import { NavbarComponent } from '../workspace/navbar/navbar.component';
 import { CreatereportComponent } from '../workspace/report/createreport/createreport.component';
+import { DeleteworkspaceComponent } from '../workspace/deleteworkspace/deleteworkspace.component';
 
 const routes: Routes = [
     {
@@ -70,6 +71,10 @@ const routes: Routes = [
             {
                 path: 'workspace',
                 component: WorkspaceComponent
+            },
+            {
+                path: 'deleteworkspace',
+                component: DeleteworkspaceComponent
             },
             {
                 path: 'collage',
