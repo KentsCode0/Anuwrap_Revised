@@ -1,39 +1,50 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
-    public static storedToken : any;
-    public static headers : any = "";
-    public static userId: any;
-  constructor() {
+  private readonly TOKEN_KEY = 'auth_token';
+  private readonly USER_ID_KEY = 'user_id';
+  private headers: HttpHeaders | undefined;
+
+  constructor(private cookieService: CookieService) {}
+
+  setAuthorization(token: string, userId: string, headers: HttpHeaders): void {
+    this.cookieService.set(this.TOKEN_KEY, token);
+    this.cookieService.set(this.USER_ID_KEY, userId);
+    this.headers = headers;
   }
 
-  static setToHeader(token: string) {
-    TokenService.headers = new HttpHeaders({
+  storeToken(token: string): void {
+    this.cookieService.set(this.TOKEN_KEY, token);
+  }
+  
+  storeUserId(userId: string): void {
+    this.cookieService.set(this.USER_ID_KEY, userId);
+  }
+
+  getAuth(): [string, string, HttpHeaders] | null {
+    const token = this.cookieService.get(this.TOKEN_KEY);
+    const userId = this.cookieService.get(this.USER_ID_KEY);
+    const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
-      
     });
+    return token && userId ? [token, userId, headers] : null;
   }
 
-  static storeToken(token: string) {
-    TokenService.storedToken = token;
-    return true
-  }
-  
-  static storeUserId(userId: string) {
-    TokenService.userId = userId;
-    return true
+  clearAuth(): void {
+    this.cookieService.delete(this.TOKEN_KEY);
+    this.cookieService.delete(this.USER_ID_KEY);
   }
 
-  static getUserId(){
-    return TokenService.userId;
+  getUserId(): string | null {
+    return this.cookieService.get(this.USER_ID_KEY);
   }
-  static getToken(){
-    return TokenService.storedToken;
+
+  getToken(): string | null {
+    return this.cookieService.get(this.TOKEN_KEY);
   }
-  
 }

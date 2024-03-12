@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { TokenService } from './token/token.service';
 
 @Injectable({
@@ -9,29 +9,53 @@ import { TokenService } from './token/token.service';
 export class AuthService {
   private apiUrl = 'http://localhost/anuwrap/backend/public/api';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   register(user: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/user`, user);
   }
 
   login(credentials: { email: string, password: string }): Observable<any> {
-
-    return this.http.post<any>(`${this.apiUrl}/token`, credentials, {responseType:"json"});
+    return this.http.post<any>(`${this.apiUrl}/token`, credentials, { responseType: "json" });
   }
 
-  getUserInformation(userId: string, headers: HttpHeaders): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/user/${userId}`, { headers: headers });
+  getUserInformation(): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+    if (authInfo) {
+      const userId = authInfo[1];
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${authInfo[0]}`
+      });
+      return this.http.get<any>(`${this.apiUrl}/user/${userId}`, { headers: headers });
+    } else {
+      return throwError('Unauthorized access');
+    }
   }
 
-  getWorkspaces(userId: string, headers: HttpHeaders): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/workspaces/${userId}`, { headers: headers });
+  getWorkspaces(): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+    if (authInfo) {
+      const userId = authInfo[1];
+      const headers = authInfo[2];
+      return this.http.get<any>(`${this.apiUrl}/workspaces/${userId}`, { headers: headers });
+    } else {
+      // Handle unauthorized access
+      return throwError('Unauthorized access');
+    }
   }
 
-  createWorkspace(headers: HttpHeaders, workspaceData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/workspace`, workspaceData, { headers: headers });
+  createWorkspace(workspaceData: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+    if (authInfo) {
+      const headers = authInfo[2];
+      return this.http.post<any>(`${this.apiUrl}/workspace`, workspaceData, { headers: headers });
+    } else {
+      // Handle unauthorized access
+      return throwError('Unauthorized access');
+    }
   }
-  
 
+  deleteWorkspace(workspaceId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/workspace/${workspaceId}`);
+  }
 }

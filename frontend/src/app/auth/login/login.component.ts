@@ -12,21 +12,19 @@ import { Route, Router } from '@angular/router';
 })
 export class LoginComponent {
   credentials = { email: '', password: '' };
-  constructor(private authService: AuthService, private router: Router) {
-  } 
+
+  constructor(private authService: AuthService, private router: Router, private tokenService: TokenService) {}
 
   login() {
     this.authService.login(this.credentials).subscribe(
       (response: any) => {
-        TokenService.setToHeader(response.data.token)
-        TokenService.storeToken(response.data.token)
-        TokenService.storeUserId(response.data.user_id)
+        const token = response.data.token;
+        const userId = response.data.user_id;
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         
-        
-        
-        console.log(TokenService.getUserId())
-        console.log(TokenService.getToken())
-        this.router.navigate(['../workspacelist'])
+        this.tokenService.setAuthorization(token, userId, headers);
+  
+        this.router.navigate(['../workspacelist']);
       },
       (error: HttpErrorResponse) => {
         if (error.error instanceof ErrorEvent) {
