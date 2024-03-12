@@ -10,5 +10,4 @@ import { NavigationComponent } from "../navigation/navigation.component";
     imports: [RouterModule, NavigationComponent]
 })
 export class WorkspaceComponent {
-
 }
