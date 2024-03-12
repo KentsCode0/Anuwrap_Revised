@@ -36,8 +36,8 @@ export class WorkspacelistComponent implements OnInit {
       );
     }
   
-    deleteWorkspace(workspaceId: number): void {
-        this.authService.deleteWorkspace(workspaceId).subscribe(
+    deleteWorkspace(): void {
+        this.authService.deleteWorkspace().subscribe(
           (response) => {
             console.log('Workspace deleted:', response);
             // Optionally, update the workspace list after successful deletion
@@ -48,6 +48,6 @@ export class WorkspacelistComponent implements OnInit {
           }
         );
       }
-    
+      
       
   }
