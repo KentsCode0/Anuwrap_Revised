@@ -9,7 +9,7 @@ import { TokenService } from './token/token.service';
 export class AuthService {
   private apiUrl = 'http://localhost/anuwrap/backend/public/api';
 
-  constructor(private http: HttpClient, private tokenService: TokenService) { }
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   register(user: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/user`, user);
@@ -28,23 +28,11 @@ export class AuthService {
       });
       return this.http.get<any>(`${this.apiUrl}/user/${userId}`, { headers: headers });
     } else {
-      return throwError(() => ' Unauthorized access');
+      return throwError('Unauthorized access');
     }
   }
 
-  getWorkspaces(): Observable<any> {
-    const authInfo = this.tokenService.getAuth();
-    if (authInfo) {
-      const userId = authInfo[1];
-      const headers = authInfo[2];
-      console.log("work")
-      return this.http.get<any>(`${this.apiUrl}/workspaces/${userId}`, { headers: headers });
-    } else {
-      // Handle unauthorized access
-      console.log("Doesn't work")
-      return throwError(() => 'Unauthorized access');
-    }
-  }
+  
 
   createWorkspace(workspaceData: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
@@ -53,27 +41,40 @@ export class AuthService {
       return this.http.post<any>(`${this.apiUrl}/workspace`, workspaceData, { headers: headers });
     } else {
       // Handle unauthorized access
-      return throwError(() => 'Unauthorized access');
+      return throwError('Unauthorized access');
     }
   }
 
-  deleteWorkspace(): Observable<any> {
+  getWorkspaces(userId: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
-    const workspaceId = this.tokenService.getWorkspaceId();
-    
-    if (authInfo && workspaceId) {
+    if (authInfo) {
       const headers = authInfo[2];
-      return this.http.delete<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers }).pipe(
+      return this.http.get<any>(`${this.apiUrl}/workspaces/${userId}`, { headers: headers }).pipe(
         catchError((error: any) => {
-          console.error('Error deleting workspace:', error);
-          return throwError('Error deleting workspace');
+          console.error('Error fetching workspaces:', error);
+          return throwError('Error fetching workspaces');
         })
       );
     } else {
-      // Handle unauthorized access or missing workspace ID
-      return throwError('Unauthorized access or missing workspace ID');
+      // Handle unauthorized access
+      return throwError('Unauthorized access');
     }
   }
+
+deleteWorkspace(workspaceId: any): Observable<any> {
+  const authInfo = this.tokenService.getAuth();
+  if (authInfo) {
+      const headers = authInfo[2];
+      return this.http.delete<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers }).pipe(
+          catchError((error: any) => {
+              console.error('Error deleting workspace:', error);
+              return throwError('Error deleting workspace');
+          })
+      );
+  } else {
+      return throwError('Unauthorized access');
+  }
+}
 
   updateWorkspace() {
 
@@ -81,14 +82,14 @@ export class AuthService {
 
   createReport(reportData: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
-    const workspaceId = this.tokenService.getWorkspaceId();
-    
-    if (authInfo && workspaceId) {
-      const userId = authInfo[1];
-      reportData.user_id = userId;
-      reportData.workspace_id = workspaceId;
+    if (authInfo) {
       const headers = authInfo[2];
-      return this.http.post<any>(`${this.apiUrl}/report`, reportData, { headers: headers });
+      return this.http.post<any>(`${this.apiUrl}/report`, reportData, { headers: headers }).pipe(
+        catchError((error: any) => {
+          console.error('Error creating report:', error);
+          return throwError('Error creating report');
+        })
+      );
     } else {
       // Handle unauthorized access
       return throwError('Unauthorized access');
