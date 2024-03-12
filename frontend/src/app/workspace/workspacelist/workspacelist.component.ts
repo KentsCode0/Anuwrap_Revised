@@ -15,7 +15,7 @@ import { CommonModule, NgFor } from '@angular/common';
 export class WorkspacelistComponent implements OnInit {
     workspaces: any[] = []; // Assuming your workspace data is stored in this array
   
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private tokenService: TokenService) { }
   
     ngOnInit(): void {
       // Fetch workspaces when component initializes
@@ -36,18 +36,24 @@ export class WorkspacelistComponent implements OnInit {
       );
     }
   
-    deleteWorkspace(workspaceId: number): void {
-        this.authService.deleteWorkspace(workspaceId).subscribe(
-          (response) => {
-            console.log('Workspace deleted:', response);
-            // Optionally, update the workspace list after successful deletion
-          },
-          (error) => {
-            console.error('Error deleting workspace:', error);
-            // Handle error (e.g., display error message)
-          }
-        );
-      }
+    deleteWorkspace(): void {
+        const workspaceId = this.tokenService.getWorkspaceId();
+        console.log('Workspace ID:', workspaceId); // Log the workspace ID
+        if (workspaceId) {
+            this.authService.deleteWorkspace().subscribe(
+                (response) => {
+                    console.log('Workspace deleted:', response);
+                    this.fetchWorkspaces();
+                },
+                (error) => {
+                    console.error('Error deleting workspace:', error);
+                    // Handle error (e.g., display error message)
+                }
+            );
+        } else {
+            console.error('Workspace ID is missing.'); // Log an error if workspace ID is missing
+        }
+    }
     
       
   }
