@@ -118,30 +118,30 @@ class UserService
             $isUsernameExist = $this->UsernameExist($user["username"]);
             $validateUsername = $this->validateUsernameFormat($user["username"]);
 
-            if ($isUsernameExist) $errors[] = $isUsernameExist;
-            if ($validateUsername) $errors[] = $validateUsername;
+            if ($isUsernameExist) $errors["username"] = $isUsernameExist;
+            if ($validateUsername) $errors["username"] = $validateUsername;
         }
         if (Checker::isFieldExist($user, ["firstname"])) {
             $validateFirstName = $this->validateFirstNameFormat($user["firstname"]);
-            if ($validateFirstName) $errors[] = $validateFirstName;
+            if ($validateFirstName) $errors["firstname"] = $validateFirstName;
         }
         if (Checker::isFieldExist($user, ["lastname"])) {
             $validateLastName = $this->validateLastNameFormat($user["lastname"]);
-            if ($validateLastName) $errors[] = $validateLastName;
+            if ($validateLastName) $errors["lastname"] = $validateLastName;
         }
         if (Checker::isFieldExist($user, ["email"])) {
             $isEmailExist = $this->EmailExist($user["email"]);
             $validateEmail = $this->validateEmailFormat($user["email"]);
 
-            if ($isEmailExist) $errors[] = $isEmailExist;
-            if ($validateEmail) $errors[] = $validateEmail;
+            if ($isEmailExist) $errors["email"] = $isEmailExist;
+            if ($validateEmail) $errors["email"] = $validateEmail;
         }
         if (Checker::isFieldExist($user, ["password"])) {
             $validatePassword = $this->validatePasswordFormat($user["password"]);
             $isConfirmPasswordMatch = $this->confirmPasswordDoesNotMatch($user["password"], $user["confirm_password"]);
 
-            if ($validatePassword) $errors[] = $validatePassword;
-            if ($isConfirmPasswordMatch) $errors[] = $isConfirmPasswordMatch;
+            if ($validatePassword) $errors["password"] = $validatePassword;
+            if ($isConfirmPasswordMatch) $errors["password1"] = $isConfirmPasswordMatch;
         }
 
         return $errors;
@@ -164,15 +164,15 @@ class UserService
     }
     function validateFirstNameFormat($firstname)
     {
-        return preg_match('/^[a-zA-Z ]+$/', $firstname) ? null : "first name should contain only letters and spaces";
+        return preg_match('/^[a-zA-Z ]+$/', $firstname) ? null : "should contain only letters and spaces";
     }
     function validateLastNameFormat($lastname)
     {
-        return preg_match('/^[a-zA-Z ]+$/', $lastname) ? null : "last name should contain only letters and spaces";
+        return preg_match('/^[a-zA-Z ]+$/', $lastname) ? null : "should contain only letters and spaces";
     }
     function validateEmailFormat($email)
     {
-        return preg_match('/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/', $email) ? null : "invalid email format";
+        return preg_match('/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/', $email) ? null : "please enter a valid email address";
     }
     function validatePasswordFormat($password)
     {
@@ -181,6 +181,6 @@ class UserService
     }
     function confirmPasswordDoesNotMatch($password, $password2)
     {
-        return $password !== $password2 ? "confirmation password does not match" : false;
+        return $password !== $password2 ? "password does not match" : false;
     }
 }
