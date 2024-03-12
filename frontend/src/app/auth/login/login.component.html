@@ -2,7 +2,7 @@
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0  mt-[-10px]">
         <a href="#" class="flex items-center mb-2 mt-[-15px] text-2xl font-semibold text-gray-900 dark:text-white">
             <img src="../../assets/img/anu-wrap.svg" class="h-[100px] w-[100px] me-[-20px] ml-[-40px]"
-                alt="FlowBite Logo" />
+                alt="Anuwrap Logo" />
             Anuwrap
         </a>
         <div
@@ -19,6 +19,7 @@
                         <input type="email" name="email" id="email" [(ngModel)]="credentials.email"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="name@company.com" required="">
+                        <span class="text-red-600">{{ error }}</span>
                     </div>
                     <div>
                         <label for="password"
@@ -39,7 +40,7 @@
                                 <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
                             </div>
                         </div>
-                        <a href="#" class="text-sm font-medium text-primary-600 hover:underline text-blue-400">Forgot
+                        <a href="#" class="text-sm font-medium text-primary-600 hover:underline ">Forgot
                             password?</a>
                     </div>
 
@@ -51,9 +52,8 @@
                         </div>
                         <div class="ml-3 text-sm">
                             <label for="Terms" class="text-gray-500 dark:text-gray-300">I agree to all the <a href="#"
-                                    class="text-sm font-medium text-primary-600 hover:underline text-blue-400">Terms</a>
-                                and <a href="#"
-                                    class="text-sm font-medium text-primary-600 hover:underline text-blue-400">Privacy
+                                    class="text-sm font-medium text-primary-600 hover:underline ">Terms</a>
+                                and <a href="#" class="text-sm font-medium text-primary-600 hover:underline ">Privacy
                                     policy</a></label>
                         </div>
                     </div>

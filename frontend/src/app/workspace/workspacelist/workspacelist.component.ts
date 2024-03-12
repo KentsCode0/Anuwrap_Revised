@@ -40,11 +40,9 @@ export class WorkspacelistComponent implements OnInit {
         this.authService.deleteWorkspace(workspaceId).subscribe(
           (response) => {
             console.log('Workspace deleted:', response);
-            // Optionally, update the workspace list after successful deletion
           },
           (error) => {
             console.error('Error deleting workspace:', error);
-            // Handle error (e.g., display error message)
           }
         );
       }
