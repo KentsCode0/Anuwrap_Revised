@@ -10,5 +10,4 @@ import { NavbarComponent } from "../navbar/navbar.component";
   styleUrl: './navigation.component.css'
 })
 export class NavigationComponent {
-
 }
