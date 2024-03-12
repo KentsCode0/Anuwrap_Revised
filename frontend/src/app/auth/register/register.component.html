@@ -1,9 +1,9 @@
-<section class="bg-gray-50 dark:bg-gray-900">
-    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+<section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
         <div class="flex items-center justify-center">
-            <a href="#" class="flex items-center mb-2 mt-[-60px] text-2xl font-semibold text-gray-900 dark:text-white">
+            <a href="#" class="flex items-center mb-2 text-2xl font-semibold text-gray-900 dark:text-white">
                 <img src="../../assets/img/anu-wrap.svg" class="h-[100px] w-[100px] me-[-20px] ml-[-40px]"
-                    alt="FlowBite Logo" />
+                    alt="Anuwrap Logo" />
                 Anuwrap
             </a>
         </div>
@@ -14,6 +14,7 @@
                 <input type="text" name="username" id="username" [(ngModel)]="registrationData.username"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="John" required />
+                <span class="text-red-600">{{ errors.username }}</span>
             </div>
             <div class="mb-4">
                 <label for="firstname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
@@ -21,6 +22,7 @@
                 <input type="text" name="firstname" id="firstname" [(ngModel)]="registrationData.firstname"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="John" required />
+                <span class="text-red-600">{{ errors.firstname }}</span>
             </div>
             <div class="mb-4">
                 <label for="lastname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
@@ -28,6 +30,7 @@
                 <input type="text" name="lastname" id="lastname" [(ngModel)]="registrationData.lastname"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Doe" required />
+                <span class="text-red-600">{{ errors.lastname }}</span>
             </div>
             <div class="mb-4">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email or Phone
@@ -35,6 +38,7 @@
                 <input type="text" name="email" id="email" [(ngModel)]="registrationData.email"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com" required />
+                <span class="text-red-600">{{ errors.email }}</span>
             </div>
             <div class="mb-4">
                 <label for="password"
@@ -42,14 +46,16 @@
                 <input type="password" name="password" id="password" [(ngModel)]="registrationData.password"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="•••••••••" required />
+                <span class="text-red-600">{{ errors.password }}</span>
             </div>
             <div class="mb-4">
                 <label for="confirm_password"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
                 <input type="password" name="confirm_password" id="confirm_password"
-                    [(ngModel)]="registrationData.confirm_password"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="•••••••••" required />
+                [(ngModel)]="registrationData.confirm_password"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="•••••••••" required />
+                <span class="text-red-600">{{ errors.password1 }}</span>
             </div>
             <div class="flex flex-col items-start mb-4 mt-[-10px]">
                 <div class="flex items-center justify-between">
@@ -64,16 +70,16 @@
                     </div>
                     <div class="ml-3 text-sm">
                         <label for="Terms" class="text-gray-500 dark:text-gray-300">I agree to all the <a href="#"
-                                class="text-sm font-medium text-primary-600 hover:underline text-blue-400">Terms</a>
+                                class="text-sm font-medium text-primary-600 hover:underline ">Terms</a>
                             and <a href="#"
-                                class="text-sm font-medium text-primary-600 hover:underline text-blue-400">Privacy
+                                class="text-sm font-medium text-primary-600 hover:underline ">Privacy
                                 policy</a></label>
                     </div>
                 </div>
             </div>
             <div class="mt-5 ml-[-150px]">
                 <button type="submit"
-                class="w-[350px] text-white bg-black hover:bg-primary-700  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700  ml-[-35px] mt-5">Create
+                    class="w-[350px] text-white bg-black hover:bg-primary-700  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700  ml-[-35px] mt-5">Create
                     account</button>
             </div>
         </form>

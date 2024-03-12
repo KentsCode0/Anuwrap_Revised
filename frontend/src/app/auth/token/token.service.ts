@@ -13,10 +13,9 @@ export class TokenService {
 
   constructor(private cookieService: CookieService) {}
 
-  setAuthorization(token: string, userId: string, headers: HttpHeaders): void {
+  setAuthorization(token: string, userId: string): void {
     this.cookieService.set(this.TOKEN_KEY, token);
     this.cookieService.set(this.USER_ID_KEY, userId);
-    this.headers = headers;
   }
 
   storeToken(token: string): void {
@@ -34,10 +33,10 @@ export class TokenService {
   getAuth(): [string, string, HttpHeaders] | null {
     const token = this.cookieService.get(this.TOKEN_KEY);
     const userId = this.cookieService.get(this.USER_ID_KEY);
-    const headers = new HttpHeaders({
+    this.headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return token && userId ? [token, userId, headers] : null;
+    return token && userId ? [token, userId, this.headers] : null;
   }
 
   clearAuth(): void {

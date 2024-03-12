@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { LoginComponent } from '../auth/login/login.component';
 import { RegisterComponent } from '../auth/register/register.component';
-import { PopupComponent } from '../auth/register/successPopup/popup.component';
+import { RegisterSuccessComponent } from '../auth/register-success/register-success.component';
 import { DashboardComponent } from '../workspace/dashboard/dashboard.component';
 import { ProfileComponent } from '../workspace/profile/profile/profile.component';
 import { WorkspaceComponent } from '../workspace/workspace/workspace.component';
@@ -36,10 +35,8 @@ const routes: Routes = [
                 path: 'register',
                 component: RegisterComponent
             },
-            {
-                path: 'popup',
-                component: PopupComponent
-            }, 
+            { path: 'register_success',
+            component: RegisterSuccessComponent },
             {
                 path: 'workspacelist',
                 component: WorkspacelistComponent
@@ -63,11 +60,11 @@ const routes: Routes = [
             {
                 path: 'profile',
                 component: ProfileComponent
-            }, 
+            },
             {
                 path: 'editprofile',
                 component: EditprofileComponent
-            },  
+            },
             {
                 path: 'workspace',
                 component: WorkspaceComponent
@@ -81,11 +78,11 @@ const routes: Routes = [
                 component: CollageComponent
             },
             {
-                path:'report',
+                path: 'report',
                 component: ReportComponent
             },
             {
-                path:'createreport',
+                path: 'createreport',
                 component: CreatereportComponent
             }
         ]
@@ -93,7 +90,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }
