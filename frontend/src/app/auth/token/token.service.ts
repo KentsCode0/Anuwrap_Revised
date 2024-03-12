@@ -9,6 +9,7 @@ export class TokenService {
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_ID_KEY = 'user_id';
   private readonly WORKSPACE_KEY = 'workspace_id';
+  private readonly REPORT_KEY = 'report_id';
   private headers: HttpHeaders | undefined;
 
   constructor(private cookieService: CookieService) {}
@@ -28,7 +29,11 @@ export class TokenService {
   }
 
   storeWorkspaceId(workspaceId: string): void {
-    this.cookieService.set(this.WORKSPACE_KEY, workspaceId)
+    this.cookieService.set(this.WORKSPACE_KEY, workspaceId);
+  }
+
+  storeReportId(reportId: string): void {
+    this.cookieService.set(this.REPORT_KEY, reportId);
   }
 
   getAuth(): [string, string, HttpHeaders] | null {
@@ -55,5 +60,9 @@ export class TokenService {
 
   getWorkspaceId(): string | null {
     return this.cookieService.get(this.WORKSPACE_KEY);
+  }
+
+  getReportId(): string | null {
+    return this.cookieService.get(this.REPORT_KEY);
   }
 }

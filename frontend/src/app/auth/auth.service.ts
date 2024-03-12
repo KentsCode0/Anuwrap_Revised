@@ -72,5 +72,25 @@ export class AuthService {
       return throwError('Unauthorized access or missing workspace ID');
     }
   }
+
+  updateWorkspace() {
+
+  }
+
+  createReport(reportData: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+    const workspaceId = this.tokenService.getWorkspaceId();
+    
+    if (authInfo && workspaceId) {
+      const userId = authInfo[1];
+      reportData.user_id = userId;
+      reportData.workspace_id = workspaceId;
+      const headers = authInfo[2];
+      return this.http.post<any>(`${this.apiUrl}/report`, reportData, { headers: headers });
+    } else {
+      // Handle unauthorized access
+      return throwError('Unauthorized access');
+    }
+  }
   
 }

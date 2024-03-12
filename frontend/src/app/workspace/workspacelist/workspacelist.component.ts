@@ -27,7 +27,10 @@ export class WorkspacelistComponent implements OnInit {
       this.authService.getWorkspaces().subscribe(
         (response) => {
           // Update workspaces array with the fetched data
-          this.workspaces = response.data.workspace;
+          this.workspaces = response.data.workspace.map((workspace: any) => ({
+            workspace_id: workspace.workspace_id, // Assuming the workspace ID field is named 'id'
+            name: workspace.name,
+          }));
         },
         (error) => {
           console.error('Error fetching workspaces:', error);
