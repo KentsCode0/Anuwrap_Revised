@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { PopupComponent } from './auth/register/successPopup/popup.component';
 import { DashboardComponent } from './workspace/dashboard/dashboard.component';
 import { ProfileComponent } from './workspace/profile/profile/profile.component';
 import { WorkspaceComponent } from './workspace/workspace/workspace.component';
@@ -34,10 +33,6 @@ export const routes: Routes = [
                 component: RegisterComponent
             },
             {
-                path: 'popup',
-                component: PopupComponent
-            }, 
-            {
                 path: 'workspacelist',
                 component: WorkspacelistComponent
             },
@@ -56,7 +51,7 @@ export const routes: Routes = [
             {
                 path: 'profile',
                 component: ProfileComponent
-            }, 
+            },
             {
                 path: 'editprofile',
                 component: EditprofileComponent
@@ -78,7 +73,7 @@ export const routes: Routes = [
                 component: CollageComponent
             },
             {
-                path:'report',
+                path: 'report',
                 component: ReportComponent
             },
             {
@@ -87,6 +82,6 @@ export const routes: Routes = [
             }
         ]
     }
-    
+
 
 ];

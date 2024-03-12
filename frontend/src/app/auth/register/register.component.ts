@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PopupComponent } from './successPopup/popup.component';
-import { MatDialog } from '@angular/material/dialog';
-import { UnsuccesspopupComponent } from './unsuccesspopup/unsuccesspopup.component';
-
+import { Route, Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -19,37 +16,33 @@ export class RegisterComponent {
     confirm_password: ''
   };
 
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
+  errors = {
+    username: "",
+    email: "",
+    firstname: "",
+    lastname: "",
+    password: "",
+    password1: ""
+  }
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   registerUser() {
-    let data = this.http.post('http://localhost/anuwrap/backend/public/api/user', this.registrationData)
+    this.http.post('http://localhost/anuwrap/backend/public/api/user', this.registrationData)
       .subscribe(
         (response: any) => {
-          console.log(response); // Log response for debugging
-          this.openSuccessPopup();
+          this.router.navigate(['/register_success']);
         },
         (error) => {
-          console.error(error); // Log error for debugging
-          this.openUnsuccessPopup();
+          let errors = error.error.errors
+          this.errors["username"] = errors["username"];
+          this.errors["email"] = errors["email"];
+          this.errors["firstname"] = errors["firstname"];
+          this.errors["lastname"] = errors["lastname"];
+          this.errors["password"] = errors["password"];
+          this.errors["password1"] = errors["password1"];
         }
       );
   }
-  openSuccessPopup(): void {
-    const dialogRef = this.dialog.open(PopupComponent, {
-      width: '250px'
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-  openUnsuccessPopup(): void {
-    const dialogRef = this.dialog.open(UnsuccesspopupComponent, {
-      width: '250px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The diaglog was closed');
-    })
-  }
 }
