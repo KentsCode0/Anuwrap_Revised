@@ -73,11 +73,11 @@ export const routes: Routes = [
                 component: CollageComponent
             },
             {
-                path: 'report',
+                path: 'report/:workspaceId',
                 component: ReportComponent
             },
             {
-                path: 'createreport',
+                path: 'createreport/:workspaceId',
                 component: CreatereportComponent
             }
         ]
