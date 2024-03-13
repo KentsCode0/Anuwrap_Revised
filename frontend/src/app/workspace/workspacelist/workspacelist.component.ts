@@ -64,7 +64,7 @@ export class WorkspacelistComponent implements OnInit {
   }
 
   navigateToCreateWorkspace() {
-    this.route.navigate(['/createworkspace']);
+    this.route.navigate([`/createworkspace`]);
   }
 
   openWorkspace(workspaceId: any): void {
@@ -74,6 +74,7 @@ export class WorkspacelistComponent implements OnInit {
 
   editWorkspace(workspaceId: any): void {
     console.log("edit workspace id: ", workspaceId)
+    this.route.navigate([`/editworkspace/${workspaceId}`]);
   }
 
   deleteWorkspace(workspaceId: any): void {
