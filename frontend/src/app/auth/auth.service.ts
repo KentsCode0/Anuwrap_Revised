@@ -37,11 +37,21 @@ export class AuthService {
     if (authInfo) {
       const userId = authInfo[1];
       const headers = authInfo[2];
-      console.log("work")
       return this.http.get<any>(`${this.apiUrl}/workspaces/${userId}`, { headers: headers });
     } else {
       // Handle unauthorized access
-      console.log("Doesn't work")
+      return throwError(() => 'Unauthorized access');
+    }
+  }
+
+  getWorkspace(workspaceId: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+    if (authInfo) {
+      const headers = authInfo[2];
+      console.log("Route",workspaceId);
+      return this.http.get<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers });
+    } else {
+      // Handle unauthorized access
       return throwError(() => 'Unauthorized access');
     }
   }
@@ -57,22 +67,20 @@ export class AuthService {
     }
   }
 
-  deleteWorkspace(): Observable<any> {
+  deleteWorkspace(workspaceId: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
-    const workspaceId = this.tokenService.getWorkspaceId();
-    
-    if (authInfo && workspaceId) {
+
+    if (authInfo) {
       const headers = authInfo[2];
       return this.http.delete<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers }).pipe(
         catchError((error: any) => {
-          console.error('Error deleting workspace:', error);
-          return throwError('Error deleting workspace');
+          return throwError(() => 'Error deleting workspace');
         })
       );
     } else {
       // Handle unauthorized access or missing workspace ID
-      return throwError('Unauthorized access or missing workspace ID');
+      return throwError(() => 'Unauthorized access or missing workspace ID');
     }
   }
-  
+
 }
