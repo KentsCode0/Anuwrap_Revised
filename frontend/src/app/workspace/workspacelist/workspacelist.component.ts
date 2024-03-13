@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { AuthService } from '../../auth/auth.service';
 import { TokenService } from '../../auth/token/token.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { initFlowbite } from 'flowbite';
-import { Router, Route } from "@angular/router"
 
 @Component({
   selector: 'app-workspacelist',
@@ -64,8 +63,13 @@ export class WorkspacelistComponent implements OnInit {
     );
   }
 
+  navigateToCreateWorkspace() {
+    this.route.navigate(['/createworkspace']);
+  }
+
   openWorkspace(workspaceId: any): void {
     console.log("open workspace id: ", workspaceId)
+    this.route.navigate([`/report/${workspaceId}`]);
   }
 
   editWorkspace(workspaceId: any): void {
