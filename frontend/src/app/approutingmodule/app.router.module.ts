@@ -115,12 +115,12 @@ const routes: Routes = [
                         component: CreatereportComponent,
                         canActivate: [AuthGuard]
                     }, {
-                        path: 'editreport',
+                        path: 'editreport/:report_id',
                         component: EditreportComponent,
                         canActivate: [AuthGuard]
                     },
                     {
-                        path: 'deletereport',
+                        path: 'deletereport/:report_id',
                         component: DeletereportComponent,
                         canActivate: [AuthGuard]
                     }

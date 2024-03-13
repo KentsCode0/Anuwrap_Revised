@@ -17,12 +17,10 @@ import { CommonModule } from '@angular/common';
 export class ReportComponent implements OnInit {
   reports: any[] = [];
   workspaceId = '';
-  reportTypes: any[] = [];
 
   constructor(
     private authService: AuthService,
-    private tokenService: TokenService,
-    private router: Router,
+    private route: Router,
     private aRoute: ActivatedRoute
   ) { }
 
@@ -31,24 +29,30 @@ export class ReportComponent implements OnInit {
       this.workspaceId = params["params"]["workspace_id"];
     });
     this.fetchReports();
-    console.log("Workspace ID: ", this.workspaceId);
-
   }
 
-  fetchReportTypes(): void {
-
-  }
+/*   fetchReportTypes(): void {
+    this.authService.getReportType().subscribe(
+      (response) => {
+        this.reportTypes = response.data
+        console.log(this.reportTypes)
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+  } */
 
   navigateToCreateReport() {
-    this.router.navigate(['../createreport'], { relativeTo: this.aRoute });
+    this.route.navigate(['../createreport'], { relativeTo: this.aRoute });
   }
 
   navigateToEditReport(reportId: any) {
-    this.router.navigate([`../editreport/${reportId}`], { relativeTo: this.aRoute });
+    this.route.navigate([`../editreport/${reportId}`], { relativeTo: this.aRoute });
   }
 
   navigateToDeleteReport(reportId: any) {
-    this.router.navigate([`../deletereport/${reportId}`], { relativeTo: this.aRoute });
+    this.route.navigate([`../deletereport/${reportId}`], { relativeTo: this.aRoute });
   }
 
   fetchReports() {
@@ -63,20 +67,7 @@ export class ReportComponent implements OnInit {
     )
   }
 
-  deleteReport(reportId: any): void {
-    if (reportId) {
-      this.authService.deleteWorkspace(reportId).subscribe(
-        (response) => {
-          this.fetchReports();
-        },
-        (error) => {
-          console.error('Error deleting workspace:', error);
-        }
-      );
-    } else {
-      console.error('Workspace ID is missing.');
-    }
-  }
+
 
   openReport() { }
 }
