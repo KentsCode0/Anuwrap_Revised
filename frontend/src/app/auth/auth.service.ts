@@ -9,7 +9,7 @@ import { TokenService } from './token/token.service';
 export class AuthService {
   private apiUrl = 'http://localhost/anuwrap/backend/public/api';
 
-  constructor(private http: HttpClient, private tokenService: TokenService) { }
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   register(user: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/user`, user);
@@ -28,7 +28,7 @@ export class AuthService {
       });
       return this.http.get<any>(`${this.apiUrl}/user/${userId}`, { headers: headers });
     } else {
-      return throwError(() => ' Unauthorized access');
+      return throwError('Unauthorized access');
     }
   }
 
@@ -37,11 +37,21 @@ export class AuthService {
     if (authInfo) {
       const userId = authInfo[1];
       const headers = authInfo[2];
-      console.log("work")
       return this.http.get<any>(`${this.apiUrl}/workspaces/${userId}`, { headers: headers });
     } else {
       // Handle unauthorized access
-      console.log("Doesn't work")
+      return throwError(() => 'Unauthorized access');
+    }
+  }
+
+  getWorkspace(workspaceId: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+    if (authInfo) {
+      const headers = authInfo[2];
+      console.log("Route",workspaceId);
+      return this.http.get<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers });
+    } else {
+      // Handle unauthorized access
       return throwError(() => 'Unauthorized access');
     }
   }
@@ -53,26 +63,24 @@ export class AuthService {
       return this.http.post<any>(`${this.apiUrl}/workspace`, workspaceData, { headers: headers });
     } else {
       // Handle unauthorized access
-      return throwError(() => 'Unauthorized access');
+      return throwError('Unauthorized access');
     }
   }
 
-  deleteWorkspace(): Observable<any> {
+  deleteWorkspace(workspaceId: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
-    const workspaceId = this.tokenService.getWorkspaceId();
-    
-    if (authInfo && workspaceId) {
+
+    if (authInfo) {
       const headers = authInfo[2];
       return this.http.delete<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers }).pipe(
         catchError((error: any) => {
-          console.error('Error deleting workspace:', error);
-          return throwError('Error deleting workspace');
+          return throwError(() => 'Error deleting workspace');
         })
       );
     } else {
       // Handle unauthorized access or missing workspace ID
-      return throwError('Unauthorized access or missing workspace ID');
+      return throwError(() => 'Unauthorized access or missing workspace ID');
     }
   }
-  
+
 }

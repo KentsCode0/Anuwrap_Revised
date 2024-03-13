@@ -70,7 +70,7 @@ const routes: Routes = [
                 component: WorkspaceComponent
             },
             {
-                path: 'deleteworkspace',
+                path: 'deleteworkspace/:id',
                 component: DeleteworkspaceComponent
             },
             {
@@ -78,11 +78,11 @@ const routes: Routes = [
                 component: CollageComponent
             },
             {
-                path: 'report',
+                path: 'report/:workspaceId',
                 component: ReportComponent
             },
             {
-                path: 'createreport',
+                path: 'createreport/:workspaceId',
                 component: CreatereportComponent
             }
         ]
