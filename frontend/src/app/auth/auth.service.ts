@@ -9,7 +9,7 @@ import { TokenService } from './token/token.service';
 export class AuthService {
   private apiUrl = 'http://localhost/anuwrap/backend/public/api';
 
-  constructor(private http: HttpClient, private tokenService: TokenService) { }
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   register(user: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/user`, user);
@@ -28,7 +28,7 @@ export class AuthService {
       });
       return this.http.get<any>(`${this.apiUrl}/user/${userId}`, { headers: headers });
     } else {
-      return throwError(() => ' Unauthorized access');
+      return throwError('Unauthorized access');
     }
   }
 
@@ -63,7 +63,7 @@ export class AuthService {
       return this.http.post<any>(`${this.apiUrl}/workspace`, workspaceData, { headers: headers });
     } else {
       // Handle unauthorized access
-      return throwError(() => 'Unauthorized access');
+      return throwError('Unauthorized access');
     }
   }
 

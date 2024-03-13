@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Route, Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
-import { TokenService } from '../../auth/token/token.service';
-import { HttpHeaders } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { routes } from '../../app.routes';
+  import { Component, OnInit } from '@angular/core';
+  import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
+  import { AuthService } from '../../auth/auth.service';
+  import { TokenService } from '../../auth/token/token.service';
+  import { HttpHeaders } from '@angular/common/http';
+  import { CommonModule } from '@angular/common';
+  import { FormsModule } from '@angular/forms';
+  import { routes } from '../../app.routes';
 
-@Component({
-  selector: 'app-createworkspace',
-  standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
-  templateUrl: './createworkspace.component.html',
-  styleUrl: './createworkspace.component.css'
-})
+  @Component({
+    selector: 'app-createworkspace',
+    standalone: true,
+    imports: [RouterModule, CommonModule, FormsModule],
+    templateUrl: './createworkspace.component.html',
+    styleUrl: './createworkspace.component.css'
+  })
 
 export class CreateworkspaceComponent implements OnInit {
   workspaceName: string = '';
