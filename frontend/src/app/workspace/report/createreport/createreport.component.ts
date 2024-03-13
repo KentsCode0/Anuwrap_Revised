@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../auth/auth.service';
 import { TokenService } from '../../../auth/token/token.service';
 import { relative } from 'path';
+import { initFlowbite } from 'flowbite';
 
 @Component({
     selector: 'app-createreport',
@@ -15,12 +16,13 @@ import { relative } from 'path';
     imports: [RouterModule, NavigationComponent, CommonModule, FormsModule]
 })
 export class CreatereportComponent implements OnInit {
+    workspaceId: any;
     report = {
         title: "",
         description: "",
         content: "",
-        report_type_id: "",
-        workspaceId: ""
+        report_type_id: "0",
+        workspace_id: ""
     }
 
     reportId: any;
@@ -34,8 +36,12 @@ export class CreatereportComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        if (document !== undefined) {
+            initFlowbite();
+        }
         this.aRoute.paramMap.subscribe((params: Params) => {
             this.reportId = params["params"]["report_id"];
+            this.workspaceId = params["params"]["workspace_id"];
         });
         this.fetchReportTypes();
     }
@@ -43,7 +49,7 @@ export class CreatereportComponent implements OnInit {
     fetchReportTypes(): void {
         this.authService.getReportType().subscribe(
             (response) => {
-                this.reportTypes = response.data;
+                this.reportTypes = response.data.report;
                 console.log(this.reportTypes);
             },
             (error) => {
@@ -53,7 +59,22 @@ export class CreatereportComponent implements OnInit {
     }
 
     createReport() {
-        const userId = this.tokenService.getUserId();
+        this.report["workspace_id"] = this.workspaceId;
         console.log(this.report);
+        this.authService.createReport(this.report).subscribe(
+            (response) => {
+                this.reportTypes = response.data.report;
+                this.route.navigate(["../report"], { relativeTo: this.aRoute })
+            },
+            (error) => {
+                console.log(error);
+            }
+        )
+    }
+
+
+
+    goToReports() {
+        this.route.navigate(['../../report'], { relativeTo: this.aRoute })
     }
 }

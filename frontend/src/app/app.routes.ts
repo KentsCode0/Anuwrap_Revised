@@ -11,6 +11,8 @@ import { ReportComponent } from './workspace/report/report.component';
 import { EditprofileComponent } from './workspace/profile/editprofile/editprofile.component';
 import { CreatereportComponent } from './workspace/report/createreport/createreport.component';
 import { ReportitemComponent } from './workspace/report/reportitem/reportitem.component';
+import { DeletereportComponent } from './workspace/report/deletereport/deletereport.component';
+import { EditreportComponent } from './workspace/report/editreport/editreport.component';
 import { DeleteworkspaceComponent } from './workspace/deleteworkspace/deleteworkspace.component';
 import { AnnualreportComponent } from './workspace/annualreport/annualreport.component';
 export const routes: Routes = [
@@ -77,12 +79,19 @@ export const routes: Routes = [
                         component: ReportitemComponent,
                     },
                     {
-                        path: 'createreport',
-                        component: CreatereportComponent
+                        path: 'annualreport',
+                        component: AnnualreportComponent,
                     },
                     {
-                        path: 'annualreport',
-                        component: AnnualreportComponent
+                        path: 'createreport',
+                        component: CreatereportComponent,
+                    }, {
+                        path: 'editreport/:report_id',
+                        component: EditreportComponent,
+                    },
+                    {
+                        path: 'deletereport/:report_id',
+                        component: DeletereportComponent,
                     }
                 ]
             }
