@@ -58,23 +58,21 @@
                         <h2 class="ml-[95px]">{{ workspace["name"] }}</h2>
                       </div>
                     </th>
-
-
                     <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       <div class="flex items-center space-x-4  ml-[320px]">
-                        <button type="button"
-                          aria-controls="drawer-update-product"
-                          class="py-2 px-3 flex items-center text-sm font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 gap-2">
-                          <img src="../../assets/img/edit-icon.png" alt="edit logo" class="w-5 h-5">
-                          Edit
-                        </button>
-                        <button type="button"
+                        <button type="button" (click)="openWorkspace(workspace['workspace_id'])"
                           aria-controls="drawer-read-product-advanced"
                           class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 gap-2">
                           <img src="../../assets/img/eye.png" alt="edit logo" class="w-5 h-5">
                           Open
                         </button>
-                        <button (click)="deleteWorkspace()"
+                        <button type="button" (click)="editWorkspace(workspace['workspace_id'])"
+                          aria-controls="drawer-update-product"
+                          class="py-2 px-3 flex items-center text-sm font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 gap-2">
+                          <img src="../../assets/img/edit-icon.png" alt="edit logo" class="w-5 h-5">
+                          Edit
+                        </button>
+                        <button type="button" (click)="deleteWorkspace(workspace['workspace_id'])"
                           class="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900 gap">
                           <img src="../../assets/img/delete.png" alt="edit logo" class="w-5 h-5">
                           Delete
@@ -86,7 +84,6 @@
                 </tbody>
               </table>
             </div>
-
           </div>
         </div>
       </section>
@@ -102,7 +99,4 @@
 
   </main>
 </div>
-
-
-
 <app-navbar></app-navbar>
