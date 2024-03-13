@@ -61,13 +61,11 @@ class User
 
     function update($id, $request)
     {
-        $username = $request['username'];
         $firstname = $request['firstname'];
         $lastname = $request['lastname'];
 
         $queryStr = "UPDATE user 
-        SET username=:username,
-        first_name=:firstname,
+        SET first_name=:firstname,
         last_name=:lastname
         WHERE user_id = :id";
 
@@ -75,7 +73,6 @@ class User
         try {
             $stmt->execute(
                 array(
-                    "username" => $username,
                     "firstname" => $firstname,
                     "lastname" => $lastname,
                     "id" => $id
