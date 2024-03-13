@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { OnInit } from '@angular/core';
 import { getLocaleDateFormat } from '@angular/common';
@@ -16,6 +16,9 @@ import { AuthService } from '../../auth/auth.service';
 
 export class NavbarComponent implements OnInit {
   ngOnInit(): void {
+    if (typeof document !== 'undefined') {
+      initFlowbite();
+    }
     this.getData();
   }
 
@@ -26,7 +29,7 @@ export class NavbarComponent implements OnInit {
     email: ""
   };
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private tokenService: TokenService, private route: Router) { }
 
   getData(): void {
     this.authService.getUserInformation().subscribe(
@@ -41,6 +44,11 @@ export class NavbarComponent implements OnInit {
         console.error('Error fetching user information:', error);
       }
     );
+  }
+
+  signOut(): void {
+    this.tokenService.clearAuth();
+    this.route.navigate(["/login"]);
   }
 }
 
