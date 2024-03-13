@@ -18,7 +18,7 @@ import { routes } from '../../app.routes';
 export class CreateworkspaceComponent implements OnInit {
   workspaceName: string = '';
 
-  constructor(private authService: AuthService, private tokenService: TokenService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     // You can initialize any data or logic here if needed
@@ -28,16 +28,13 @@ export class CreateworkspaceComponent implements OnInit {
     const workspaceData = {
       name: this.workspaceName
     };
+
     this.authService.createWorkspace(workspaceData).subscribe(
       (response) => {
-        console.log('Workspace created:', response);
-        if (response.success) {
-          if (response.data) {
-            const workspaceId = response.data.workspace_id;
-            this.tokenService.storeWorkspaceId(workspaceId);
-          } else {
-            console.warn('No workspace data found in the response.');
-          }
+        if (response.data) {
+          console.log("created")
+        } else {
+          console.warn('No workspace data found in the response.');
         }
         this.router.navigate(['../workspacelist'])
       },
@@ -45,6 +42,6 @@ export class CreateworkspaceComponent implements OnInit {
         console.error('Error creating workspace:', error);
       }
     );
-    
+
   }
 }

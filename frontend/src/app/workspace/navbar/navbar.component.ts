@@ -16,12 +16,6 @@ import { AuthService } from '../../auth/auth.service';
 
 export class NavbarComponent implements OnInit {
   ngOnInit(): void {
-    if (typeof document !== 'undefined') {
-      initFlowbite();
-    } else {
-      return;
-    }
-
     this.getData();
   }
 
