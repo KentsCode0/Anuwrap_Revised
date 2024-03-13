@@ -41,11 +41,15 @@ export class ReportComponent implements OnInit {
 
   navigateToCreateReport(workspaceId: string) {
     console.log(workspaceId);
-    this.router.navigate(['/createreport', workspaceId]);
+    this.router.navigate(['/createreport']);
   }
 
   navigateToEditReport(workspaceId: string) {
-    this.router.navigate(['/editreport', workspaceId]);
+    this.router.navigate(['/editreport']);
+  }
+
+  navigateToDeleteReport(workspaceId: string) {
+    this.router.navigate(['/deletereport']);
   }
 
   fetchReports() {
