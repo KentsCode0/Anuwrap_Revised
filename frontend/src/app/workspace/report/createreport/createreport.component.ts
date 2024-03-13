@@ -27,12 +27,12 @@ export class CreatereportComponent implements OnInit {
       private authService: AuthService,
       private router: Router,
       private tokenService: TokenService,
-      private route: ActivatedRoute
+      private aRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.fetchReportTypes();
-    this.workspaceId = this.route.snapshot.params['workspaceId'];
+    this.workspaceId = this.aRoute.snapshot.params['workspaceId'];
 }
 
 fetchReportTypes(): void {
@@ -66,7 +66,7 @@ fetchReportTypes(): void {
       // Continue with the createReport logic
   }
 
-  goToReports(reportId: string) {
-    this.router.navigate(['report', reportId], { relativeTo: this.route });
+  goToReports() {
+    this.router.navigate(['../../report'], { relativeTo: this.aRoute })
   }
 }

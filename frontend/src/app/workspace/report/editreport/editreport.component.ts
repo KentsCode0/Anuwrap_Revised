@@ -14,9 +14,13 @@ import { FormsModule } from '@angular/forms';
 export class EditreportComponent {
   reportId: any;
   
-  constructor(private router: Router, private route: ActivatedRoute){}
-  goToReports(reportId: string) {
-    this.router.navigate(['/report', reportId], { relativeTo: this.route})
+  constructor(private router: Router, private aRoute: ActivatedRoute){}
+
+  editReport() {
+    
+  }
+  goToReports() {
+    this.router.navigate(['../../report'], { relativeTo: this.aRoute })
   }
 }
 
