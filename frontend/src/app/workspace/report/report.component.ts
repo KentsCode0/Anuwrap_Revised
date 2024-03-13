@@ -6,6 +6,7 @@ import { TokenService } from '../../auth/token/token.service';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { report } from 'process';
 
 @Component({
   selector: 'app-report',
@@ -42,6 +43,10 @@ export class ReportComponent implements OnInit {
       }
     )
   } */
+  openReport(reportId: any): void {
+    console.log("this")
+    this.route.navigate([`../report/${reportId}`], { relativeTo: this.aRoute });
+  }
 
   navigateToCreateReport() {
     this.route.navigate(['../createreport'], { relativeTo: this.aRoute });
@@ -66,8 +71,4 @@ export class ReportComponent implements OnInit {
       }
     )
   }
-
-
-
-  openReport() { }
 }

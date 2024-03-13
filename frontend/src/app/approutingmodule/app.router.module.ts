@@ -20,6 +20,7 @@ import { UnauthorizedComponent } from '../errors/unauthorized/unauthorized.compo
 import { AnnualreportComponent } from '../workspace/annualreport/annualreport.component';
 import { EditreportComponent } from '../workspace/report/editreport/editreport.component';
 import { DeletereportComponent } from '../workspace/report/deletereport/deletereport.component';
+import { ReportitemComponent } from '../workspace/report/reportitem/reportitem.component';
 
 const routes: Routes = [
     {
@@ -103,6 +104,11 @@ const routes: Routes = [
                     {
                         path: 'report',
                         component: ReportComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'report/:report_id',
+                        component: ReportitemComponent,
                         canActivate: [AuthGuard]
                     },
                     {
