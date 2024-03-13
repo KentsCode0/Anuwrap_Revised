@@ -1,29 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { AuthService } from '../../auth/auth.service';
-import { TokenService } from '../../auth/token/token.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { initFlowbite } from 'flowbite';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-workspacelist',
   standalone: true,
   templateUrl: './workspacelist.component.html',
   styleUrl: './workspacelist.component.css',
-  imports: [RouterModule, NavbarComponent, CommonModule]
+  imports: [RouterModule, NavbarComponent, CommonModule],
+  providers: [DatePipe]
 })
 export class WorkspacelistComponent implements OnInit {
   workspaces: any[] = []; // Assuming your workspace data is stored in this array
 
-  constructor(private authService: AuthService, private route: Router) { }
+  constructor(private authService: AuthService, private route: Router, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.fetchWorkspaces();
     // Fetch workspaces when component initializes
-    if (typeof document !== 'undefined') {
-      initFlowbite();
-    }
+
   }
 
   fetchWorkspaces() {
@@ -32,6 +31,7 @@ export class WorkspacelistComponent implements OnInit {
       (response) => {
         // Update workspaces array with the fetched data
         this.workspaces = response.data.workspace;
+
       },
       (error) => {
         if (!error.error) return
