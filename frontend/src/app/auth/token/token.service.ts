@@ -8,10 +8,9 @@ import { CookieService } from 'ngx-cookie-service';
 export class TokenService {
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_ID_KEY = 'user_id';
-  private readonly WORKSPACE_KEY = 'workspace_id';
   private headers: HttpHeaders | undefined;
 
-  constructor(private cookieService: CookieService) {}
+  constructor(private cookieService: CookieService) { }
 
   setAuthorization(token: string, userId: string): void {
     this.cookieService.set(this.TOKEN_KEY, token);
@@ -21,10 +20,11 @@ export class TokenService {
   storeToken(token: string): void {
     this.cookieService.set(this.TOKEN_KEY, token);
   }
-  
+
   storeUserId(userId: string): void {
     this.cookieService.set(this.USER_ID_KEY, userId);
   }
+
 
   getAuth(): [string, string, HttpHeaders] | null {
     const token = this.cookieService.get(this.TOKEN_KEY);

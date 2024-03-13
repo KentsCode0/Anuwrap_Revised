@@ -32,7 +32,7 @@ class ReportService
             return Response::payload(
                 400,
                 false,
-                "user_id, description, and workspace_id is required"
+                "title, description, content, report_type_id, and workspace_id is required"
             );
         }
         

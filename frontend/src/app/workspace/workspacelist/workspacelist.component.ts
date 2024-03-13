@@ -4,79 +4,77 @@ import { NavbarComponent } from "../navbar/navbar.component";
 import { AuthService } from '../../auth/auth.service';
 import { TokenService } from '../../auth/token/token.service';
 import { CommonModule, NgFor } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { initFlowbite } from 'flowbite';
+import { Router, Route } from "@angular/router"
 
 @Component({
-    selector: 'app-workspacelist',
-    standalone: true,
-    templateUrl: './workspacelist.component.html',
-    styleUrl: './workspacelist.component.css',
-    imports: [RouterModule, NavbarComponent, CommonModule, FormsModule]
+  selector: 'app-workspacelist',
+  standalone: true,
+  templateUrl: './workspacelist.component.html',
+  styleUrl: './workspacelist.component.css',
+  imports: [RouterModule, NavbarComponent, CommonModule]
 })
 export class WorkspacelistComponent implements OnInit {
-    workspaces: any[] = [];
-    workspaceId = ''
+  workspaces: any[] = []; // Assuming your workspace data is stored in this array
 
-    constructor(private authService: AuthService, private tokenService: TokenService, private router: Router) { }
+  constructor(private authService: AuthService, private route: Router) { }
 
-    ngOnInit(): void {
-        // Fetch workspaces when component initializes
-        this.fetchWorkspaces();
+  ngOnInit(): void {
+    this.fetchWorkspaces();
+    // Fetch workspaces when component initializes
+    if (typeof document !== 'undefined') {
+      initFlowbite();
     }
+  }
 
-    navigateToCreateWorkspace() {
-        this.router.navigate(['/createworkspace']);
-      }
-
-      navigateToReport(workspaceId: string) {
-        console.log(workspaceId)
-        this.router.navigate(['/report', workspaceId]);
-    }
-
-      fetchWorkspaces() {
-        const userId = this.tokenService.getUserId() || ''; // Provide default value
-        if (userId) {
-          this.authService.getWorkspaces(userId).subscribe(
-            (response) => {
-              // Update workspaces array with the fetched data
-              this.workspaces = response.data.workspace.map((workspace: any) => ({
-                workspace_id: String(workspace.workspace_id),
-                name: workspace.name,
-              }));
-              console.log('Fetched workspaces:', response.data);
-              
-              // Check if the response contains workspace_id
-              if (response.data.workspace_id) {
-                // Navigate to the report page with the retrieved workspace_id
-                this.router.navigate(['/report', response.data.workspace_id]);
-              }
-            },
-            (error) => {
-              console.error('Error fetching workspaces:', error);
-            }
-          );
+  fetchWorkspaces() {
+    // Call authService to get the list of workspaces
+    this.authService.getWorkspaces().subscribe(
+      (response) => {
+        // Update workspaces array with the fetched data
+        this.workspaces = response.data.workspace;
+      },
+      (error) => {
+        if (!error.error) return
+        if (error.error['message'] == "workspaces not found") {
+          this.workspaces = []
         } else {
-          console.error('User ID is missing.'); 
+          console.error('Error fetching workspaces:', error);
         }
       }
+    );
+  }
 
-
-    deleteWorkspace(workspaceId: any): void {
-        console.log(workspaceId)
-        if (workspaceId) {
-            console.log('Deleting workspace:', workspaceId); 
-            this.authService.deleteWorkspace(workspaceId).subscribe(
-                (response) => {
-                    console.log('Workspace deleted:', response);
-                    // Fetch updated workspaces after deletion
-                    this.fetchWorkspaces();
-                },
-                (error) => {
-                    console.error('Error deleting workspace:', error);
-                }
-            );
+  fetchWorkspace(workspaceId: any): any {
+    // Call authService to get the list of workspaces
+    this.authService.getWorkspace(workspaceId).subscribe(
+      (response) => {
+        // Update workspaces array with the fetched data
+        console.log("Worked")
+        return response.data.workspace;
+      },
+      (error) => {
+        if (!error.error) return
+        if (error.error['message'] == "workspaces not found") {
+          this.workspaces = []
         } else {
-            console.error('Workspace ID is missing.'); 
+          console.error('Error fetching workspaces:', error);
         }
-    }
+      }
+    );
+  }
+
+  openWorkspace(workspaceId: any): void {
+    console.log("open workspace id: ", workspaceId)
+  }
+
+  editWorkspace(workspaceId: any): void {
+    console.log("edit workspace id: ", workspaceId)
+  }
+
+  deleteWorkspace(workspaceId: any): void {
+    console.log(workspaceId)
+    this.route.navigate([`/deleteworkspace/${workspaceId}`]);
+  }
+
 }

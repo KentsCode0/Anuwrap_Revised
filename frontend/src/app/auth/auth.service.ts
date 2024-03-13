@@ -32,7 +32,29 @@ export class AuthService {
     }
   }
 
-  
+  getWorkspaces(): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+    if (authInfo) {
+      const userId = authInfo[1];
+      const headers = authInfo[2];
+      return this.http.get<any>(`${this.apiUrl}/workspaces/${userId}`, { headers: headers });
+    } else {
+      // Handle unauthorized access
+      return throwError(() => 'Unauthorized access');
+    }
+  }
+
+  getWorkspace(workspaceId: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+    if (authInfo) {
+      const headers = authInfo[2];
+      console.log("Route",workspaceId);
+      return this.http.get<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers });
+    } else {
+      // Handle unauthorized access
+      return throwError(() => 'Unauthorized access');
+    }
+  }
 
   createWorkspace(workspaceData: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
@@ -45,103 +67,20 @@ export class AuthService {
     }
   }
 
-  getWorkspaces(userId: any): Observable<any> {
+  deleteWorkspace(workspaceId: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
-    if (authInfo) {
-      const headers = authInfo[2];
-      return this.http.get<any>(`${this.apiUrl}/workspaces/${userId}`, { headers: headers }).pipe(
-        catchError((error: any) => {
-          console.error('Error fetching workspaces:', error);
-          return throwError('Error fetching workspaces');
-        })
-      );
-    } else {
-      // Handle unauthorized access
-      return throwError('Unauthorized access');
-    }
-  }
 
-deleteWorkspace(workspaceId: any): Observable<any> {
-  const authInfo = this.tokenService.getAuth();
-  if (authInfo) {
+    if (authInfo) {
       const headers = authInfo[2];
       return this.http.delete<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers }).pipe(
-          catchError((error: any) => {
-              console.error('Error deleting workspace:', error);
-              return throwError('Error deleting workspace');
-          })
-      );
-  } else {
-      return throwError('Unauthorized access');
-  }
-}
-
-  updateWorkspace() {
-
-  }
-  
-  getReportTypes(): Observable<any[]> {
-    const authInfo = this.tokenService.getAuth();
-    if (authInfo) {
-      const headers = authInfo[2];
-      return this.http.get<any[]>(`${this.apiUrl}/reporttype`, { headers: headers });
-    } else {
-      // Handle unauthorized access
-      return throwError('Unauthorized access');
-    }
-  }
-
-  createReport(reportData: any): Observable<any> {
-    const authInfo = this.tokenService.getAuth();
-    if (authInfo) {
-      const headers = authInfo[2];
-      const { reportType, title, description, content, workspace_id } = reportData;
-      
-      if (!reportType || !title || !description || !content || !workspace_id) {
-        console.error('Error creating report: Missing required parameters');
-        return throwError('Missing required parameters');
-      }
-  
-      // Additional fields for creating the report
-      const user_id = this.tokenService.getUserId();
-      const created_at = new Date().toISOString(); // or any other format required by the API
-  
-      const reportPayload = {
-        report_type: reportType, // Ensure this matches the API's expected field name
-        title,
-        description,
-        content,
-        workspace_id,
-        user_id,
-        created_at
-      };
-  
-      return this.http.post<any>(`${this.apiUrl}/report`, reportPayload, { headers: headers }).pipe(
         catchError((error: any) => {
-          console.error('Error creating report:', error);
-          return throwError('Error creating report');
+          return throwError(() => 'Error deleting workspace');
         })
       );
     } else {
-      // Handle unauthorized access
-      return throwError('Unauthorized access');
+      // Handle unauthorized access or missing workspace ID
+      return throwError(() => 'Unauthorized access or missing workspace ID');
     }
   }
 
-  getReports(workspaceId: any): Observable<any> {
-    const authInfo = this.tokenService.getAuth();
-    if (authInfo) {
-      const headers = authInfo[2];
-      return this.http.get<any>(`${this.apiUrl}/report/${workspaceId}`, { headers: headers }).pipe(
-        catchError((error: any) => {
-          console.error('Error fetching reports:', error);
-          return throwError('Error fetching reports');
-        })
-      );
-    } else {
-      // Handle unauthorized access
-      return throwError('Unauthorized access');
-    }
-  }
-  
 }

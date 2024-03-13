@@ -61,7 +61,7 @@ export const routes: Routes = [
                 component: WorkspaceComponent
             },
             {
-                path: 'deleteworkspace',
+                path: 'deleteworkspace/:id',
                 component: DeleteworkspaceComponent
             },
             {

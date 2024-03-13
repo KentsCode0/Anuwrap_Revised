@@ -18,8 +18,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     if (typeof document !== 'undefined') {
       initFlowbite();
-    } else {
-      return;
-    }
+    } 
   }
 }
