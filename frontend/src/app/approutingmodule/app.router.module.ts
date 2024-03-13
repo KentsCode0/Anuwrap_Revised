@@ -20,6 +20,8 @@ import { AuthGuard } from '../auth/auth.guard';
 import { NotfoundComponent } from '../errors/notfound/notfound.component';
 import { UnauthorizedComponent } from '../errors/unauthorized/unauthorized.component';
 import { AnnualreportComponent } from '../workspace/annualreport/annualreport.component';
+import { EditreportComponent } from '../workspace/report/editreport/editreport.component';
+import { DeletereportComponent } from '../workspace/report/deletereport/deletereport.component';
 
 const routes: Routes = [
     {
@@ -113,8 +115,18 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
-                path: 'createreport/:workspaceId',
+                path: 'createreport',
                 component: CreatereportComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'editreport',
+                component: EditreportComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'deletereport',
+                component: DeletereportComponent,
                 canActivate: [AuthGuard]
             },
             {
