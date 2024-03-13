@@ -79,6 +79,17 @@ deleteWorkspace(workspaceId: any): Observable<any> {
   updateWorkspace() {
 
   }
+  
+  getReportTypes(): Observable<any[]> {
+    const authInfo = this.tokenService.getAuth();
+    if (authInfo) {
+      const headers = authInfo[2];
+      return this.http.get<any[]>(`${this.apiUrl}/reporttype`, { headers: headers });
+    } else {
+      // Handle unauthorized access
+      return throwError('Unauthorized access');
+    }
+  }
 
   createReport(reportData: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
@@ -86,12 +97,26 @@ deleteWorkspace(workspaceId: any): Observable<any> {
       const headers = authInfo[2];
       const { reportType, title, description, content, workspace_id } = reportData;
       
-      if (reportType! || !title || !description || !content || !workspace_id) {
+      if (!reportType || !title || !description || !content || !workspace_id) {
         console.error('Error creating report: Missing required parameters');
         return throwError('Missing required parameters');
       }
   
-      return this.http.post<any>(`${this.apiUrl}/report`, reportData, { headers: headers }).pipe(
+      // Additional fields for creating the report
+      const user_id = this.tokenService.getUserId();
+      const created_at = new Date().toISOString(); // or any other format required by the API
+  
+      const reportPayload = {
+        report_type: reportType, // Ensure this matches the API's expected field name
+        title,
+        description,
+        content,
+        workspace_id,
+        user_id,
+        created_at
+      };
+  
+      return this.http.post<any>(`${this.apiUrl}/report`, reportPayload, { headers: headers }).pipe(
         catchError((error: any) => {
           console.error('Error creating report:', error);
           return throwError('Error creating report');

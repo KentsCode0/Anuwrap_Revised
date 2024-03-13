@@ -14,60 +14,62 @@ import { TokenService } from '../../../auth/token/token.service';
     imports: [RouterModule, NavigationComponent, CommonModule, FormsModule]
 })
 export class CreatereportComponent implements OnInit {
-  reportType: string = '';
   reportTitle: string = '';
   description: string = '';
   content: string = '';
+  reportTypeId: string = '';
   workspaceId: string = '';
+  reportTypes: { report_type_id: number, name: string }[] = [];
+  selectedReportType: number = 0;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private tokenService: TokenService,
-    private route: ActivatedRoute
+      private authService: AuthService,
+      private router: Router,
+      private tokenService: TokenService,
+      private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.fetchReportTypes();
     this.workspaceId = this.route.snapshot.params['workspaceId'];
+}
+
+fetchReportTypes(): void {
+    this.authService.getReportTypes().subscribe(
+        (response: any[]) => {
+            this.reportTypes = response;
+            console.log('Report types fetched:', this.reportTypes);
+        },
+        (error) => {
+            console.error('Error fetching report types:', error);
+        }
+    );
+}
+
+  selectReportType(reportTypeId: number) {
+      this.selectedReportType = reportTypeId;
   }
 
   createReport() {
-    // Get user_id from TokenService
-    const userId = this.tokenService.getUserId();
-    console.log(this.reportType)
-    console.log(this.workspaceId)
-    console.log(userId)
-    console.log(this.reportTitle)
-    console.log(this.description)
-  
-  
-    console.log('Workspace ID:', this.workspaceId); // Log the workspaceId
-    
-    const reportData = {
-      reportType: this.reportType,
-      title: this.reportTitle,
-      description: this.description,
-      content: this.content,
-      workspace_id: this.workspaceId,
-      user_id: userId,
-    };
-  
-    console.log(reportData)
-    this.authService.createReport(reportData).subscribe(
-      (response) => {
-        console.log('Report created:', response);
-        if (response.success) {
-          const reportId = response.data.report_id;
-          this.router.navigate(['../report', reportId]);
-        } else {
-          console.warn('Error creating report:', response);
-          // Handle error message display or any other action
-        }
-      },
-      (error) => {
-        console.error('Error creating report:', error);
-        // Handle error message display or any other action
-      }
-    );
+      const userId = this.tokenService.getUserId();
+      console.log(this.selectedReportType);
+      console.log(this.workspaceId);
+      console.log(userId);
+      console.log(this.reportTitle);
+      console.log(this.description);
+
+      console.log('Workspace ID:', this.workspaceId); // Log the workspaceId
+
+      const reportData = {
+          reportType: this.selectedReportType,
+          title: this.reportTitle,
+          description: this.description,
+          content: this.content,
+          workspace_id: this.workspaceId,
+          user_id: userId,
+      };
+
+      console.log(reportData);
+      // Continue with the createReport logic
   }
-}  
+}

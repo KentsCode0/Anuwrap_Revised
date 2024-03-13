@@ -13,7 +13,10 @@
                             <div class="mt-3 text-center sm:mt-5">
                                 <div>
                                     <label for="reportType" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Report Type</label>
-                                    <input type="text" id="reporttype" [(ngModel)]="reportType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Report Title" required />
+                                    <select id="reportType" [(ngModel)]="reportTypeId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                        <option *ngFor="let type of reportTypes" [value]="type.report_type_id">{{ type.name }}</option>
+                                        <option value="" *ngIf="!reportTypes || reportTypes.length === 0">No report types available</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label for="reportTitle" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Report Title</label>
@@ -25,10 +28,9 @@
                                 </div>
                                 <div>
                                     <label for="content" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Content</label>
-                                    <input type="text" id="content" [(ngModel)]="content" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Description" required />
+                                    <input type="text" id="content" [(ngModel)]="content" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Content" required />
                                 </div>
                                 <input type="hidden" [(ngModel)]="workspaceId" />
-
                             </div>
                         </div>
                         <div class="mt-5 sm:mt-6">
