@@ -4,10 +4,49 @@
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow">
             <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                <h3 class="text-lg font-semibold text-gray-900">
-                    Create New Product
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+                <h3 class="text-lg font-semibold text-gray-900 w-[150px]">
+                    Create Report
                 </h3>
+
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                    class="text-black bg-gray-100  border-gray-300 font-medium rounded-lg text-sm px-1.5 py-1 sm:px-2 sm:py-1.5 md:px-3 md:py-2 lg:px-2 lg:py-1 xl:px-3 xl:py-2 w-[100px] h-[30px] sm:w-[120px] sm:h-[35px] md:w-[140px] md:h-[40px] lg:w-[120px] lg:h-[35px] xl:w-[140px] xl:h-[40px] text-center flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 ml-[5px] sm:ml-[20px] md:ml-[30px] lg:ml-[40px] xl:ml-[50px] whitespace-nowrap gap-[2px] sm:gap-[4px] md:gap-[6px] lg:gap-[4px] xl:gap-[6px]">
+                    Report Type
+                    <img src="../../assets/img/down.png" alt=""
+                        class="flex w-[20px] h-[20px] sm:w-[22px] sm:h-[22px] md:w-[24px] md:h-[24px] lg:w-[22px] lg:h-[22px] xl:w-[24px] xl:h-[24px] ml-[1px] sm:ml-[3px]">
+                </button>
+
+
+
+
+
+
+
+
+                <!-- Dropdown menu -->
+                <div id="dropdown"
+                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
+                                out</a>
+                        </li>
+                    </ul>
+                </div>
+
                 <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                     data-modal-toggle="crud-modal">
@@ -62,7 +101,7 @@
 
                 </div>
                 <button type="submit"
-                    class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    class="text-white inline-flex items-center bg-black hover:bg-primary-700  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700">
                     <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
