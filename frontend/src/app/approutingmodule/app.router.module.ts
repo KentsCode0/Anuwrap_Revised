@@ -9,10 +9,8 @@ import { WorkspacelistComponent } from '../workspace/workspacelist/workspacelist
 import { CreateworkspaceComponent } from '../workspace/createworkspace/createworkspace.component';
 import { ReportComponent } from '../workspace/report/report.component';
 import { CollageComponent } from '../workspace/collage/collage.component';
-import { NavigationComponent } from '../workspace/navigation/navigation.component';
 import { LayoutComponent } from '../layout/layout.component';
 import { EditprofileComponent } from '../workspace/profile/editprofile/editprofile.component';
-import { NavbarComponent } from '../workspace/navbar/navbar.component';
 import { CreatereportComponent } from '../workspace/report/createreport/createreport.component';
 import { DeleteworkspaceComponent } from '../workspace/deleteworkspace/deleteworkspace.component';
 import { EditworkspaceComponent } from '../workspace/editworkspace/editworkspace.component';
@@ -60,16 +58,6 @@ const routes: Routes = [
             {
                 path: 'createworkspace',
                 component: CreateworkspaceComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'navigation',
-                component: NavigationComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'navbar',
-                component: NavbarComponent,
                 canActivate: [AuthGuard]
             },
             {
