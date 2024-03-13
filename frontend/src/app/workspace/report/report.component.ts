@@ -36,15 +36,7 @@ export class ReportComponent implements OnInit {
   }
 
   fetchReportTypes(): void {
-    this.authService.getReportTypes().subscribe(
-      (response: any[]) => {
-        this.reportTypes = response; // Assuming 'response' is an array of report types
-        console.log('Report types fetched:', this.reportTypes);
-      },
-      (error) => {
-        console.error('Error fetching report types:', error);
-      }
-    );
+   
   }
 
   navigateToCreateReport(workspaceId: string) {
@@ -57,30 +49,7 @@ export class ReportComponent implements OnInit {
   }
 
   fetchReports() {
-    const userId = this.tokenService.getUserId() || ''; // Provide default value
-    if (userId) {
-      this.authService.getReports(userId).subscribe(
-        (response) => {
-          // Update reports array with the fetched data
-          this.reports = response.data.workspace.map((report: any) => ({
-            report_id: String(report.report_id),
-            name: report.name,
-          }));
-          console.log('Fetched reports:', response.data);
-
-          // Check if the response contains workspace_id
-          if (response.data.workspace_id) {
-            // Assign workspaceId
-            this.workspaceId = response.data.workspace_id;
-          }
-        },
-        (error) => {
-          console.error('Error fetching reports:', error);
-        }
-      );
-    } else {
-      console.error('User ID is missing.');
-    }
+    const userId = this.tokenService.getUserId() || ''; // Provide default valu
   }
 
   deleteReport(reportId: any): void {

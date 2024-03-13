@@ -35,15 +35,7 @@ export class CreatereportComponent implements OnInit {
 }
 
 fetchReportTypes(): void {
-    this.authService.getReportTypes().subscribe(
-        (response: any[]) => {
-            this.reportTypes = response;
-            console.log('Report types fetched:', this.reportTypes);
-        },
-        (error) => {
-            console.error('Error fetching report types:', error);
-        }
-    );
+   
 }
 
   selectReportType(reportTypeId: number) {
