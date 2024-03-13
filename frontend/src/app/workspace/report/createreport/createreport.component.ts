@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../auth/auth.service';
 import { TokenService } from '../../../auth/token/token.service';
+import { relative } from 'path';
 
 @Component({
     selector: 'app-createreport',
