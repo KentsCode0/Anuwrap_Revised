@@ -10,6 +10,7 @@ import { CollageComponent } from './workspace/collage/collage.component';
 import { ReportComponent } from './workspace/report/report.component';
 import { EditprofileComponent } from './workspace/profile/editprofile/editprofile.component';
 import { CreatereportComponent } from './workspace/report/createreport/createreport.component';
+import { ReportitemComponent } from './workspace/report/reportitem/reportitem.component';
 import { DeleteworkspaceComponent } from './workspace/deleteworkspace/deleteworkspace.component';
 import { AnnualreportComponent } from './workspace/annualreport/annualreport.component';
 export const routes: Routes = [
@@ -70,6 +71,10 @@ export const routes: Routes = [
                     {
                         path: 'report',
                         component: ReportComponent
+                    },
+                    {
+                        path: 'report/:report_id',
+                        component: ReportitemComponent,
                     },
                     {
                         path: 'createreport',
