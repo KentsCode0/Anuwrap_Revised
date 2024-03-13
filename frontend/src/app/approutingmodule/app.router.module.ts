@@ -56,16 +56,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
-                path: 'createworkspace',
-                component: CreateworkspaceComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'dashboard',
-                component: DashboardComponent,
-                canActivate: [AuthGuard]
-            },
-            {
                 path: 'profile',
                 component: ProfileComponent,
                 canActivate: [AuthGuard]
@@ -86,24 +76,44 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
-                path: 'collage',
-                component: CollageComponent,
+                path: 'createworkspace',
+                component: CreateworkspaceComponent,
                 canActivate: [AuthGuard]
             },
             {
-                path: 'report',
-                component: ReportComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'annualreport',
-                component: AnnualreportComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'createreport/:workspaceId',
-                component: CreatereportComponent,
-                canActivate: [AuthGuard]
+                path: 'workspace/:workspace_id',
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'dashboard',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'dashboard',
+                        component: DashboardComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'collage',
+                        component: CollageComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'report',
+                        component: ReportComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'annualreport',
+                        component: AnnualreportComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'createreport/:workspaceId',
+                        component: CreatereportComponent,
+                        canActivate: [AuthGuard]
+                    }
+                ]
             },
             {
                 path: '**',

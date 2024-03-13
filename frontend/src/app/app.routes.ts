@@ -11,6 +11,7 @@ import { ReportComponent } from './workspace/report/report.component';
 import { EditprofileComponent } from './workspace/profile/editprofile/editprofile.component';
 import { CreatereportComponent } from './workspace/report/createreport/createreport.component';
 import { DeleteworkspaceComponent } from './workspace/deleteworkspace/deleteworkspace.component';
+import { AnnualreportComponent } from './workspace/annualreport/annualreport.component';
 export const routes: Routes = [
     {
         path: '',
@@ -34,12 +35,12 @@ export const routes: Routes = [
                 component: WorkspacelistComponent
             },
             {
-                path: 'createworkspace',
-                component: CreateworkspaceComponent
+                path: 'deleteworkspace/:id',
+                component: DeleteworkspaceComponent
             },
             {
-                path: 'dashboard',
-                component: DashboardComponent
+                path: 'createworkspace',
+                component: CreateworkspaceComponent
             },
             {
                 path: 'profile',
@@ -50,20 +51,35 @@ export const routes: Routes = [
                 component: EditprofileComponent
             },
             {
-                path: 'deleteworkspace/:id',
-                component: DeleteworkspaceComponent
-            },
-            {
-                path: 'collage',
-                component: CollageComponent
-            },
-            {
-                path: 'report/:workspaceId',
-                component: ReportComponent
-            },
-            {
-                path: 'createreport/:workspaceId',
-                component: CreatereportComponent
+                path: 'workspace/:workspace_id',
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'dashboard',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'dashboard',
+                        component: DashboardComponent
+                    },
+
+                    {
+                        path: 'collage',
+                        component: CollageComponent
+                    },
+                    {
+                        path: 'report',
+                        component: ReportComponent
+                    },
+                    {
+                        path: 'createreport/:workspaceId',
+                        component: CreatereportComponent
+                    },
+                    {
+                        path: 'annualreport',
+                        component: AnnualreportComponent
+                    }
+                ]
             }
         ]
     }
