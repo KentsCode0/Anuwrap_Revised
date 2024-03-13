@@ -12,6 +12,10 @@
                         <div>
                             <div class="mt-3 text-center sm:mt-5">
                                 <div>
+                                    <label for="reportType" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Report Type</label>
+                                    <input type="text" id="reporttype" [(ngModel)]="reportType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Report Title" required />
+                                </div>
+                                <div>
                                     <label for="reportTitle" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Report Title</label>
                                     <input type="text" id="reportTitle" [(ngModel)]="reportTitle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Report Title" required />
                                 </div>
@@ -20,9 +24,11 @@
                                     <input type="text" id="description" [(ngModel)]="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Description" required />
                                 </div>
                                 <div>
-                                    <!-- Bind report_id here -->
-                                    <input type="hidden" id="reportId" [value]="reportId">
+                                    <label for="content" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Content</label>
+                                    <input type="text" id="content" [(ngModel)]="content" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Description" required />
                                 </div>
+                                <input type="hidden" [(ngModel)]="workspaceId" />
+
                             </div>
                         </div>
                         <div class="mt-5 sm:mt-6">

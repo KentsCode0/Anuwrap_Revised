@@ -84,10 +84,33 @@ deleteWorkspace(workspaceId: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
     if (authInfo) {
       const headers = authInfo[2];
+      const { reportType, title, description, content, workspace_id } = reportData;
+      
+      if (reportType! || !title || !description || !content || !workspace_id) {
+        console.error('Error creating report: Missing required parameters');
+        return throwError('Missing required parameters');
+      }
+  
       return this.http.post<any>(`${this.apiUrl}/report`, reportData, { headers: headers }).pipe(
         catchError((error: any) => {
           console.error('Error creating report:', error);
           return throwError('Error creating report');
+        })
+      );
+    } else {
+      // Handle unauthorized access
+      return throwError('Unauthorized access');
+    }
+  }
+
+  getReports(workspaceId: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+    if (authInfo) {
+      const headers = authInfo[2];
+      return this.http.get<any>(`${this.apiUrl}/report/${workspaceId}`, { headers: headers }).pipe(
+        catchError((error: any) => {
+          console.error('Error fetching reports:', error);
+          return throwError('Error fetching reports');
         })
       );
     } else {
