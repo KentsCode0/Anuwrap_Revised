@@ -72,7 +72,7 @@ export const routes: Routes = [
                         component: ReportComponent
                     },
                     {
-                        path: 'createreport/:workspaceId',
+                        path: 'createreport',
                         component: CreatereportComponent
                     },
                     {

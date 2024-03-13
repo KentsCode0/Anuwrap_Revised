@@ -114,18 +114,17 @@ const routes: Routes = [
                         path: 'createreport',
                         component: CreatereportComponent,
                         canActivate: [AuthGuard]
+                    }, {
+                        path: 'editreport',
+                        component: EditreportComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'deletereport',
+                        component: DeletereportComponent,
+                        canActivate: [AuthGuard]
                     }
                 ]
-            },
-            {
-                path: 'editreport',
-                component: EditreportComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'deletereport',
-                component: DeletereportComponent,
-                canActivate: [AuthGuard]
             },
             {
                 path: '**',

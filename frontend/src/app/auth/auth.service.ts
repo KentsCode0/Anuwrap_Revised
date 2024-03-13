@@ -122,4 +122,20 @@ export class AuthService {
       return throwError(() => 'Unauthorized access or missing workspace ID');
     }
   }
+
+  getReports(workspaceId: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+
+    if (authInfo) {
+      const headers = authInfo[2];
+      return this.http.get<any>(`${this.apiUrl}/reports/${workspaceId}`, { headers: headers }).pipe(
+        catchError((error: any) => {
+          return throwError(() => 'Error fetching workspace');
+        })
+      );
+    } else {
+      // Handle unauthorized access or missing workspace ID
+      return throwError(() => 'Unauthorized access or missing workspace ID');
+    }
+  }
 }
