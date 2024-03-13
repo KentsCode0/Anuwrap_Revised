@@ -17,9 +17,7 @@ export class NavigationComponent implements OnInit {
   ngOnInit(): void {
     if (typeof document !== 'undefined') {
       initFlowbite();
-    } else {
-      return;
-    }
+    } 
 
     this.getData();
   }

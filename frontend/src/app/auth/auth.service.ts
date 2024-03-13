@@ -9,7 +9,7 @@ import { TokenService } from './token/token.service';
 export class AuthService {
   private apiUrl = 'http://localhost/anuwrap/backend/public/api';
 
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) { }
 
   register(user: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/user`, user);
@@ -17,6 +17,19 @@ export class AuthService {
 
   login(credentials: { email: string, password: string }): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/token`, credentials, { responseType: "json" });
+  }
+
+  editUserInformation(userData: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+    if (authInfo) {
+      const userId = authInfo[1];
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${authInfo[0]}`
+      });
+      return this.http.post<any>(`${this.apiUrl}/user/${userId}`, userData, { headers: headers });
+    } else {
+      return throwError('Unauthorized access');
+    }
   }
 
   getUserInformation(): Observable<any> {
@@ -48,7 +61,7 @@ export class AuthService {
     const authInfo = this.tokenService.getAuth();
     if (authInfo) {
       const headers = authInfo[2];
-      console.log("Route",workspaceId);
+      console.log("Route", workspaceId);
       return this.http.get<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers });
     } else {
       // Handle unauthorized access
@@ -93,7 +106,7 @@ export class AuthService {
       return throwError(() => 'Unauthorized access or missing workspace ID');
     }
   }
-  
+
   getUserWorkspace(workspaceId: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
 
