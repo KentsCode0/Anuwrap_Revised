@@ -45,24 +45,7 @@ export class WorkspacelistComponent implements OnInit {
     );
   }
 
-  fetchWorkspace(workspaceId: any): any {
-    // Call authService to get the list of workspaces
-    this.authService.getWorkspace(workspaceId).subscribe(
-      (response) => {
-        // Update workspaces array with the fetched data
-        console.log("Worked")
-        return response.data.workspace;
-      },
-      (error) => {
-        if (!error.error) return
-        if (error.error['message'] == "workspaces not found") {
-          this.workspaces = []
-        } else {
-          console.error('Error fetching workspaces:', error);
-        }
-      }
-    );
-  }
+
 
   openWorkspace(workspaceId: any): void {
     console.log("open workspace id: ", workspaceId)
