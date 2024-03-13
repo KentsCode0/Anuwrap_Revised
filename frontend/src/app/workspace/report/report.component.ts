@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationComponent } from '../navigation/navigation.component';
-import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule, Params } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { TokenService } from '../../auth/token/token.service';
 import { NavbarComponent } from "../navbar/navbar.component";
@@ -8,86 +8,66 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-report',
-    standalone: true,
-    templateUrl: './report.component.html',
-    styleUrl: './report.component.css',
-    imports: [RouterModule, NavigationComponent, NavbarComponent, FormsModule, CommonModule, ]
+  selector: 'app-report',
+  standalone: true,
+  templateUrl: './report.component.html',
+  styleUrl: './report.component.css',
+  imports: [RouterModule, NavigationComponent, NavbarComponent, FormsModule, CommonModule,]
 })
 export class ReportComponent implements OnInit {
   reports: any[] = [];
   workspaceId = '';
-  reportTypes: any[] = [];
-  reportName: any;
 
   constructor(
     private authService: AuthService,
-    private tokenService: TokenService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    private route: Router,
+    private aRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params: Params) => {
-      this.workspaceId = params["params"]["id"];
+    this.aRoute.paramMap.subscribe((params: Params) => {
+      this.workspaceId = params["params"]["workspace_id"];
     });
-    this.fetchReports(this.workspaceId);
+    this.fetchReports();
   }
 
-  fetchReportTypes(): void {
-   
-  }
-
-  fetchReports(workspaceId: any): any {
-    // Call authService to get the list of workspaces
-    this.authService.getWorkspace(workspaceId).subscribe(
+/*   fetchReportTypes(): void {
+    this.authService.getReportType().subscribe(
       (response) => {
-        // Update workspaces array with the fetched data
-        this.reportName = response.data.workspace.name;
-        console.log("fetched")
+        this.reportTypes = response.data
+        console.log(this.reportTypes)
       },
       (error) => {
-        if (!error.error) return
-        if (error.error['message'] == "workspaces not found") {
-          console.error("Workspace not found")
-        } else {
-          console.error('Error fetching workspaces:', error);
-        }
+        console.log(error);
       }
-    );
+    )
+  } */
+
+  navigateToCreateReport() {
+    this.route.navigate(['../createreport'], { relativeTo: this.aRoute });
   }
 
-  navigateToCreateReport(workspaceId: string) {
-    console.log(workspaceId);
-    this.router.navigate(['/createreport']);
+  navigateToEditReport(reportId: any) {
+    this.route.navigate([`../editreport/${reportId}`], { relativeTo: this.aRoute });
   }
 
-  navigateToEditReport(workspaceId: string) {
-    this.router.navigate(['/editreport']);
+  navigateToDeleteReport(reportId: any) {
+    this.route.navigate([`../deletereport/${reportId}`], { relativeTo: this.aRoute });
   }
 
-  navigateToDeleteReport(workspaceId: string) {
-    this.router.navigate(['/deletereport']);
+  fetchReports() {
+    this.authService.getReports(this.workspaceId).subscribe(
+      (response) => {
+        this.reports = response.data.report
+        console.log(this.reports)
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
-  deleteReport(reportId: any): void {
-    console.log(reportId);
-    if (reportId) {
-      console.log('Deleting report:', reportId);
-      this.authService.deleteWorkspace(reportId).subscribe(
-        (response) => {
-          console.log('report deleted:', response);
-          // Fetch updated reports after deletion
-          this.fetchReports(this.workspaceId);
-        },
-        (error) => {
-          console.error('Error deleting workspace:', error);
-        }
-      );
-    } else {
-      console.error('Workspace ID is missing.');
-    }
-  }
 
-  openReport() {}
+
+  openReport() { }
 }
