@@ -13,7 +13,10 @@ class Report
     }
     function get($id)
     {
-        $queryStr = "SELECT * FROM Report WHERE report_id = :id";
+        $queryStr = "SELECT Report.*, ReportType.* FROM Report 
+        JOIN ReportType ON Report.report_type_id = ReportType.report_type_id 
+        WHERE Report.report_id = :id";
+        
         $stmt = $this->pdo->prepare($queryStr);
 
         try {
