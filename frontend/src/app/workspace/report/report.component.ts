@@ -32,17 +32,6 @@ export class ReportComponent implements OnInit {
     this.fetchReports();
   }
 
-/*   fetchReportTypes(): void {
-    this.authService.getReportType().subscribe(
-      (response) => {
-        this.reportTypes = response.data
-        console.log(this.reportTypes)
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
-  } */
   openReport(reportId: any): void {
     console.log("this")
     this.route.navigate([`../report/${reportId}`], { relativeTo: this.aRoute });
