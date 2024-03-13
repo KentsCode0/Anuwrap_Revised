@@ -93,5 +93,20 @@ export class AuthService {
       return throwError(() => 'Unauthorized access or missing workspace ID');
     }
   }
+  
+  getUserWorkspace(workspaceId: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
 
+    if (authInfo) {
+      const headers = authInfo[2];
+      return this.http.delete<any>(`${this.apiUrl}/workspace/${workspaceId}`, { headers: headers }).pipe(
+        catchError((error: any) => {
+          return throwError(() => 'Error deleting workspace');
+        })
+      );
+    } else {
+      // Handle unauthorized access or missing workspace ID
+      return throwError(() => 'Unauthorized access or missing workspace ID');
+    }
+  }
 }
