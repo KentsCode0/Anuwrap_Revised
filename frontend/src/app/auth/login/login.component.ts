@@ -12,26 +12,22 @@ import { Route, Router } from '@angular/router';
 })
 export class LoginComponent {
   credentials = { email: '', password: '' };
-
-  constructor(private authService: AuthService, private router: Router, private tokenService: TokenService) {}
+  error = "";
+  constructor(private authService: AuthService, private router: Router, private tokenService: TokenService) { }
 
   login() {
     this.authService.login(this.credentials).subscribe(
       (response: any) => {
         const token = response.data.token;
         const userId = response.data.user_id;
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        
-        this.tokenService.setAuthorization(token, userId, headers);
-  
+
+
+        this.tokenService.setAuthorization(token, userId);
+
         this.router.navigate(['../workspacelist']);
       },
       (error: HttpErrorResponse) => {
-        if (error.error instanceof ErrorEvent) {
-          console.error('An error occurred:', error.error.message);
-        } else {
-          console.error(`Backend returned code ${error.status}, body was:`, error.error);
-        }
+        this.error = error.error.errors;
       }
     );
   }
