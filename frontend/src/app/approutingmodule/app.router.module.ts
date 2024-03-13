@@ -17,8 +17,19 @@ import { NavbarComponent } from '../workspace/navbar/navbar.component';
 import { CreatereportComponent } from '../workspace/report/createreport/createreport.component';
 import { DeleteworkspaceComponent } from '../workspace/deleteworkspace/deleteworkspace.component';
 import { EditworkspaceComponent } from '../workspace/editworkspace/editworkspace.component';
+import { AuthGuard } from '../auth/auth.guard';
+import { NotfoundComponent } from '../errors/notfound/notfound.component';
+import { UnauthorizedComponent } from '../errors/unauthorized/unauthorized.component';
 
 const routes: Routes = [
+    {
+        path: '404',
+        component: NotfoundComponent
+    },
+    {
+        path: '401',
+        component: UnauthorizedComponent
+    },
     {
         path: '',
         redirectTo: 'login',
@@ -32,63 +43,83 @@ const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
+
             {
                 path: 'register',
                 component: RegisterComponent
             },
-            { path: 'register_success',
-            component: RegisterSuccessComponent },
+            {
+                path: 'register_success',
+                component: RegisterSuccessComponent,
+            },
             {
                 path: 'workspacelist',
-                component: WorkspacelistComponent
+                component: WorkspacelistComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'createworkspace',
-                component: CreateworkspaceComponent
+                component: CreateworkspaceComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'navigation',
-                component: NavigationComponent
+                component: NavigationComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'navbar',
-                component: NavbarComponent
+                component: NavbarComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'dashboard',
-                component: DashboardComponent
+                component: DashboardComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'profile',
-                component: ProfileComponent
+                component: ProfileComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'editprofile',
-                component: EditprofileComponent
+                component: EditprofileComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'workspace',
-                component: WorkspaceComponent
+                component: WorkspaceComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'deleteworkspace/:id',
-                component: DeleteworkspaceComponent
+                component: DeleteworkspaceComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'editworkspace/:id',
-                component: EditworkspaceComponent
+                component: EditworkspaceComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'collage',
-                component: CollageComponent
+                component: CollageComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'report/:workspaceId',
-                component: ReportComponent
+                component: ReportComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'createreport/:workspaceId',
-                component: CreatereportComponent
+                component: CreatereportComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: '**',
+                redirectTo: '/404'
             }
         ]
     }
