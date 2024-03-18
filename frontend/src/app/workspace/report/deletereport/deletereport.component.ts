@@ -3,7 +3,7 @@ import { Router, RouterModule, ActivatedRoute, Params } from '@angular/router';
 import { NavigationComponent } from '../../navigation/navigation.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../auth/auth.service';
+import { AuthService } from '../../../routeservice/auth.service';
 
 @Component({
   selector: 'app-deletereport',

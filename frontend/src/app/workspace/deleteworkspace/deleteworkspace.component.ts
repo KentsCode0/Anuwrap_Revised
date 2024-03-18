@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../routeservice/auth.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { Route, Router, ActivatedRoute, Params } from '@angular/router';
 

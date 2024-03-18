@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule, Params } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../auth/auth.service';
+import { AuthService } from '../../../routeservice/auth.service';
 
 @Component({
   selector: 'app-reportitem',

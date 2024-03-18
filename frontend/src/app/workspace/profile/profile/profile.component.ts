@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { TokenService } from '../../../auth/token/token.service';
-import { AuthService } from '../../../auth/auth.service';
+import { AuthService } from '../../../routeservice/auth.service';
 
 @Component({
     selector: 'app-profile',
