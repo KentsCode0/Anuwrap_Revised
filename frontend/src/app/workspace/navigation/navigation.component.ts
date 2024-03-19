@@ -4,7 +4,7 @@ import { initFlowbite } from 'flowbite';
 import { OnInit } from '@angular/core';
 import { getLocaleDateFormat } from '@angular/common';
 import { TokenService } from '../../auth/token/token.service';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../routeservice/auth.service';
 
 @Component({
   selector: 'app-navigation',

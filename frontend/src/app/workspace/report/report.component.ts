@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { ActivatedRoute, Router, RouterModule, Params } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../routeservice/auth.service';
 import { TokenService } from '../../auth/token/token.service';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FormsModule } from '@angular/forms';
