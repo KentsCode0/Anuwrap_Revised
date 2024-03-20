@@ -246,6 +246,16 @@ export class AuthService {
       return throwError('Unauthorized access');
     }
   } 
+
+  deleteCollage(collageData: any, collageId: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+    if(authInfo) {
+      const headers = authInfo[2];
+      return this.http.post<any>(`${this.apiUrl}/collage`, collageData, {headers: headers});
+    } else{
+      return throwError('Unauthorized access');
+    }
+  }
   
   
 }

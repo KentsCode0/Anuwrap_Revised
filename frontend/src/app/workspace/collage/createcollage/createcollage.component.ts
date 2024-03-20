@@ -19,6 +19,7 @@ import { error } from 'console';
 export class CreatecollageComponent implements OnInit{
   workspaceId: any;
   collage = {
+    name: "",
     collage_image_id: "",
     workspace_id: ""
   }
