@@ -8,7 +8,7 @@ a software tool for annual report with photo collage
 ```
 Graphic Designers:
 Ashley Kier Ferreol
-Alloizeus De Belen
+Alloizeus John De Belen
 
 Testers:
 France Gelicame
