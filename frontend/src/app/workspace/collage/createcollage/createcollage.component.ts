@@ -6,8 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../routeservice/auth.service';
 import { TokenService } from '../../../auth/token/token.service';
 import { initFlowbite } from 'flowbite';
-import { response } from 'express';
-import { error } from 'console';
 
 @Component({
   selector: 'app-createcollage',
