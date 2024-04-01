@@ -48,7 +48,7 @@ class ReportService
             "report creation successful",
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
-    function get($id)
+    function get($reportId)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -56,7 +56,7 @@ class ReportService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $report = $this->reportModel->get($id);
+        $report = $this->reportModel->get($reportId);
 
         if (!$report) {
             return Response::payload(404, false, "report not found");
@@ -69,7 +69,7 @@ class ReportService
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
     
-    function getAll($id)
+    function getAll($workspaceId)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -77,7 +77,7 @@ class ReportService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $reports = $this->reportModel->getAll($id);
+        $reports = $this->reportModel->getAll($workspaceId);
 
         if (!$reports) {
             return Response::payload(404, false, "reports not found");
@@ -110,7 +110,7 @@ class ReportService
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
 
-    function update($report, $id)
+    function update($report, $reportId)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -118,7 +118,7 @@ class ReportService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $report = $this->reportModel->update($report, $id);
+        $report = $this->reportModel->update($report, $reportId);
 
         if (!$report) {
             return Response::payload(404, false, "update unsuccessful");
@@ -130,7 +130,7 @@ class ReportService
             "update successful",
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
-    function delete($id)
+    function delete($reportId)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -138,7 +138,7 @@ class ReportService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $report = $this->reportModel->delete($id);
+        $report = $this->reportModel->delete($reportId);
 
         if (!$report) {
             return Response::payload(404, false, "deletion unsuccessful");

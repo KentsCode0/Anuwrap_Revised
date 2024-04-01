@@ -43,7 +43,7 @@ class UserWorkspaceService
             "User Workspace creation successful",
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
-    function getAllWithWorkspace($id)
+    function getAllWithWorkspace($workspaceId)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -51,7 +51,7 @@ class UserWorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $userWorkspace = $this->userWorkspaceModel->getAllWorkspaceWithWorkspace($id);
+        $userWorkspace = $this->userWorkspaceModel->getAllWorkspaceWithWorkspace($workspaceId);
 
         if (!$userWorkspace) {
             return Response::payload(404, false, "User Workspace not found");
@@ -63,7 +63,7 @@ class UserWorkspaceService
             array("userWorkspace" => $userWorkspace)
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
-    function getAllWithUser($id)
+    function getAllWithUser($userId)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -71,7 +71,7 @@ class UserWorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $userWorkspaces = $this->userWorkspaceModel->getAllWorkspaceWithUser($id);
+        $userWorkspaces = $this->userWorkspaceModel->getAllWorkspaceWithUser($userId);
 
         if (!$userWorkspaces) {
             return Response::payload(404, false, "User Workspace not found");
@@ -84,7 +84,7 @@ class UserWorkspaceService
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
 
-    function update($userWorkspace, $id)
+    function update($userWorkspace, $userId)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -92,7 +92,7 @@ class UserWorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $userWorkspace = $this->userWorkspaceModel->update($userWorkspace, $id);
+        $userWorkspace = $this->userWorkspaceModel->update($userWorkspace, $userId);
         
         if (!$userWorkspace) {
             return Response::payload(404, false, "update unsuccessful");
@@ -104,7 +104,7 @@ class UserWorkspaceService
             "update successful",
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
-    function delete($id)
+    function delete($userId)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -112,7 +112,7 @@ class UserWorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $userWorkspace = $this->userWorkspaceModel->delete($id);
+        $userWorkspace = $this->userWorkspaceModel->delete($userId);
 
         if (!$userWorkspace) {
             return Response::payload(404, false, "deletion unsuccessful");

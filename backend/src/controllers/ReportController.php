@@ -28,8 +28,8 @@ class ReportController
 
     function getReport($request)
     {
-        $id = $request["id"];
-        $payload = $this->reportService->get($id);
+        $reportId = $request["reportId"];
+        $payload = $this->reportService->get($reportId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
@@ -38,8 +38,8 @@ class ReportController
 
     function getAllReport($request)
     {
-        $id = $request["id"];
-        $payload = $this->reportService->getAll($id);
+        $workspaceId = $request["workspaceId"];
+        $payload = $this->reportService->getAll($workspaceId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
@@ -56,8 +56,8 @@ class ReportController
 
     function deleteReport($request)
     {
-        $id = $request["id"];
-        $payload = $this->reportService->delete($id);
+        $reportId = $request["reportId"];
+        $payload = $this->reportService->delete($reportId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
@@ -66,10 +66,10 @@ class ReportController
 
     function updateReport($request)
     {
-        $id = $request["id"];
+        $reportId = $request["reportId"];
         $postData = json_decode(file_get_contents("php://input"));
         $postData = json_decode(json_encode($postData), true);
-        $payload = $this->reportService->update($postData, $id);
+        $payload = $this->reportService->update($postData, $reportId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);

@@ -27,8 +27,8 @@ class UserWorkspaceController
 
     function getAllWithUser($request)
     {
-        $id = $request["id"];
-        $payload = $this->userWorkpaceService->getAllWithUser($id);
+        $userId = $request["userId"];
+        $payload = $this->userWorkpaceService->getAllWithUser($userId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
@@ -36,8 +36,8 @@ class UserWorkspaceController
     }
     function getAllWithWorkspace($request)
     {
-        $id = $request["id"];
-        $payload = $this->userWorkpaceService->getAllWithWorkspace($id);
+        $workspaceId = $request["workspaceId"];
+        $payload = $this->userWorkpaceService->getAllWithWorkspace($workspaceId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
@@ -46,8 +46,8 @@ class UserWorkspaceController
     
     function deleteUserWorkspace($request)
     {
-        $id = $request["id"];
-        $payload = $this->userWorkpaceService->delete($id);
+        $userId = $request["userId"];
+        $payload = $this->userWorkpaceService->delete($userId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
@@ -56,10 +56,10 @@ class UserWorkspaceController
     
     function updateUserWorkspace($request)
     {
-        $id = $request["id"];
+        $userId = $request["userId"];
         $postData = json_decode(file_get_contents("php://input"));
         $postData = json_decode(json_encode($postData), true);
-        $payload = $this->userWorkpaceService->update($postData, $id);
+        $payload = $this->userWorkpaceService->update($postData, $userId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
