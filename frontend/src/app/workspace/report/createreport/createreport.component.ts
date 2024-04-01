@@ -75,6 +75,6 @@ export class CreatereportComponent implements OnInit {
 
 
     goToReports() {
-        this.route.navigate(['../../report'], { relativeTo: this.aRoute })
+        this.route.navigate(['../report'], { relativeTo: this.aRoute })
     }
 }

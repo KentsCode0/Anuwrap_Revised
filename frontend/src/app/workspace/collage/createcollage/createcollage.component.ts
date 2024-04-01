@@ -57,7 +57,7 @@ export class CreatecollageComponent implements OnInit{
   }
 
   goToCollage() {
-    this.route.navigate(['../../collage'], {relativeTo: this.aRoute}) 
+    this.route.navigate(['../collage'], {relativeTo: this.aRoute}) 
   }
 
 
