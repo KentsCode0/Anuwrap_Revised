@@ -49,7 +49,6 @@ class Report
             return $report;
         } catch (PDOException $e) {
             error_log($e->getMessage());
-            var_dump($e->getMessage());
             return null;
         }
     }

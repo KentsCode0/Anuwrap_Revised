@@ -25,19 +25,19 @@ class UserWorkspaceController
         echo json_encode($payload);
     }
 
-    function getUserWorkspace($request)
+    function getAllWithUser($request)
     {
         $id = $request["id"];
-        $payload = $this->userWorkpaceService->get($id);
+        $payload = $this->userWorkpaceService->getAllWithUser($id);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
         echo json_encode($payload);
     }
-    function getAllUserWorkspace($request)
+    function getAllWithWorkspace($request)
     {
         $id = $request["id"];
-        $payload = $this->userWorkpaceService->getAll($id);
+        $payload = $this->userWorkpaceService->getAllWithWorkspace($id);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);

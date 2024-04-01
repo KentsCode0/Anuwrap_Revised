@@ -1,6 +1,11 @@
-<p>reportitem works!</p>
-
-{{report.name}}
-{{report.title}}
-{{report.description}}
-{{report.content}}
+<div class="flex justify-center items-center p-12">
+    <div class="block max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {{report.name}} 
+        </h5>
+        <p>{{report.title}}</p>
+        <hr class="mb-6">
+        <p class="font-normal text-gray-700 dark:text-gray-400">{{report.description}}</p>
+        <p class="font-normal text-gray-700 dark:text-gray-400">{{report.content}}</p>
+    </div>
+</div>
