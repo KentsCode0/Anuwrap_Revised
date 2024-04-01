@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule, Params } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../auth/auth.service';
+import { AuthService } from '../../../routeservice/auth.service';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-reportitem',
   standalone: true,
-  imports: [],
+  imports: [NavbarComponent],
   templateUrl: './reportitem.component.html',
   styleUrl: './reportitem.component.css'
 })

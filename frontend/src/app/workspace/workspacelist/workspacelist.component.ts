@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../routeservice/auth.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { initFlowbite } from 'flowbite';
 import { DatePipe } from '@angular/common';

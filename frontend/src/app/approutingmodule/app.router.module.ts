@@ -21,6 +21,9 @@ import { AnnualreportComponent } from '../workspace/annualreport/annualreport.co
 import { EditreportComponent } from '../workspace/report/editreport/editreport.component';
 import { DeletereportComponent } from '../workspace/report/deletereport/deletereport.component';
 import { ReportitemComponent } from '../workspace/report/reportitem/reportitem.component';
+import { CreatecollageComponent } from '../workspace/collage/createcollage/createcollage.component';
+import { EditcollageComponent } from '../workspace/collage/editcollage/editcollage.component';
+import { DeletecollageComponent } from '../workspace/collage/deletecollage/deletecollage.component';
 
 const routes: Routes = [
     {
@@ -128,6 +131,21 @@ const routes: Routes = [
                     {
                         path: 'deletereport/:report_id',
                         component: DeletereportComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'createcollage',
+                        component: CreatecollageComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'editcollage/:collage_id',
+                        component: EditcollageComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'deletecollage/:collage_id',
+                        component: DeletecollageComponent,
                         canActivate: [AuthGuard]
                     }
                 ]
