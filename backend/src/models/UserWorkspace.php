@@ -11,41 +11,6 @@ class UserWorkspace
     {
         $this->pdo = $pdo;
     }
-    function getWithUser($id)
-    {
-        $queryStr = "SELECT * FROM UserWorkspace WHERE user_id = :id";
-        $stmt = $this->pdo->prepare($queryStr);
-
-        try {
-            $stmt->execute(array(
-                "id" => $id
-            ));
-
-            $workspace = $stmt->fetch();
-            return $workspace;
-        } catch (PDOException $e) {
-            error_log($e->getMessage());
-            return null;
-        }
-    }
-
-    function getWithWorkspace($id)
-    {
-        $queryStr = "SELECT * FROM UserWorkspace WHERE workspace_id = :id";
-        $stmt = $this->pdo->prepare($queryStr);
-
-        try {
-            $stmt->execute(array(
-                "id" => $id
-            ));
-
-            $workspace = $stmt->fetch();
-            return $workspace;
-        } catch (PDOException $e) {
-            error_log($e->getMessage());
-            return null;
-        }
-    }
 
     function create($request)
     {

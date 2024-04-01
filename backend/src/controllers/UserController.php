@@ -13,7 +13,8 @@ class UserController
     }
     function getUser($request)
     {
-        $payload = $this->userService->getInformation($request["id"]);
+        var_dump($request);
+        $payload = $this->userService->getInformation($request["userId"]);
         http_response_code($payload["code"]);
         
         unset($payload["code"]);
@@ -32,7 +33,7 @@ class UserController
 
     function deleteUser($request)
     {
-        $payload = $this->userService->deleteUser($request["id"]);
+        $payload = $this->userService->deleteUser($request["userId"]);
         http_response_code($payload["code"]);
         
         unset($payload["code"]);
@@ -43,7 +44,8 @@ class UserController
     {
         $postData = json_decode(file_get_contents("php://input"));
         $postData = json_decode(json_encode($postData), true);
-        $payload = $this->userService->updateUser($request["id"], $postData);
+        var_dump($postData);
+        $payload = $this->userService->updateUser($request["userId"], $postData);
         http_response_code($payload["code"]);
         
         unset($payload["code"]);

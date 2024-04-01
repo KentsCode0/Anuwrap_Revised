@@ -13,7 +13,7 @@ class WorkspaceController
         $this->workspaceService = new WorkspaceService();
     }
 
-    function createWorkspace()
+    function createWorkspace($request)
     {
 
         $postData = json_decode(file_get_contents("php://input"));
@@ -28,8 +28,8 @@ class WorkspaceController
 
     function getWorkspace($request)
     {
-        $id = $request["id"];
-        $payload = $this->workspaceService->get($id);
+        $workspaceId = $request["workspaceId"];
+        $payload = $this->workspaceService->get($workspaceId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
@@ -38,8 +38,8 @@ class WorkspaceController
 
     function getAllWorkspace($request)
     {
-        $id = $request["id"];
-        $payload = $this->workspaceService->getAll($id);
+        $userId = $request["userId"];
+        $payload = $this->workspaceService->getAll($userId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
@@ -48,8 +48,8 @@ class WorkspaceController
 
     function deleteWorkspace($request)
     {
-        $id = $request["id"];
-        $payload = $this->workspaceService->delete($id);
+        $workspaceId = $request["workspaceId"];
+        $payload = $this->workspaceService->delete($workspaceId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
@@ -58,10 +58,10 @@ class WorkspaceController
 
     function updateWorkspace($request)
     {
-        $id = $request["id"];
+        $workspaceId = $request["workspaceId"];
         $postData = json_decode(file_get_contents("php://input"));
         $postData = json_decode(json_encode($postData), true);
-        $payload = $this->workspaceService->update($postData, $id);
+        $payload = $this->workspaceService->update($postData, $workspaceId);
 
         http_response_code($payload["code"]);
         unset($payload["code"]);
