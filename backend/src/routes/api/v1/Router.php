@@ -15,27 +15,31 @@ class Router
     public function __construct()
     {
         $this->dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
-            $r->addRoute('POST', '/user', [UserController::class, 'postUser']);
-            $r->addRoute('GET', '/user/{id:\d+}', [UserController::class, 'getUser']);
-            $r->addRoute('POST', '/user/{id:\d+}', [UserController::class, 'updateUser']);
-            $r->addRoute('DELETE', '/user/{id:\d+}', [UserController::class, 'deleteUser']);
+            $r->addRoute('POST', '/users', [UserController::class, 'postUser']);
+            $r->addRoute('GET', '/users/{userId:\d+}', [UserController::class, 'getUser']);
+            $r->addRoute('PUT', '/users/{userId:\d+}', [UserController::class, 'updateUser']);
+            $r->addRoute('DELETE', '/users/{userId:\d+}', [UserController::class, 'deleteUser']);
+
             $r->addRoute('POST', '/token', [TokenController::class, 'postToken']);
-            $r->addRoute('POST', '/workspace', [WorkspaceController::class, 'createWorkspace']);
-            $r->addRoute('GET', '/workspace/{id:\d+}', [WorkspaceController::class, 'getWorkspace']);
-            $r->addRoute('GET', '/workspaces/{id:\d+}', [WorkspaceController::class, 'getAllWorkspace']);
-            $r->addRoute('POST', '/workspace/{id:\d+}', [WorkspaceController::class, 'updateWorkspace']);
-            $r->addRoute('DELETE', '/workspace/{id:\d+}', [WorkspaceController::class, 'deleteWorkspace']);
-            $r->addRoute('POST', '/userworkspace', [UserWorkspaceController::class, 'createUserWorkspace']);
-            $r->addRoute('GET', '/userworkspace/{id:\d+}', [UserWorkspaceController::class, 'getUserWorkspace']);
-            $r->addRoute('GET', '/userworkspaces/{id:\d+}', [UserWorkspaceController::class, 'getAllUserWorkspace']);
-            $r->addRoute('POST', '/userworkspace/{id:\d+}', [UserWorkspaceController::class, 'updateUserWorkspace']);
-            $r->addRoute('DELETE', '/userworkspace/{id:\d+}', [UserWorkspaceController::class, 'deleteUserWorkspace']);
-            $r->addRoute('POST', '/report', [ReportController::class, 'createReport']);
-            $r->addRoute('GET', '/report/{id:\d+}', [ReportController::class, 'getReport']);
-            $r->addRoute('GET', '/reporttype', [ReportController::class, 'getAllReportType']);
-            $r->addRoute('GET', '/reports/{id:\d+}', [ReportController::class, 'getAllReport']);
-            $r->addRoute('POST', '/report/{id:\d+}', [ReportController::class, 'updateReport']);
-            $r->addRoute('DELETE', '/report/{id:\d+}', [ReportController::class, 'deleteReport']);
+
+            $r->addRoute('POST', '/users/{userId:\d+}/workspaces', [WorkspaceController::class, 'createWorkspace']);
+            $r->addRoute('GET', '/users/{userId:\d+}/workspaces', [WorkspaceController::class, 'getAllWorkspace']);
+            $r->addRoute('GET', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}', [WorkspaceController::class, 'getWorkspace']);
+            $r->addRoute('PUT', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}', [WorkspaceController::class, 'updateWorkspace']);
+            $r->addRoute('DELETE', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}', [WorkspaceController::class, 'deleteWorkspace']);
+            
+            $r->addRoute('POST', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/userworkspaces', [UserWorkspaceController::class, 'createUserWorkspace']);
+            $r->addRoute('GET', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/userworkspaces', [UserWorkspaceController::class, 'getAllUserWorkspace']);
+            $r->addRoute('PUT', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/userworkspaces', [UserWorkspaceController::class, 'updateUserWorkspace']);
+            $r->addRoute('DELETE', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/userworkspaces', [UserWorkspaceController::class, 'deleteUserWorkspace']);
+            
+            $r->addRoute('GET', '/report-types', [ReportController::class, 'getAllReportType']);
+
+            $r->addRoute('POST', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/reports', [ReportController::class, 'createReport']);
+            $r->addRoute('GET', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/reports', [ReportController::class, 'getAllReport']);
+            $r->addRoute('GET', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/reports/{reportId:\d+}', [ReportController::class, 'getReport']);
+            $r->addRoute('PUT', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/reports/{reportId:\d+}', [ReportController::class, 'updateReport']);
+            $r->addRoute('DELETE', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/reports/{reportId:\d+}', [ReportController::class, 'deleteReport']);
         });
     }
 

@@ -13,7 +13,7 @@ class ReportController
         $this->reportService = new ReportService();
     }
 
-    function createReport()
+    function createReport($request)
     {
 
         $postData = json_decode(file_get_contents("php://input"));

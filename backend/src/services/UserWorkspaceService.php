@@ -43,7 +43,7 @@ class UserWorkspaceService
             "User Workspace creation successful",
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
-    function get($id)
+    function getAllWithWorkspace($id)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -51,7 +51,7 @@ class UserWorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $userWorkspace = $this->userWorkspaceModel->getWithWorkspace($id);
+        $userWorkspace = $this->userWorkspaceModel->getAllWorkspaceWithWorkspace($id);
 
         if (!$userWorkspace) {
             return Response::payload(404, false, "User Workspace not found");
@@ -63,7 +63,7 @@ class UserWorkspaceService
             array("userWorkspace" => $userWorkspace)
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
-    function getAll($id)
+    function getAllWithUser($id)
     {
         $token = $this->tokenService->readEncodedToken();
 

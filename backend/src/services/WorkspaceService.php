@@ -14,12 +14,10 @@ class WorkspaceService
     private $workspaceModel;
     private $pdo;
     private $tokenService;
-    private $userWorkspaceModel;
     function __construct()
     {
         $this->pdo = (new DatabaseConnector())->getConnection();
         $this->workspaceModel = new Workspace($this->pdo);
-        $this->userWorkspaceModel = new UserWorkspace($this->pdo);
 
         $this->tokenService = new TokenService();
     }
@@ -40,19 +38,11 @@ class WorkspaceService
             );
         }
         
-        $workspaceId = $this->workspaceModel->create($workspace);
+        $creation = $this->workspaceModel->create($workspace);
 
-        if ($workspaceId === false) {
+        if ($creation === false) {
             return Response::payload(500, false, array("message" => "Contact administrator (adriangallanomain@gmail.com)"));
         }
-
-        $data = array(
-            "workspace_id" => $workspaceId,
-            "user_id" => $token["user_id"],
-            "role_id" => 1
-        );
-
-        $creation = $this->userWorkspaceModel->create($data);
 
         return $creation ? Response::payload(
             200,
@@ -60,7 +50,7 @@ class WorkspaceService
             "workspace creation successful",
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
-    function getAll($id)
+    function getAll($userId)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -69,7 +59,7 @@ class WorkspaceService
         }
 
         
-        $workspaces = $this->workspaceModel->getAll($id);
+        $workspaces = $this->workspaceModel->getAll($userId);
 
         if (!$workspaces) {
             return Response::payload(404, false, "workspaces not found");
@@ -81,7 +71,7 @@ class WorkspaceService
             array("workspace" => $workspaces)
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
-    function get($id)
+    function get($workspaceId)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -89,7 +79,7 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $workspace = $this->workspaceModel->get($id);
+        $workspace = $this->workspaceModel->get($workspaceId);
 
         if (!$workspace) {
             return Response::payload(404, false, "workspace not found");
@@ -122,7 +112,7 @@ class WorkspaceService
             "update successful",
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
-    function delete($id)
+    function delete($workspaceId)
     {
         $token = $this->tokenService->readEncodedToken();
 
@@ -130,7 +120,7 @@ class WorkspaceService
             return Response::payload(404, false, "unauthorized access");
         }
 
-        $workspace = $this->workspaceModel->delete($id);
+        $workspace = $this->workspaceModel->delete($workspaceId);
 
         if (!$workspace) {
             return Response::payload(404, false, "deletion unsuccessful");
