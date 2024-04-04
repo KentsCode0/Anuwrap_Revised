@@ -36,33 +36,34 @@ class WorkspaceController
         echo json_encode($payload);
     }
 
-    function getAllWorkspace($request)
-    {
-        $userId = $request["userId"];
-        $payload = $this->workspaceService->getAll($userId);
-
-        http_response_code($payload["code"]);
-        unset($payload["code"]);
-        echo json_encode($payload);
-    }
-
+    
     function deleteWorkspace($request)
     {
         $workspaceId = $request["workspaceId"];
         $payload = $this->workspaceService->delete($workspaceId);
-
+        
         http_response_code($payload["code"]);
         unset($payload["code"]);
         echo json_encode($payload);
     }
-
+    
     function updateWorkspace($request)
     {
         $workspaceId = $request["workspaceId"];
         $postData = json_decode(file_get_contents("php://input"));
         $postData = json_decode(json_encode($postData), true);
         $payload = $this->workspaceService->update($postData, $workspaceId);
-
+        
+        http_response_code($payload["code"]);
+        unset($payload["code"]);
+        echo json_encode($payload);
+    }
+    
+    function getAllWorkspace($request)
+    {
+        $userId = $request["userId"];
+        $payload = $this->workspaceService->getAll($userId);
+    
         http_response_code($payload["code"]);
         unset($payload["code"]);
         echo json_encode($payload);
