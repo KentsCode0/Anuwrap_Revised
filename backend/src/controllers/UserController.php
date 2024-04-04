@@ -13,7 +13,6 @@ class UserController
     }
     function getUser($request)
     {
-        var_dump($request);
         $payload = $this->userService->getInformation($request["userId"]);
         http_response_code($payload["code"]);
         
@@ -44,7 +43,6 @@ class UserController
     {
         $postData = json_decode(file_get_contents("php://input"));
         $postData = json_decode(json_encode($postData), true);
-        var_dump($postData);
         $payload = $this->userService->updateUser($request["userId"], $postData);
         http_response_code($payload["code"]);
         
