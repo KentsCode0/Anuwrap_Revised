@@ -13,7 +13,7 @@ class WorkspaceController
         $this->workspaceService = new WorkspaceService();
     }
 
-    function createWorkspace($request)
+    function createWorkspace()
     {
 
         $postData = json_decode(file_get_contents("php://input"));
