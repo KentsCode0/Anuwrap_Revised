@@ -29,7 +29,7 @@ class Router
             
             $r->addRoute('GET', '/users/{userId:\d+}/workspaces', [WorkspaceController::class, 'getAllWorkspace']);
 
-            $r->addRoute('POST', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/userworkspaces', [UserWorkspaceController::class, 'createUserWorkspace']);
+            $r->addRoute('POST', '/userworkspaces', [UserWorkspaceController::class, 'createUserWorkspace']);
             $r->addRoute('GET', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/userworkspaces', [UserWorkspaceController::class, 'getAllUserWorkspace']);
             $r->addRoute('PUT', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/userworkspaces', [UserWorkspaceController::class, 'updateUserWorkspace']);
             $r->addRoute('DELETE', '/users/{userId:\d+}/workspaces/{workspaceId:\d+}/userworkspaces', [UserWorkspaceController::class, 'deleteUserWorkspace']);
