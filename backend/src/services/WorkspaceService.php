@@ -48,6 +48,7 @@ class WorkspaceService
             200,
             true,
             "workspace creation successful",
+            array("workspace_id" => $creation)
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
     function getAll($userId)
