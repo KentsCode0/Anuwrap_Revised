@@ -4,6 +4,7 @@ namespace Src\Routes\Api\V1;
 
 use FastRoute;
 use Src\Controllers\ReportController;
+use Src\Controllers\FacultyMatrixController;
 use Src\Controllers\TokenController;
 use Src\Controllers\UserController;
 use Src\Controllers\WorkspaceController;

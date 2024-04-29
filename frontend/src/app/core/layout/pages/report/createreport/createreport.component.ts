@@ -4,7 +4,9 @@ import { NavigationComponent } from '../../../../../shared/navigation/navigation
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReportService } from '../../../../../shared/services/report.service';
+import { TokenService } from '../../../../../shared/services/token.service';
 import { initFlowbite } from 'flowbite';
+import { response } from 'express';
 
 @Component({
     selector: 'app-createreport',
@@ -16,9 +18,20 @@ import { initFlowbite } from 'flowbite';
 export class CreatereportComponent implements OnInit {
     workspaceId: any;
     report = {
-        title: "",
-        description: "",
-        content: "",
+        title: '',
+        name: '',
+        position: '',
+        tenure: '',
+        status: '',
+        related_cert: '',
+        doctorate_degree: '',
+        masters_degree: '',
+        baccalaureate_degree: '',
+        specification: '',
+        enrollment_stats: '',
+        designation: '',
+        teaching_exp: '',
+        org_membership: '',
         report_type_id: "0",
         workspace_id: ""
     }
@@ -30,6 +43,7 @@ export class CreatereportComponent implements OnInit {
         private reportService: ReportService,
         private route: Router,
         private aRoute: ActivatedRoute,
+        private tokenService: TokenService,
     ) { }
 
     ngOnInit(): void {
@@ -58,10 +72,11 @@ export class CreatereportComponent implements OnInit {
     createReport() {
         this.report["workspace_id"] = this.workspaceId;
         console.log(this.report);
-        this.reportService.createReport(this.report).subscribe(
+        this.reportService.createReport(this.report, this.workspaceId).subscribe(
             (response) => {
                 this.reportTypes = response.data.report;
-                this.route.navigate(["../report"], { relativeTo: this.aRoute })
+                console.log(response)
+                this.route.navigate(["../reportlist"], { relativeTo: this.aRoute })
             },
             (error) => {
                 console.log(error);
@@ -72,6 +87,6 @@ export class CreatereportComponent implements OnInit {
 
 
     goToReports() {
-        this.route.navigate(['../report'], { relativeTo: this.aRoute })
+        this.route.navigate(['../reportlist'], { relativeTo: this.aRoute })
     }
 }

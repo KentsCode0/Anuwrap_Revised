@@ -16,7 +16,7 @@ export class ReportService {
 
     if (authInfo) {
       const headers = authInfo[2];
-      return this.http.get<any>(`${this.apiUrl}/reports/${workspaceId}`, { headers: headers }).pipe(
+      return this.http.get<any>(`${this.apiUrl}/workspaces/${workspaceId}/reports`, { headers: headers }).pipe(
         catchError((error: any) => {
           return throwError(() => 'Error fetching workspace');
         })
@@ -27,12 +27,12 @@ export class ReportService {
     }
   }
 
-  getReport(reportId: any): Observable<any> {
+  getReport(reportId: any, workspaceId: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
 
     if (authInfo) {
       const headers = authInfo[2];
-      return this.http.get<any>(`${this.apiUrl}/reports/${reportId}`, { headers: headers }).pipe(
+      return this.http.get<any>(`${this.apiUrl}/workspaces/${workspaceId}/reports/${reportId}`, { headers: headers }).pipe(
         catchError((error: any) => {
 
           return throwError(() => 'Error fetching report');
@@ -44,12 +44,12 @@ export class ReportService {
     }
   }
 
-  deleteReport(reportId: any): Observable<any> {
+  deleteReport(reportId: any, workspaceId: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
 
     if (authInfo) {
       const headers = authInfo[2];
-      return this.http.delete<any>(`${this.apiUrl}/reports/${reportId}`, { headers: headers }).pipe(
+      return this.http.delete<any>(`${this.apiUrl}/workspaces/${workspaceId}/reports/${reportId}`, { headers: headers }).pipe(
         catchError((error: any) => {
           return throwError(() => 'Error deleting workspace');
         })
@@ -65,7 +65,7 @@ export class ReportService {
 
     if (authInfo) {
       const headers = authInfo[2];
-      return this.http.get<any>(`${this.apiUrl}/reporttype`, { headers: headers }).pipe(
+      return this.http.get<any>(`${this.apiUrl}/report-types`, { headers: headers }).pipe(
         catchError((error: any) => {
           return throwError(() => 'Error fetching workspace');
         })
@@ -76,22 +76,22 @@ export class ReportService {
     }
   }
 
-  createReport(reportData: any): Observable<any> {
+  createReport(reportData: any, workspaceId: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
     if (authInfo) {
       const headers = authInfo[2];
-      return this.http.post<any>(`${this.apiUrl}/reports`, reportData, { headers: headers });
+      return this.http.post<any>(`${this.apiUrl}/workspaces/${workspaceId}/reports`, reportData, { headers: headers });
     } else {
       // Handle unauthorized access
       return throwError('Unauthorized access');
     }
   }
 
-  editReport(reportData: any, reportId: any): Observable<any> {
+  editReport(reportData: any, reportId: any, workspaceId: any): Observable<any> {
     const authInfo = this.tokenService.getAuth();
     if (authInfo) {
       const headers = authInfo[2];
-      return this.http.put<any>(`${this.apiUrl}/reports/${reportId}`, reportData, { headers: headers });
+      return this.http.put<any>(`${this.apiUrl}/workspaces/${workspaceId}/reports/${reportId}`, reportData, { headers: headers });
     } else {
       // Handle unauthorized access
       return throwError('Unauthorized access');

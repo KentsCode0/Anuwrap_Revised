@@ -10,7 +10,7 @@ class WorkspaceController
     private $workspaceService;
     function __construct()
     {
-        $this->workspaceService = new WorkspaceService();
+    $this->workspaceService = new WorkspaceService();
     }
 
     function createWorkspace()

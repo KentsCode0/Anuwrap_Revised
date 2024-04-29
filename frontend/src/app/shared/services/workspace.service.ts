@@ -64,7 +64,7 @@ export class WorkspaceService {
     if (authInfo) {
       const userId = authInfo[1];
       const headers = authInfo[2];
-      return this.http.put<any>(`${this.apiUrl}/users/${userId}/workspaces/${workspaceId}/userworkspaces`, workspaceData, { headers: headers });
+      return this.http.put<any>(`${this.apiUrl}/workspaces/${workspaceId}`, workspaceData, { headers: headers });
     } else {
       // Handle unauthorized access
       return throwError('Unauthorized access');
@@ -77,7 +77,7 @@ export class WorkspaceService {
     if (authInfo) {
       const userId = authInfo[1];
       const headers = authInfo[2];
-      return this.http.delete<any>(`${this.apiUrl}/${userId}/workspace/${workspaceId}`, { headers: headers }).pipe(
+      return this.http.delete<any>(`${this.apiUrl}/workspaces/${workspaceId}`, { headers: headers }).pipe(
         catchError((error: any) => {
           return throwError(() => 'Error deleting workspace');
         })

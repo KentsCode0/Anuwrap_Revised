@@ -1,5 +1,5 @@
 {
-  "name": "anguwrap1",
+  "name": "frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:anguwrap1": "node dist/anguwrap1/server/server.mjs",
-    "build:css": "npx tailwindcss -i ./src/styles.css -o ./src/app/app.component.css --watch"
+    "serve:ssr:frontend": "node dist/frontend/server/server.mjs",
+    "build-tailwind": "npx tailwindcss -i ./src/styles.css -o ./src/app/app.component.css --watch"
   },
   "private": true,
   "dependencies": {

@@ -1,69 +1,77 @@
-<div id="crud-modal" tabindex="-1" aria-hidden="false"
-    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 bottom-0 left-0 z-50 flex justify-center items-center">
-    <div class="relative p-4 w-full max-w-3xl"> <!-- Changed max-w-md to max-w-3xl -->
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                <h3 class="text-lg font-semibold text-gray-900 w-[150px]">
-                    Create Report
-                </h3>
-
-                <select name="report_type" id="report_type"[(ngModel)]="report.report_type_id"
-                    class="text-black bg-gray-100  border-gray-300 font-medium rounded-lg text-sm px-1.5 py-1 sm:px-2 sm:py-1.5 md:px-3 md:py-2 lg:px-2 lg:py-1 xl:px-3 xl:py-2 w-[100px] h-[30px] sm:w-[120px] sm:h-[35px] md:w-[140px] md:h-[40px] lg:w-[120px] lg:h-[35px] xl:w-[140px] xl:h-[40px] text-center flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 ml-[5px] sm:ml-[20px] md:ml-[30px] lg:ml-[40px] xl:ml-[50px] whitespace-nowrap gap-[2px] sm:gap-[4px] md:gap-[6px] lg:gap-[4px] xl:gap-[6px]">
+<div id="crud-modal">
+    <div>
+        <div>
+            <h3>Create Report</h3>
+        </div>
+        <select name="report_type" id="report_type" [(ngModel)]="report.report_type_id"
+                    class="text-black bg-gray-100 border-gray-300 font-medium rounded-lg text-sm px-1.5 py-1 sm:px-2 sm:py-1.5 md:px-3 md:py-2 lg:px-2 lg:py-1 xl:px-3 xl:py-2 w-[100px] h-[30px] sm:w-[120px] sm:h-[35px] md:w-[140px] md:h-[40px] lg:w-[120px] lg:h-[35px] xl:w-[140px] xl:h-[40px] text-center flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 ml-[5px] sm:ml-[20px] md:ml-[30px] lg:ml-[40px] xl:ml-[50px] whitespace-nowrap gap-[2px] sm:gap-[4px] md:gap-[6px] lg:gap-[4px] xl:gap-[6px]">
                     <option value="0">Select report type</option>
-                    <option *ngFor="let reportType of reportTypes" value="{{ reportType['report_type_id'] }}"
+                    <option *ngFor="let reportType of reportTypes" [value]="reportType.report_type_id"
                         class="cursor-pointer block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">
-                        {{ reportType['name'] }}
+                        {{ reportType.name }}
                     </option>
                 </select>
-
+        <form>
+            <div>
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" [(ngModel)]="report.title" placeholder="Enter title" required>
             </div>
-            <!-- Modal body -->
-            <form class="p-4 md:p-5">
-                <!-- Form content here -->
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                    <div class="col-span-2">
-                        <label for="name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-                        <input type="text" name="title" id="name" [(ngModel)]="report.title"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Type report title" required>
-                    </div>
-
-                    <div class="col-span-2">
-                        <label for="description"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                        <textarea id="description" name="description" rows="4" [(ngModel)]="report.description"
-                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Write report description here"></textarea>
-                    </div>
-                    <div class="col-span-2">
-                        <label for="content" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            Content</label>
-                        <textarea id="content" name="content" rows="4" [(ngModel)]="report.content"
-                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Write report content here"></textarea>
-                    </div>
-
-
-                </div>
-                <div class="flex justify-between mx-11">
-                    <button (click)="createReport()"
-                        class="text-white flex items-center bg-black hover:bg-primary-700  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700">
-                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        Create Report
-                    </button>
-                    <button (click)="goToReports()"
-                        class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700">Cancel</button>
-
-                </div>
-            </form>
-        </div>
+            <div>
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" [(ngModel)]="report.name" placeholder="Enter name" required>
+            </div>
+            <div>
+                <label for="position">Position</label>
+                <input type="text" name="position" id="position" [(ngModel)]="report.position" placeholder="Enter position" required>
+            </div>
+            <div>
+                <label for="tenure">Tenure</label>
+                <input type="text" name="tenure" id="tenure" [(ngModel)]="report.tenure" placeholder="Enter tenure" required>
+            </div>
+            <div>
+                <label for="status">Status</label>
+                <input type="text" name="status" id="status" [(ngModel)]="report.status" placeholder="Enter status" required>
+            </div>
+            <div>
+                <label for="related_cert">Related Certificates</label>
+                <input type="text" name="related_cert" id="related_cert" [(ngModel)]="report.related_cert" placeholder="Enter related certificates">
+            </div>
+            <div>
+                <label for="doctorate_degree">Doctorate Degree</label>
+                <input type="text" name="doctorate_degree" id="doctorate_degree" [(ngModel)]="report.doctorate_degree" placeholder="Enter doctorate degree">
+            </div>
+            <div>
+                <label for="masters_degree">Masters Degree</label>
+                <input type="text" name="masters_degree" id="masters_degree" [(ngModel)]="report.masters_degree" placeholder="Enter masters degree">
+            </div>
+            <div>
+                <label for="baccalaureate_degree">Baccalaureate Degree</label>
+                <input type="text" name="baccalaureate_degree" id="baccalaureate_degree" [(ngModel)]="report.baccalaureate_degree" placeholder="Enter baccalaureate degree">
+            </div>
+            <div>
+                <label for="specification">Specification</label>
+                <input type="text" name="specification" id="specification" [(ngModel)]="report.specification" placeholder="Enter specification">
+            </div>
+            <div>
+                <label for="enrollment_stats">Enrollment Statistics</label>
+                <input type="text" name="enrollment_stats" id="enrollment_stats" [(ngModel)]="report.enrollment_stats" placeholder="Enter enrollment statistics">
+            </div>
+            <div>
+                <label for="designation">Designation</label>
+                <input type="text" name="designation" id="designation" [(ngModel)]="report.designation" placeholder="Enter designation">
+            </div>
+            <div>
+                <label for="teaching_exp">Teaching Experience</label>
+                <input type="text" name="teaching_exp" id="teaching_exp" [(ngModel)]="report.teaching_exp" placeholder="Enter teaching experience">
+            </div>
+            <div>
+                <label for="org_membership">Organization Membership</label>
+                <input type="text" name="org_membership" id="org_membership" [(ngModel)]="report.org_membership" placeholder="Enter organization membership">
+            </div>
+            <div>
+                <button type="button" (click)="createReport()">Create Report</button>
+                <button type="button" (click)="goToReports()">Cancel</button>
+            </div>
+        </form>
     </div>
 </div>

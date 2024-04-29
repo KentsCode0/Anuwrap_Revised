@@ -13,6 +13,7 @@ import { ReportService } from '../../../../../shared/services/report.service';
   styleUrl: './deletereport.component.css'
 })
 export class DeletereportComponent implements OnInit {
+  workspaceId: any;
   reportId: any;
   report: any = {};
   constructor(private route: Router, private aRoute: ActivatedRoute, private reportService: ReportService) {
@@ -21,20 +22,21 @@ export class DeletereportComponent implements OnInit {
   ngOnInit(): void {
     this.aRoute.paramMap.subscribe((params: Params) => {
       this.reportId = params["params"]["report_id"];
+      this.workspaceId = params["params"]["workspace_id"];
     });
 
     this.fetchReport();
   }
 
   goToReports() {
-    this.route.navigate(['../../report'], { relativeTo: this.aRoute })
+    this.route.navigate(['../../reportlist'], { relativeTo: this.aRoute })
   }
 
   deleteReport(): void {
     if (this.reportId) {
-      this.reportService.deleteReport(this.reportId).subscribe(
+      this.reportService.deleteReport(this.reportId, this.workspaceId).subscribe(
         (response) => {
-          this.route.navigate(["../../report"], { relativeTo: this.aRoute });
+          this.route.navigate(["../../reportlist"], { relativeTo: this.aRoute });
         },
         (error) => {
           console.error('Error deleting workspace:', error);
@@ -46,7 +48,8 @@ export class DeletereportComponent implements OnInit {
   }
 
   fetchReport() {
-    this.reportService.getReport(this.reportId).subscribe(
+    this
+    this.reportService.getReport(this.reportId, this.workspaceId).subscribe(
       (response) => {
         this.report = response.data.report
       },

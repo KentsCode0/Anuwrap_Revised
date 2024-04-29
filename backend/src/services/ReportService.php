@@ -2,7 +2,6 @@
 
 namespace Src\Services;
 
-use Src\Models\Authentication;
 use Src\Models\Report;
 use Src\Config\DatabaseConnector;
 use Src\Utils\Checker;
@@ -20,75 +19,132 @@ class ReportService
         $this->tokenService = new TokenService();
     }
 
-    function create($report)
+    public function create($report)
     {
         $token = $this->tokenService->readEncodedToken();
-
+    
         if (!$token) {
-            return Response::payload(404, false, "unauthorized access");
+            return Response::payload(404, false, "Unauthorized access");
         }
-
-        if(!Checker::isFieldExist($report, ["title", "description", "content", "report_type_id", "workspace_id"])){
+    
+        $requiredFields = ["title", "status", "name", "position", "report_type_id", "workspace_id"];
+    
+        // Log or inspect the received report data
+        error_log("Received report data: " . json_encode($report));
+    
+        // Check if all required fields are present
+        if (!Checker::isFieldExist($report, $requiredFields)) {
+            error_log("Missing required fields: " . implode(', ', $requiredFields));
             return Response::payload(
                 400,
                 false,
-                "title, description, content, report_type_id, and workspace_id is required"
+                "Required fields are missing: " . implode(', ', $requiredFields)
             );
         }
-        
+    
+        // Attempt to create the report
         $reportId = $this->reportModel->create($report);
-
+    
         if ($reportId === false) {
-            return Response::payload(500, false, array("message" => "Contact administrator (adriangallanomain@gmail.com)"));
+            return Response::payload(500, false, ["message" => "Contact administrator (adriangallanomain@gmail.com)"]);
         }
-
-        return $reportId ? Response::payload(
-            200,
+    
+        // Report creation successful
+        return Response::payload(
+            201,
             true,
-            "report creation successful",
-        ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
+            "Report creation successful",
+            ["report_id" => $reportId]
+        );
     }
-    function get($reportId)
+    
+
+    public function get($reportId)
     {
         $token = $this->tokenService->readEncodedToken();
 
         if (!$token) {
-            return Response::payload(404, false, "unauthorized access");
+            return Response::payload(404, false, "Unauthorized access");
         }
 
         $report = $this->reportModel->get($reportId);
 
         if (!$report) {
-            return Response::payload(404, false, "report not found");
+            return Response::payload(404, false, "Report not found");
         }
-        return $report ? Response::payload(
+
+        return Response::payload(
             200,
             true,
-            "report found",
-            array("report" => $report)
-        ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
+            "Report found",
+            ["report" => $report]
+        );
     }
-    
-    function getAll($workspaceId)
+
+    public function getAll($workspaceId)
     {
         $token = $this->tokenService->readEncodedToken();
 
         if (!$token) {
-            return Response::payload(404, false, "unauthorized access");
+            return Response::payload(404, false, "Unauthorized access");
         }
 
         $reports = $this->reportModel->getAll($workspaceId);
 
         if (!$reports) {
-            return Response::payload(404, false, "reports not found");
+            return Response::payload(404, false, "Reports not found");
         }
-        return $reports ? Response::payload(
+
+        return Response::payload(
             200,
             true,
-            "reports found",
-            array("report" => $reports)
-        ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
+            "Reports found",
+            ["reports" => $reports]
+        );
     }
+
+    public function update($report, $reportId)
+    {
+        $token = $this->tokenService->readEncodedToken();
+
+        if (!$token) {
+            return Response::payload(404, false, "Unauthorized access");
+        }
+
+        $success = $this->reportModel->update($report, $reportId);
+
+        if (!$success) {
+            return Response::payload(404, false, "Update unsuccessful");
+        }
+
+        return Response::payload(
+            200,
+            true,
+            "Update successful"
+        );
+    }
+
+    public function delete($reportId)
+    {
+        $token = $this->tokenService->readEncodedToken();
+
+        if (!$token) {
+            return Response::payload(404, false, "Unauthorized access");
+        }
+
+        $success = $this->reportModel->delete($reportId);
+
+        if (!$success) {
+            return Response::payload(404, false, "Deletion unsuccessful");
+        }
+
+        return Response::payload(
+            200,
+            true,
+            "Deletion successful"
+        );
+    }
+
     function getAllReportType()
     {
         $token = $this->tokenService->readEncodedToken();
@@ -110,44 +166,4 @@ class ReportService
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
 
-    function update($report, $reportId)
-    {
-        $token = $this->tokenService->readEncodedToken();
-
-        if (!$token) {
-            return Response::payload(404, false, "unauthorized access");
-        }
-
-        $report = $this->reportModel->update($report, $reportId);
-
-        if (!$report) {
-            return Response::payload(404, false, "update unsuccessful");
-        }
-
-        return $report ? Response::payload(
-            200,
-            true,
-            "update successful",
-        ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
-    }
-    function delete($reportId)
-    {
-        $token = $this->tokenService->readEncodedToken();
-
-        if (!$token) {
-            return Response::payload(404, false, "unauthorized access");
-        }
-
-        $report = $this->reportModel->delete($reportId);
-
-        if (!$report) {
-            return Response::payload(404, false, "deletion unsuccessful");
-        }
-
-        return $report ? Response::payload(
-            200,
-            true,
-            "deletion successful",
-        ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
-    }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { OnInit } from '@angular/core';
 import { TokenService } from '../services/token.service';
@@ -28,7 +28,7 @@ export class NavigationComponent implements OnInit {
     email: ""
   };
 
-  constructor(private userService: UserService, private tokenService: TokenService, private route: Router) { }
+  constructor(private userService: UserService, private tokenService: TokenService, private route: Router, private aRoute: ActivatedRoute) { }
 
   getData(): void {
     this.userService.getUserInformation().subscribe(

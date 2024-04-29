@@ -93,26 +93,30 @@ class WorkspaceService
         ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
     }
 
-    function update($workspace, $id)
-    {
-        $token = $this->tokenService->readEncodedToken();
+    public function update($workspaceData, $id)
+{
+    $token = $this->tokenService->readEncodedToken();
 
-        if (!$token) {
-            return Response::payload(404, false, "unauthorized access");
-        }
-
-        $workspace = $this->workspaceModel->update($workspace, $id);
-
-        if (!$workspace) {
-            return Response::payload(404, false, "update unsuccessful");
-        }
-
-        return $workspace ? Response::payload(
-            200,
-            true,
-            "update successful",
-        ) : array("message" => "Contact administrator (adriangallanomain@gmail.com)");
+    if (!$token) {
+        return Response::payload(404, false, "Unauthorized access");
     }
+
+    // Call the update method on the Workspace model
+    $success = $this->workspaceModel->update($workspaceData, $id);
+
+    if (!$success) {
+        return Response::payload(404, false, "Update unsuccessful");
+    }
+
+    // If update was successful, return a success response
+    return Response::payload(
+        200,
+        true,
+        "Update successful"
+    );
+}
+
+
     function delete($workspaceId)
     {
         $token = $this->tokenService->readEncodedToken();

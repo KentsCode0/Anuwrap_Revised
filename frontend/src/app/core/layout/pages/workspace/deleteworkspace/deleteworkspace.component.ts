@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { WorkspaceService } from '../../../../../shared/services/workspace.service';
 import { CommonModule, NgFor } from '@angular/common';
-import { Route, Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-deleteworkspace',
@@ -22,7 +22,7 @@ export class DeleteworkspaceComponent {
 
   ngOnInit(): void {
     this.aRoute.paramMap.subscribe((params: Params) => {
-      this.workspaceId = params["params"]["id"];
+      this.workspaceId = params["params"]["workspace_id"];
     });
     this.fetchWorkspace(this.workspaceId);
   }

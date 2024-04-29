@@ -16,11 +16,22 @@ import { initFlowbite } from 'flowbite';
 export class EditreportComponent {
   workspaceId: any;
   report = {
-    title: "",
-    description: "",
-    content: "",
-    report_type_id: "0",
-    workspace_id: ""
+      title: '',
+      name: '',
+      position: '',
+      tenure: '',
+      status: '',
+      related_cert: '',
+      doctorate_degree: '',
+      masters_degree: '',
+      baccalaureate_degree: '',
+      specification: '',
+      enrollment_stats: '',
+      designation: '',
+      teaching_exp: '',
+      org_membership: '',
+      report_type_id: "0",
+      workspace_id: ""
   }
 
   reportId: any;
@@ -56,11 +67,11 @@ export class EditreportComponent {
 
   editReport() {
     this.report["workspace_id"] = this.workspaceId;
-    this.reportService.editReport(this.report, this.reportId).subscribe(
+    this.reportService.editReport(this.report, this.reportId, this.workspaceId).subscribe(
       (response) => {
         this.reportTypes = response.data.report;
         console.log("Execute")
-        this.route.navigate(["../../report"], { relativeTo: this.aRoute })
+        this.route.navigate(["../../reportlist"], { relativeTo: this.aRoute })
       },
       (error) => {
         console.log(error);
@@ -69,11 +80,9 @@ export class EditreportComponent {
   }
 
   fetchReport() {
-    this.reportService.getReport(this.reportId).subscribe(
+    this.reportService.getReport(this.reportId, this.workspaceId).subscribe(
       (response) => {
         this.report.title = response.data.report.title;
-        this.report.description = response.data.report.description;
-        this.report.content = response.data.report.content;
         this.report.report_type_id = response.data.report.report_type_id;
         console.log(this.report)
       },
@@ -84,7 +93,7 @@ export class EditreportComponent {
   }
 
   goToReports() {
-    this.route.navigate(['../../report'], { relativeTo: this.aRoute })
+    this.route.navigate(['../../reportlist'], { relativeTo: this.aRoute })
   }
 }
 
